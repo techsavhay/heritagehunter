@@ -5,11 +5,13 @@ capstoneproject/capstone/static/databases do not commit
 capstoneproject/capstone/static/VERIFIED_pub_info_2023-06-06_16-45-00.json
 capstoneproject/capstone/static/databases do not commit/VERIFIED_pub_info_2023-06-06_16-45-00.json
 databases do not commit/
-/models.cpython-38.pyc
+models.cpython-38.pyc
 capstoneproject/capstone/__pycache__
-__pychache__
+__pycache__
 /home/ianandrewhay/CS50W/web50-projects-2020-x/capstone/capstoneproject/capstone/__pycache__/
 # Ignore database files
 db.sqlite3
 test_db.sqlite3
+capstoneproject/capstoneproject/__pycache__/settings.cpython-38.pyc
+capstoneproject/capstoneproject/__pycache__/__init__.cpython-38.pyc
 

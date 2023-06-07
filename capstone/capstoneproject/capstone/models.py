@@ -2,17 +2,10 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 from django.conf import settings
 
-#Created custom usermodel even though abstractuser should cover what i want in case i need to expand it in the future.
-#class User(AbstractUser):
-    #pass 
-
-
 class Post(models.Model):
     content = models.CharField(max_length=280, blank=True)
     date_visited = models.DateTimeField(blank=True)
-    
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete= models.CASCADE)
-
+    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class Pub(models.Model):
     name = models.CharField(max_length=100, blank=False)
@@ -23,11 +16,8 @@ class Pub(models.Model):
     photos = models.ImageField(upload_to='pub_photos', blank=True)
     open = models.BooleanField(default=True)
     listed = models.CharField(max_length=100, blank=True)
-
     users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='visited_pubs')
-    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='pub')
-    
-
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='pub_posts')
 
 class TEST_Pub(models.Model):
     name = models.CharField(max_length=100, blank=False)
@@ -38,9 +28,8 @@ class TEST_Pub(models.Model):
     photos = models.ImageField(upload_to='pub_photos', blank=True)
     open = models.BooleanField(default=True)
     listed = models.CharField(max_length=100, blank=True)
+    users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='TEST_visited_pubs')
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='TEST_pub_posts')
 
-    users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='TESTvisited_pubs')
-    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='TESTpub')
     class Meta:
         db_table = 'test_pub'
-    
