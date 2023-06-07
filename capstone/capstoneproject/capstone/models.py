@@ -17,10 +17,12 @@ class Post(models.Model):
 class Pub(models.Model):
     name = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=200, blank=False)
-    heritage_stars = models.IntegerField()
-    url = models.URLField()
-    description = models.TextField()
-    photos = models.ImageField(upload_to='pub_photos')
+    heritage_stars = models.IntegerField(blank=False)
+    url = models.URLField(blank=False)
+    description = models.TextField(blank=True)
+    photos = models.ImageField(upload_to='pub_photos', blank=True)
+    open = models.BooleanField(default=True)
+    listed = models.CharField(max_length=100, blank=True)
 
     users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='visited_pubs')
     posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='pub')
