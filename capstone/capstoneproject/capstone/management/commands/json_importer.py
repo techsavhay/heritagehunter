@@ -56,7 +56,8 @@ def handle(self, *args, **options):
         
         except KeyError as e:
             # Handle missing or empty fields
-            self.stdout.write(self.style.WARNING(f"Missing or empty field in JSON: {str(e)}"))
+            #self.stdout.write(self.style.WARNING(f"Missing or empty field in JSON: {str(e)}"))
+            pass
 
         except Exception as e:
             # Handle other exceptions
