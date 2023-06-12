@@ -22,7 +22,7 @@ class Command(BaseCommand):
                 name = pub_data["Pub Name"]
                 address = pub_data["Address"]
                 description = pub_data["Description"]
-                heritage_stars = pub_data["Inventory Stars"]
+                inventory_stars = pub_data["Inventory Stars"]
                 listed = pub_data["Listed"]
                 status = pub_data["Status"]
                 url = pub_data["Url"]
@@ -34,11 +34,14 @@ class Command(BaseCommand):
                     "Zero star": "0",
                 }
 
+                # Print a success message after data extraction
+                print(f"Data extracted successfully for pub: {name}")
+
                 # Convert heritage_stars into integers
-                if heritage_stars.startswith(tuple(star_mapping.keys())):
-                    heritage_stars = star_mapping[heritage_stars]
+                if inventory_stars is not None and inventory_stars.startswith(tuple(star_mapping.keys())):
+                    inventory_stars = star_mapping[inventory_stars]
                 else:
-                    heritage_stars = None
+                    inventory_stars = None
 
                 # Check the status field and convert it to boolean
                 is_open = False if status and status != "" else True
@@ -48,12 +51,13 @@ class Command(BaseCommand):
                     name=name,
                     address=address,
                     description=description,
-                    inventory_stars=heritage_stars,
+                    inventory_stars=inventory_stars,
                     listed=listed,
                     open=is_open,
                     url=url
                 )
                 pub.save()
+                print(f"Imported pub: {pub.name}")
 
             except KeyError as e:
                 # Handle missing or empty fields
