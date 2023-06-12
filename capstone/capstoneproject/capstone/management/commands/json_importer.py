@@ -37,11 +37,9 @@ class Command(BaseCommand):
                 # Print a success message after data extraction
                 print(f"Data extracted successfully for pub: {name}")
 
-                # Convert heritage_stars into integers
-                if inventory_stars is not None and inventory_stars.startswith(tuple(star_mapping.keys())):
-                    inventory_stars = star_mapping[inventory_stars]
-                else:
-                    inventory_stars = None
+                # Convert inventory_stars into integers
+                if inventory_stars is not None and str(inventory_stars).startswith(tuple(star_mapping.keys())):
+                    inventory_stars = int(star_mapping[inventory_stars])
 
                 # Check the status field and convert it to boolean
                 is_open = False if status and status != "" else True

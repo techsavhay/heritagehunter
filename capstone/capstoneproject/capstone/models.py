@@ -29,7 +29,7 @@ class TEST_Pub(models.Model):
     open = models.BooleanField(default=True)
     listed = models.CharField(max_length=100, blank=True)
     users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='TEST_visited_pubs')
-    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='TEST_pub_posts')
+    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='TEST_pub_posts', null=True)
 
     class Meta:
         db_table = 'test_pub'
