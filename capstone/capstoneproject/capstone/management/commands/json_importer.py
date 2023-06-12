@@ -38,11 +38,10 @@ class Command(BaseCommand):
                 print(f"Data extracted successfully for pub: {name}")
 
                 # Convert inventory_stars into integers
-                if inventory_stars is not None and str(inventory_stars).startswith(tuple(star_mapping.keys())):
-                    inventory_stars = int(star_mapping[inventory_stars])
+                inventory_stars = star_mapping.get(inventory_stars)
 
-                # Check the status field and convert it to boolean
-                is_open = False if status and status != "" else True
+                # Determine if the pub is open
+                is_open =  False if status else True
 
                 # Create a new instance of the model
                 pub = TEST_Pub(
