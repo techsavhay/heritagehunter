@@ -37,8 +37,14 @@ class Command(BaseCommand):
                 # Print a success message after data extraction
                 print(f"Data extracted successfully for pub: {name}")
 
-                # Convert inventory_stars into integers
-                inventory_stars = star_mapping.get(inventory_stars)
+                # Extract the star rating portion from inventory_stars
+                if inventory_stars is not None:
+                    inventory_stars_str = str(inventory_stars)
+                    star_rating = next((key for key in star_mapping if inventory_stars_str.startswith(key)), None)
+                    if star_rating:
+                        inventory_stars = int(star_mapping[star_rating])
+                    else:
+                        inventory_stars = None
 
                 # Determine if the pub is open
                 is_open =  False if status else True
