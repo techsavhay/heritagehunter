@@ -38,7 +38,7 @@ class Command(BaseCommand):
 
 
                 # Print a success message after data extraction
-                print(f"Data extracted successfully for pub: {name}")
+                #DEBUGGING-PRINT-STATEMENT print(f"Data extracted successfully for pub: {name}")
 
                 # dictionary to help assign inventory_stars
                 star_mapping = {
@@ -48,7 +48,7 @@ class Command(BaseCommand):
                     "Zero star": "0",
                 }
 
-                # Extract the star rating portion from inventory_stars
+                # Extract the star rating portion from inventory_stars and assign it as an int
                 if inventory_stars is not None:
                     inventory_stars_str = str(inventory_stars)
                     star_rating = next((key for key in star_mapping if inventory_stars_str.startswith(key)), None)
@@ -57,7 +57,7 @@ class Command(BaseCommand):
                     else:
                         inventory_stars = None
 
-                # Determine if the pub is open
+                # Determine if the pub is open and assign the bool value to ia_open
                 is_open =  False if status else True
 
                 # Generate a unique ID for the pub based on the address
@@ -92,11 +92,7 @@ class Command(BaseCommand):
                     )
                     pub.save()
                     print(f"Imported new pub: {pub.name}")
-                    print(f"pub_id for {pub.name} is: {pub_id}")
-
-            except KeyError as e:
-                # Handle missing or empty fields
-                pass
+                    #DEBUGGING-PRINT-STATEMENT print(f"pub_id for {pub.name} is: {pub_id}")
 
             except Exception as e:
                 # Handle other exceptions
