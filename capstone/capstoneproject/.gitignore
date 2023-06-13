@@ -14,4 +14,7 @@ db.sqlite3
 test_db.sqlite3
 capstoneproject/capstoneproject/__pycache__/settings.cpython-38.pyc
 capstoneproject/capstoneproject/__pycache__/__init__.cpython-38.pyc
+/altered_pub_info.json
+json_files
+
 
