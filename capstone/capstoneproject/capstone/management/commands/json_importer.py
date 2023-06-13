@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 import hashlib
-from capstone.models import TEST_Pub
+from capstone.models import Pub
 import json
 
 def generate_unique_id(address):
@@ -65,7 +65,7 @@ class Command(BaseCommand):
                 #DUBUGGING STATEMENT print(f"pub_id is: {pub_id}")
 
                 # Check if a record with the same pub ID already exists
-                existing_pub = TEST_Pub.objects.filter(pub_id=pub_id).first()
+                existing_pub = Pub.objects.filter(pub_id=pub_id).first()
                 if existing_pub:
                     #overwrite the existing pub with the new data.
                      existing_pub.name = name
@@ -80,7 +80,7 @@ class Command(BaseCommand):
                     #DUBUGGING STATEMENT print(f"Updated existing pub: {existing_pub.name}")
                 else:
                     # Create a new instance of the model
-                    pub = TEST_Pub(
+                    pub = Pub(
                         pub_id = pub_id,
                         name=name,
                         address=address,
