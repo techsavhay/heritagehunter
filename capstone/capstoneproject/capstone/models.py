@@ -8,6 +8,7 @@ class Post(models.Model):
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
 class Pub(models.Model):
+    pub_id = models.CharField(max_length=32, unique=True)
     name = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=200, blank=False)
     inventory_stars = models.IntegerField(default=0, null=True)
@@ -20,6 +21,7 @@ class Pub(models.Model):
     posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='pub_posts')
 
 class TEST_Pub(models.Model):
+    pub_id = models.CharField(max_length=32, unique=True)
     name = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=200, blank=False)
     inventory_stars = models.IntegerField(default=0, null=True)

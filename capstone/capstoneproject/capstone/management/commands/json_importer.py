@@ -1,6 +1,14 @@
 from django.core.management.base import BaseCommand
+import hashlib
 from capstone.models import TEST_Pub
 import json
+
+def generate_unique_id(address):
+    hash_object = hashlib.md5()
+    hash_object.update(address.encode('utf-8'))
+    unique_id = hash_object.hexdigest()
+    return unique_id
+
 
 class Command(BaseCommand):
     help = 'Import data from JSON file into Django model'
@@ -27,15 +35,18 @@ class Command(BaseCommand):
                 status = pub_data["Status"]
                 url = pub_data["Url"]
 
+
+
+                # Print a success message after data extraction
+                print(f"Data extracted successfully for pub: {name}")
+
+                # dictionary to help assign inventory_stars
                 star_mapping = {
                     "Three star": "3",
                     "Two star": "2",
                     "One star": "1",
                     "Zero star": "0",
                 }
-
-                # Print a success message after data extraction
-                print(f"Data extracted successfully for pub: {name}")
 
                 # Extract the star rating portion from inventory_stars
                 if inventory_stars is not None:
@@ -49,18 +60,39 @@ class Command(BaseCommand):
                 # Determine if the pub is open
                 is_open =  False if status else True
 
-                # Create a new instance of the model
-                pub = TEST_Pub(
-                    name=name,
-                    address=address,
-                    description=description,
-                    inventory_stars=inventory_stars,
-                    listed=listed,
-                    open=is_open,
-                    url=url
-                )
-                pub.save()
-                print(f"Imported pub: {pub.name}")
+                # Generate a unique ID for the pub based on the address
+                pub_id = generate_unique_id(address)
+                print(f"pub_id is: {pub_id}")
+
+                # Check if a record with the same pub ID already exists
+                existing_pub = TEST_Pub.objects.filter(pub_id=pub_id).first()
+                if existing_pub:
+                    #overwrite the existing pub with the new data.
+                     existing_pub.name = name
+                     existing_pub.address = address
+                     existing_pub.description = description
+                     existing_pub.inventory_stars = inventory_stars
+                     existing_pub.listed = listed
+                     existing_pub.open = is_open
+                     existing_pub.url = url
+                    
+                     existing_pub.save()
+                     print(f"Updated existing pub: {existing_pub.name}")
+                else:
+                    # Create a new instance of the model
+                    pub = TEST_Pub(
+                        pub_id = pub_id,
+                        name=name,
+                        address=address,
+                        description=description,
+                        inventory_stars=inventory_stars,
+                        listed=listed,
+                        open=is_open,
+                        url=url
+                    )
+                    pub.save()
+                    print(f"Imported new pub: {pub.name}")
+                    print(f"pub_id for {pub.name} is: {pub_id}")
 
             except KeyError as e:
                 # Handle missing or empty fields
