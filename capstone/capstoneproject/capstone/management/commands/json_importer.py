@@ -62,7 +62,7 @@ class Command(BaseCommand):
 
                 # Generate a unique ID for the pub based on the address
                 pub_id = generate_unique_id(address)
-                print(f"pub_id is: {pub_id}")
+                #DUBUGGING STATEMENT print(f"pub_id is: {pub_id}")
 
                 # Check if a record with the same pub ID already exists
                 existing_pub = TEST_Pub.objects.filter(pub_id=pub_id).first()
@@ -77,7 +77,7 @@ class Command(BaseCommand):
                      existing_pub.url = url
                     
                      existing_pub.save()
-                     print(f"Updated existing pub: {existing_pub.name}")
+                    #DUBUGGING STATEMENT print(f"Updated existing pub: {existing_pub.name}")
                 else:
                     # Create a new instance of the model
                     pub = TEST_Pub(
