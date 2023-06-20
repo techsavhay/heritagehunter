@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'capstone',
     'django.contrib.sites',
+    'widget_tweaks',
 
     #for all auth
     'allauth',
