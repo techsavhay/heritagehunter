@@ -1,0 +1,58 @@
+.navbar-light .form-inline {
+    display: flex;
+    align-items: center;
+    
+  }
+
+  .navbar .form-inline .form-control {
+    margin-right: 10px; 
+}
+
+.navbar .form-inline .btn {
+    margin-left: 10px; 
+    font-family: 'Playfair Display', serif;
+    font-weight: 500;
+}
+
+  
+  .navbar-light .navbar-brand {
+      color: #ffffff;
+      font-family: 'Playfair Display', serif;
+      font-size: 40px;
+      
+  }
+
+  nav {
+    background-color: #592327;
+  }
+
+  .navbar .form-inline .btn.btn-outline-success {
+    font-weight: 400;
+}
+
+  
+  /* search button */
+  .btn-outline-success {
+    border-color: white;
+    border-width: 1px;
+    color: white;
+    padding: 0.05rem 0.5rem;
+    
+  }
+
+  .btn-outline-success:hover {
+    background-color: #C38154;
+    color: black;
+  }
+
+  /* main page background */
+  body {
+    background-color: #C38154; /* Replace with your desired background color */
+}
+
+/* toolbar logo */
+.logo-image {
+    width: 250px; 
+    height: auto; 
+    padding: 0%;
+}

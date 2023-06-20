@@ -52,9 +52,8 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-#254476320324-vmivsin3miglfj0ua5m5aek36q7qjg44.apps.googleusercontent.com
 
-#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
+
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
