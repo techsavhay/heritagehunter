@@ -3,7 +3,6 @@
 {% load i18n %}
 {% load account socialaccount %}
 {% load static %} 
-
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
@@ -16,22 +15,13 @@
       {% get_providers as socialaccount_providers %}
 
       {% if socialaccount_providers %}
-      <div class="alert alert-info" role="alert">
-        {% blocktrans with site.name as site_name %}Please sign in with one of your existing third-party TEST accounts. Or, <a href="{{ signup_url }}">sign up</a> for a {{ site_name }} account and sign in below:{% endblocktrans %}
-      </div>
+      <p>{% blocktrans with site.name as site_name %}Please sign in with one of your existing third-party accounts.<br>Or, <a href="{{ signup_url }}">sign up</a> for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
 
       <div class="socialaccount_ballot">
-        <ul class="socialaccount_providers">
+        <div class="socialaccount_providers">
           {% include "socialaccount/snippets/provider_list.html" with process="login" %}
-          <li class="socialaccount_provider">
-            <a href="{% url 'socialaccount_login' provider='google' process='login' %}" class="socialaccount_provider_link">
-              <img src="{% static 'googlelogo.png' %}" alt="Google Logo" class="socialaccount_provider_logo">
-              {% trans 'Sign in with Google' %}
-            </a>            
-          </li>
-          
-        </ul>
-        <div class="login-or">{% trans 'or' %}</div>
+        </div>
+        <div class="login-or border-top border-bottom my-3">{% trans 'OR' %}</div>
       </div>
 
       {% include "socialaccount/snippets/login_extra.html" %}
@@ -42,7 +32,14 @@
 
       <form class="login" method="POST" action="{% url 'account_login' %}">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="mb-3">
+          <label for="{{ form.username.id_for_label }}" class="form-label">{% trans "Username" %}</label>
+          {{ form.username }}
+        </div>
+        <div class="mb-3">
+          <label for="{{ form.password.id_for_label }}" class="form-label">{% trans "Password" %}</label>
+          {{ form.password }}
+        </div>
         {% if redirect_field_value %}
         <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}" />
         {% endif %}
