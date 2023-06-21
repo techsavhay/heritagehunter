@@ -30,6 +30,7 @@
     font-weight: 400;
 }
 
+
   
   /* search button */
   .btn-outline-success {
@@ -47,7 +48,7 @@
 
   /* main page background */
   body {
-    background-color: #C38154; /* Replace with your desired background color */
+    background-color: #C38154; 
 }
 
 /* toolbar logo */
@@ -56,3 +57,18 @@
     height: auto; 
     padding: 0%;
 }
+
+/* login logout welcome text */
+  .light-text {
+        color: white 
+    }
+
+    .navbar-text li {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+    
+    .logout {
+      font-size:small
+    }
