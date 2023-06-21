@@ -1,0 +1,34 @@
+{% extends 'index.html' %}
+
+{% block content %}
+  <div class="container">
+    <h1 class="mb-4">Welcome, {{ user.first_name }} {{ user.last_name }}</h1>
+    <p class="lead">Username: {{ user.username }}</p>
+    <p class="lead">Email: {{ user.email }}</p>
+
+    <div class="card my-4">
+      <div class="card-header">
+        Account Management
+      </div>
+      <div class="card-body">
+        <ul class="list-group">
+          <li class="list-group-item">
+            <a href="{% url 'account_change_password' %}" class="btn btn-primary">Change Password</a>
+          </li>
+          <li class="list-group-item">
+            <a href="{% url 'account_email' %}" class="btn btn-primary">Manage Email</a>
+          </li>
+          {% if user.email_verified %}
+          <li class="list-group-item">
+            <p>Email Verification: Verified</p>
+          </li>
+          {% else %}
+          <li class="list-group-item">
+            <a href="{% url 'account_email_verification_sent' %}" class="btn btn-primary">Send Verification Email</a>
+          </li>
+          {% endif %}
+        </ul>
+      </div>
+    </div>
+  </div>
+{% endblock %}
