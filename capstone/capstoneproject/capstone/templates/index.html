@@ -41,8 +41,13 @@
             </div>
         </div>
     </nav>
+    <div id="pubs-container">
+        <!-- The pubs will be loaded here -->
+    </div>
     {% block content %}
-    <!-- Default content for index.html will go here -->
+    <!-- Default content for index.html will go here, currently profile page -->
     {% endblock %}
+    
+    <script src="{% static 'index.js' %}"></script>
 </body>
 </html>
