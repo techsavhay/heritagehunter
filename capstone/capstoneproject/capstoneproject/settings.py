@@ -52,9 +52,6 @@ INSTALLED_APPS = [
 
 SITE_ID = 1
 
-
-
-
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
         'SCOPE': [
@@ -69,7 +66,6 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
-
 
 LOGIN_REDIRECT_URL = 'index'
 
