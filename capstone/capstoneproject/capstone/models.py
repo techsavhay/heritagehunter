@@ -20,23 +20,4 @@ class Pub(models.Model):
     users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='visited_pubs')
     posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='pub_posts', null=True)
 
-class TEST_Pub(models.Model):
-    pub_id = models.CharField(max_length=32, unique=True)
-    name = models.CharField(max_length=100, blank=False)
-    address = models.CharField(max_length=200, blank=False)
-    inventory_stars = models.IntegerField(default=0, null=True)
-    url = models.URLField(blank=False)
-    description = models.TextField(blank=True)
-    photos = models.ImageField(upload_to='pub_photos', blank=True)
-    open = models.BooleanField(default=True)
-    listed = models.CharField(max_length=100, blank=True)
-    users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='TEST_visited_pubs')
-    posts = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='TEST_pub_posts', null=True)
 
-    class Meta:
-        db_table = 'test_pub'
-
-class TEST_Post(models.Model):
-    content = models.CharField(max_length=280, blank=True)
-    date_visited = models.DateTimeField(blank=True)
-    owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
