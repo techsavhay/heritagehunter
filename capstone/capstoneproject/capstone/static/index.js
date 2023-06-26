@@ -41,9 +41,9 @@ function fetchPubData() {
         // Event listener to pub element
         pubElement.addEventListener('click', () => {
           pubElement.classList.toggle('pub-expanded');
-          pubsContainer.style.height = 'auto'; // Reset the container height
+          
 
-          // Delay the height calculation so CSS transition takes effect
+          // Delay the height calc so CSS transition takes effect
           setTimeout(() => {
             const containerHeight = pubsContainer.offsetHeight;
             pubsContainer.style.height = `${containerHeight}px`;
