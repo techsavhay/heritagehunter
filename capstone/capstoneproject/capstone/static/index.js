@@ -39,24 +39,37 @@ function fetchPubData() {
         `;
 
         // Event listener to pub element
-        pubElement.addEventListener('click', () => {
-          pubElement.classList.toggle('pub-expanded');
-          
+        pubElement.addEventListener('click', event => {
+          const clickedElement = event.target;
+          const clickedParent = clickedElement.parentElement;
 
-          // Delay the height calc so CSS transition takes effect
-          setTimeout(() => {
-            const containerHeight = pubsContainer.offsetHeight;
-            pubsContainer.style.height = `${containerHeight}px`;
+          if (//ignore the input fields when looking for a pub click//
+            !clickedElement.classList.contains('additional-content') &&
+            !clickedParent.classList.contains('additional-content')
+          ) {
+            pubElement.classList.toggle('pub-expanded');
 
-            if (pubElement.classList.contains('pub-expanded')) {
-              const expandedPubHeight = pubElement.offsetHeight * 2;
-              pubElement.style.height = `${expandedPubHeight}px`;
-              // add text are etc here?
-              
-            } else {
-              pubElement.style.height = 'auto';
-            }
-          }, 0);
+            // Delay the height calc so CSS transition takes effect
+            setTimeout(() => {
+              const containerHeight = pubsContainer.offsetHeight;
+              pubsContainer.style.height = `${containerHeight}px`;
+
+              if (pubElement.classList.contains('pub-expanded')) {
+                const expandedPubHeight = pubElement.offsetHeight * 3;
+                pubElement.style.height = `${expandedPubHeight}px`;
+                pubElement.insertAdjacentHTML(
+                  'beforeend',
+                  '<form class="additional-content">Date of visit: <input type="date" name="visit"/><br><textarea id="pubreview" name="pubreview" rows="3" cols="30">Space to write a short review (optional)</textarea><input type="submit" value="Save visit"></form>'
+                );
+              } else {
+                pubElement.style.height = 'auto';
+                const additionalContent = pubElement.querySelector('.additional-content');
+                if (additionalContent) {
+                  additionalContent.remove();
+                }
+              }
+            }, 0);
+          }
         });
 
         pubsContainer.appendChild(pubElement);
