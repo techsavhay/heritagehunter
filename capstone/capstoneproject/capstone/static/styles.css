@@ -77,3 +77,12 @@
     .logout {
       font-size:small
     }
+
+  #pubs-container {
+    width: 33vw; /* sets container to a third of the width of the page */
+    padding: 20px;
+    padding-left: 40px;
+    overflow-y: auto;
+    background-color: #ffffff;
+    height: calc(100vh - 70px); /* height of pubs container is height of screen minus height of navbar */
+  }
