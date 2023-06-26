@@ -11,13 +11,28 @@ function fetchPubData() {
   .then(data => {
 
     // logs the response data in console
-    console.log(data);
+    //console.log(data);
+
+    // sorts pubs alphabetically by name
+    sorted_pubs = data.sort(function (a, b) {
+      if(a.pub.name < b.pub.name) {
+        return -1;
+      }
+      if(a.name > b.name) {
+        return 1;
+      }
+      return 0;
+    })
+
+    // logs the response data in console
+    console.log(sorted_pubs);
+
     // process data and update html elements
     
     const pubsContainer = document.querySelector("#pubs-container");
     pubsContainer.innerHTML = '';
 
-    data.forEach(item => {
+    sorted_pubs.forEach(item => {
       const pub = item.pub;
       // Access pub properties
       const name = pub.name;

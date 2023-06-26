@@ -83,6 +83,22 @@
     padding: 20px;
     padding-left: 40px;
     overflow-y: auto;
-    background-color: #ffffff;
-    height: calc(100vh - 70px); /* height of pubs container is height of screen minus height of navbar */
+    background-color: rgba(128, 128, 128, 0.589);
+    height: calc(100vh - 85px); /* height of pubs container is height of screen minus height of (navbar+ a bit more) */
+
   }
+
+.pub {
+  border: 2px solid #000000; 
+  padding: 3px; /* Add padding to create some space around the pub entry */
+  margin-bottom: 8px; /* Add margin to separate pub entries */
+  background-color: #6494ed4d
+}
+
+.pub-explanded {
+  width: inherit;
+  padding-left: inherit;
+  padding-right: inherit;
+  margin-bottom: inherit;
+  border:inherit
+}
