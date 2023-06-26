@@ -78,30 +78,31 @@
       font-size:small
     }
 
-  #pubs-container {
-    transition: height 0.3s ease-in-out;
-    width: 33vw; /* sets container to a third of the width of the page */
-    padding: 20px;
-    padding-left: 40px;
-    overflow-y: auto;
-    background-color: rgba(128, 128, 128, 0.589);
-    height: calc(100vh - 90px); /* height of pubs container is height of screen minus height of (navbar+ a bit more) */
-    box-sizing: border-box;
-
-  }
-
-.pub {
-  border: 2px solid #000000; 
-  padding: 3px; /* Add padding to create some space around the pub entry */
-  margin-bottom: 8px; /* Add margin to separate pub entries */
-  background-color: #6494ed4d;
-  transition: height 0.3s ease-in-out;
-}
-
-.pub-expanded {
-  border: 2px solid #000000; 
-  padding: 3px; 
-  margin-bottom: 8px; 
-  background-color: #6494ed4d;
-  color: orangered;
-}
+    #pubs-container {
+      transition: max-height 0.9s ease-in-out;
+      width: 33vw;
+      padding: 20px;
+      padding-left: 40px;
+      overflow-y: auto;
+      background-color: #C38154;
+      height: calc(100vh - 90px);
+      box-sizing: border-box;
+    }
+    
+    .pub {
+      border: 2px solid #000000;
+      padding: 3px;
+      margin-bottom: 8px;
+      background-color: #6580b1;
+      transition: height 0.9s ease-in-out;
+      overflow: hidden;
+    }
+    
+    .pub-expanded {
+      border: 2px solid #000000;
+      padding: 3px;
+      margin-bottom: 8px;
+      background-color: #ce934f;
+      color: rgb(0, 0, 0);
+    }
+    

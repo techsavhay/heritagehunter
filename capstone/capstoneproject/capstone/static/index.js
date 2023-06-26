@@ -51,6 +51,8 @@ function fetchPubData() {
             if (pubElement.classList.contains('pub-expanded')) {
               const expandedPubHeight = pubElement.offsetHeight * 2;
               pubElement.style.height = `${expandedPubHeight}px`;
+              // add text are etc here?
+              
             } else {
               pubElement.style.height = 'auto';
             }
