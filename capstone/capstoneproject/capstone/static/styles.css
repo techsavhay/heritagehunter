@@ -106,3 +106,22 @@
       color: rgb(0, 0, 0);
     }
     
+    .additional-content {
+      position: relative;
+    }
+
+    .additional-content input[type="date"] {
+      margin: 15px;
+    }
+
+    .additional-content textarea {
+      margin: 15px;
+    }
+
+    .additional-content input[type="submit"] {
+      position: absolute;
+      bottom: -20px;
+      right: 0;
+      margin-right: 15px;
+      margin-left: 30px;
+    }
