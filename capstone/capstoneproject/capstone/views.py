@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from .models import Post, Pub
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
-from django.core.serializers import serialize
-from django.db.models.query import QuerySet
+
 
 def encode_pub(obj):
     if isinstance(obj, Pub):
@@ -55,3 +55,16 @@ def pubs_api(request):
         })
 
     return JsonResponse(pub_data, safe=False, json_dumps_params={'default': encode_pub})
+
+@require_POST
+@login_required
+def save_visit(request):
+
+    if request.method == "POST":
+        data = json.loads(request.body)
+
+        content = data.get('content', '').strip()
+        date_visited = data.get('date_visited')
+        new_post = Post(content=content, owner=request.user, date_visited=date_visited)
+        new_post.save()
+        return JsonResponse({"success": True})

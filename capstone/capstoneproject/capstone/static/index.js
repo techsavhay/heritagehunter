@@ -74,24 +74,25 @@ function fetchPubData() {
               if (pubElement.classList.contains('pub-expanded')) {
                 const expandedPubHeight = pubElement.offsetHeight * 4;
                 pubElement.style.height = `${expandedPubHeight}px`;
-                pubElement.insertAdjacentHTML(
-                  'beforeend',
-                  '<form class="additional-content">Date of visit: <input type="date" name="visit"/><br><textarea id="pubreview" name="pubreview" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea><input id="save-visit" type="submit" value="Save visit"></form>'
-                );
-              } else {
-                pubElement.style.height = 'auto';
-                const additionalContent = pubElement.querySelector('.additional-content');
-                if (additionalContent) {
-                  additionalContent.remove();
-                }
-              }
 
-              // Set textarea width as a percentage of pubElement
-              const additionalContent = pubElement.querySelector('.additional-content');
-              if (additionalContent) {
+                // Create form
+                const form = document.createElement('form');
+                form.className = "additional-content";
+
+                form.innerHTML = `
+                    <label for="visit">Date of visit (optional):</label>
+                    <input type="date" id="date_visited" name="date_visited"/><br>
+                    <textarea id="content" action="/api/save-visit" method="POST" name="content" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea>
+                    <input type="submit" value="Save visit">
+                `;
+
+                // Append form to pub element
+                pubElement.appendChild(form);
+
+                // Set textarea width as a percentage of pubElement
                 const pubWidth = pubElement.offsetWidth; // Get the width of the pub element
                 const pubHeight = pubElement.offsetHeight; // Get the height of the pub element
-                const textarea = additionalContent.querySelector('textarea');
+                const textarea = form.querySelector('textarea');
 
                 // Set the width of the textarea as a percentage of the pub width
                 const textareaWidthPercentage = 90; // Adjustable
@@ -100,6 +101,46 @@ function fetchPubData() {
                 const textareaHeight = (pubHeight * textareaHeightPercentage) / 100;
                 textarea.style.width = `${textareaWidth}px`;
                 textarea.style.height = `${textareaHeight}px`;
+
+                // Add submit event to the form
+                form.addEventListener('submit', event => {
+                  event.preventDefault();
+
+                  const dateVisitedInput = form.querySelector('#date_visited');
+                  const contentInput = form.querySelector('#content');
+
+                  const date_visited = dateVisitedInput.value;
+                  const content = contentInput.value;
+
+                  fetch('/api/save_visit', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                    body: JSON.stringify({
+                      date_visited: date_visited,
+                      content: content,
+                    }),
+                  })
+                    .then(response => response.json())
+                    .then(data => {
+                      console.log(data);
+                    })
+                    .catch(error => {
+                      console.error('Error saving visit:', error);
+                    });
+
+                  // Clear form fields
+                  dateVisitedInput.value = '';
+                  contentInput.value = '';
+                });
+              } else {
+                pubElement.style.height = 'auto';
+                const additionalContent = pubElement.querySelector('.additional-content');
+                if (additionalContent) {
+                  additionalContent.remove();
+                }
               }
             }, 0);
 
@@ -117,4 +158,5 @@ function fetchPubData() {
     });
 }
 
+// Call the fetchPubData function
 fetchPubData();
