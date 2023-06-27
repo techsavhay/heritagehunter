@@ -24,6 +24,8 @@ function fetchPubData() {
       const pubsContainer = document.querySelector('#pubs-container');
       pubsContainer.innerHTML = '';
 
+      let expandedPub = null; // Track the currently expanded pub
+
       sorted_pubs.forEach(item => {
         const pub = item.pub;
         // Access pub properties
@@ -48,7 +50,21 @@ function fetchPubData() {
             !clickedElement.classList.contains('additional-content') &&
             !clickedParent.classList.contains('additional-content')
           ) {
-            pubElement.classList.toggle('pub-expanded');
+            // Collapse the currently expanded pub, if any
+            if (expandedPub && expandedPub !== pubElement) {
+              expandedPub.classList.remove('pub-expanded');
+              const additionalContent = expandedPub.querySelector('.additional-content');
+              if (additionalContent) {
+                additionalContent.remove();
+              }
+              expandedPub.style.height = 'auto'; // Reset the height to auto
+            }
+
+            // Check if the clicked pub is already expanded
+            const isExpanded = pubElement.classList.contains('pub-expanded');
+
+            // Toggle the pub-expanded class
+            pubElement.classList.toggle('pub-expanded', !isExpanded);
 
             // Delay the height calculation so CSS transition takes effect
             setTimeout(() => {
@@ -60,7 +76,7 @@ function fetchPubData() {
                 pubElement.style.height = `${expandedPubHeight}px`;
                 pubElement.insertAdjacentHTML(
                   'beforeend',
-                  '<form class="additional-content">Date of visit: <input type="date" name="visit"/><br><textarea id="pubreview" name="pubreview" rows="3" cols="30" maxlength="280">Space to write a short review (optional)</textarea><input type="submit" value="Save visit"></form>'
+                  '<form class="additional-content">Date of visit: <input type="date" name="visit"/><br><textarea id="pubreview" name="pubreview" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea><input id="save-visit" type="submit" value="Save visit"></form>'
                 );
               } else {
                 pubElement.style.height = 'auto';
@@ -86,6 +102,9 @@ function fetchPubData() {
                 textarea.style.height = `${textareaHeight}px`;
               }
             }, 0);
+
+            // Update the currently expanded pub
+            expandedPub = pubElement;
           }
         });
 
