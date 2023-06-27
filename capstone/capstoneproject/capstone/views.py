@@ -11,7 +11,7 @@ def encode_pub(obj):
     if isinstance(obj, Pub):
         return {
             'id': obj.id,
-            'pub_id': obj.pub_id,
+            'custom_pub_id': obj.custom_pub_id,
             'name': obj.name,
             'address': obj.address,
             'inventory_stars': obj.inventory_stars,
@@ -60,11 +60,17 @@ def pubs_api(request):
 @login_required
 def save_visit(request):
 
-    if request.method == "POST":
         data = json.loads(request.body)
 
+        pub_id = data.get('pub_id')  # This is Django's internal ID field
         content = data.get('content', '').strip()
         date_visited = data.get('date_visited')
-        new_post = Post(content=content, owner=request.user, date_visited=date_visited)
+
+        # Find the Pub instance with the given pub_id
+        pub = Pub.objects.get(id=pub_id)
+
+        # Create a new Post and assign the pub to it
+        new_post = Post(content=content, owner=request.user, date_visited=date_visited, pub=pub)
         new_post.save()
+        
         return JsonResponse({"success": True})

@@ -109,8 +109,13 @@ function fetchPubData() {
                   const dateVisitedInput = form.querySelector('#date_visited');
                   const contentInput = form.querySelector('#content');
 
-                  const date_visited = dateVisitedInput.value;
+                  let date_visited = dateVisitedInput.value;
                   const content = contentInput.value;
+                  
+                  // Check if date_visited is an empty string, if so set it to null
+                  if (date_visited === "") {
+                    date_visited = null;
+}
 
                   fetch('/api/save_visit', {
                     method: 'POST',
@@ -121,6 +126,7 @@ function fetchPubData() {
                     body: JSON.stringify({
                       date_visited: date_visited,
                       content: content,
+                      pub_id: pub.id,
                     }),
                   })
                     .then(response => response.json())
