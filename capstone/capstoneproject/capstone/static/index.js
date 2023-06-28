@@ -50,7 +50,7 @@ function fetchPubData() {
             !clickedElement.classList.contains('additional-content') &&
             !clickedParent.classList.contains('additional-content')
           ) {
-            // Collapse the currently expanded pub, if any
+            // Collapse the currently expanded pub, if any other pub is clicked
             if (expandedPub && expandedPub !== pubElement) {
               expandedPub.classList.remove('pub-expanded');
               const additionalContent = expandedPub.querySelector('.additional-content');
