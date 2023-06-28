@@ -73,7 +73,11 @@ function fetchPubData() {
               contentElement.classList.add('post');
               contentElement.innerText = `Date visited: ${date_visited}, Content: ${content}`;
               pubElement.appendChild(contentElement);
-            } else {
+            } 
+            
+            else
+            
+            {
               const form = document.createElement('form');
               form.className = "additional-content";
 
@@ -137,14 +141,17 @@ function fetchPubData() {
           } else {
             pubElement.style.height = 'auto';
             const additionalContent = pubElement.querySelector('.additional-content');
+            const post = pubElement.querySelector('.post');
             if (additionalContent) {
               additionalContent.remove();
             }
-          }
+            if (post) {
+              post.remove();
+            }
 
           expandedPub = pubElement;
         }
-      });
+      }});
 
       pubsContainer.appendChild(pubElement);
     });
