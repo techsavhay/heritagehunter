@@ -97,6 +97,10 @@
       transition: height 0.9s ease-in-out;
       overflow: hidden;
     }
+
+    .visited {
+      background-color: #378137;
+    }
     
     .pub-expanded {
       border: 2px solid #000000;

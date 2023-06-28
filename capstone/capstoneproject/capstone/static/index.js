@@ -27,7 +27,7 @@ function fetchPubData() {
     sorted_pubs.forEach(item => {
       const pub = item.pub;
       const post = item.posts[0];
-      console.log(post);
+      //console.log(post);
 
       const name = pub.name;
       const address = pub.address;
@@ -39,6 +39,12 @@ function fetchPubData() {
         <h5>${name}</h5>
         <p class="pub-address">${address}</p>
       `;
+
+      if (post) {
+        pubElement.classList.add('visited')
+      } else {
+        pubElement.classList.remove('visited')
+      }
 
       pubElement.addEventListener('click', event => {
         const clickedElement = event.target;
@@ -70,11 +76,16 @@ function fetchPubData() {
                 pubElement.style.height = `${expandedPubHeight}px`;
 
                 const content = post.content;
-                const date_visited = post.date_visited;
+                let date_visited = post.date_visited;
+                if (date_visited == null) {
+                  date_visited = "";
+                }
+                  
                 const contentElement = document.createElement('p');
                 contentElement.classList.add('post');
                 contentElement.innerHTML = `<h6>Date visited:</h6> ${date_visited}<br><p><h6>Review:</h6> ${content}</p>`;
                 pubElement.appendChild(contentElement);
+
               }
             } 
             
