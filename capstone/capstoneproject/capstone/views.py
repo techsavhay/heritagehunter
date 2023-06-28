@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import get_object_or_404, render
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .models import Post, Pub
@@ -81,4 +81,15 @@ def save_visit(request):
         new_post.save()
         
         return JsonResponse({"success": True})
+
+@require_POST
+@login_required
+def delete_visit(request):
+    post = get_object_or_404(Post, id=id) #  return 404 error if  no post with  id
+    if post.owner != request.user:  # Checking if the current user is the owner of the post
+        return JsonResponse({"error": "Not authorized"}, status=401)
+    post.delete()
+    return JsonResponse({"Post deleted": True})
+
+
 

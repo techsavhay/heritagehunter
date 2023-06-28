@@ -83,6 +83,9 @@ function fetchPubData() {
                   
                 const contentElement = document.createElement('p');
                 contentElement.classList.add('post');
+
+                // ADD DELETE AND EDIT POST BUTTONS IN HERE?
+
                 contentElement.innerHTML = `<h6>Date visited:</h6> ${date_visited}<br><p><h6>Review:</h6> ${content}</p>`;
                 pubElement.appendChild(contentElement);
 
@@ -104,7 +107,7 @@ function fetchPubData() {
                   <label for="visit">Date of visit (optional):</label>
                   <input type="date" id="date_visited" name="date_visited"/><br>
                   <textarea id="content" action="/api/save-visit" method="POST" name="content" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea>
-                  <input type="submit" value="Save visit">
+                  <input type="submit" id="save-visit-button" value="Save visit">
                 `;
 
                 pubElement.appendChild(form);
@@ -121,7 +124,7 @@ function fetchPubData() {
                 textarea.style.height = `${textareaHeight}px`;
 
                 form.addEventListener('submit', event => {
-                  event.preventDefault();
+                  //COMMENTED OUT IN ORDER FOR PAGE TO REFRESH WHEN SAVE VISIT IS CLICKED THUS UPDATING COLOURSevent.preventDefault();
 
                   const dateVisitedInput = form.querySelector('#date_visited');
                   const contentInput = form.querySelector('#content');
@@ -148,6 +151,9 @@ function fetchPubData() {
                   .then(response => response.json())
                   .then(data => {
                     console.log(data);
+                    pubElement.classList.add('visited');
+
+
                   })
                   .catch(error => {
                     console.error('Error saving visit:', error);
