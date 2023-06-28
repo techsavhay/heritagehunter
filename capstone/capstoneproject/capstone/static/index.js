@@ -63,81 +63,91 @@ function fetchPubData() {
           pubsContainer.style.height = `${containerHeight}px`;
 
           if (pubElement.classList.contains('pub-expanded')) {
-            const expandedPubHeight = pubElement.offsetHeight * 4;
-            pubElement.style.height = `${expandedPubHeight}px`;
-
             if (post) {
-              const content = post.content;
-              const date_visited = post.date_visited;
-              const contentElement = document.createElement('p');
-              contentElement.classList.add('post');
-              contentElement.innerText = `Date visited: ${date_visited}, Content: ${content}`;
-              pubElement.appendChild(contentElement);
+              // Only add post content if it doesn't already exist in the pub.
+              if (!pubElement.querySelector('.post')) {
+                const expandedPubHeight = pubElement.offsetHeight * 4;
+                pubElement.style.height = `${expandedPubHeight}px`;
+
+                const content = post.content;
+                const date_visited = post.date_visited;
+                const contentElement = document.createElement('p');
+                contentElement.classList.add('post');
+                contentElement.innerHTML = `<h6>Date visited:</h6> ${date_visited}<br><p><h6>Review:</h6> ${content}</p>`;
+                pubElement.appendChild(contentElement);
+              }
             } 
             
             else
             
             {
-              const form = document.createElement('form');
-              form.className = "additional-content";
+              // Only add the form if it doesn't already exist in the pub.
+              if (!pubElement.querySelector('.additional-content')) {
+                const expandedPubHeight = pubElement.offsetHeight * 4;
+                pubElement.style.height = `${expandedPubHeight}px`;
 
-              form.innerHTML = `
-                <label for="visit">Date of visit (optional):</label>
-                <input type="date" id="date_visited" name="date_visited"/><br>
-                <textarea id="content" action="/api/save-visit" method="POST" name="content" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea>
-                <input type="submit" value="Save visit">
-              `;
+                const form = document.createElement('form');
+                form.className = "additional-content";
 
-              pubElement.appendChild(form);
+                form.innerHTML = `
+                  <label for="visit">Date of visit (optional):</label>
+                  <input type="date" id="date_visited" name="date_visited"/><br>
+                  <textarea id="content" action="/api/save-visit" method="POST" name="content" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea>
+                  <input type="submit" value="Save visit">
+                `;
 
-              const pubWidth = pubElement.offsetWidth; 
-              const pubHeight = pubElement.offsetHeight; 
-              const textarea = form.querySelector('textarea');
+                pubElement.appendChild(form);
 
-              const textareaWidthPercentage = 90; 
-              const textareaHeightPercentage = 35;
-              const textareaWidth = (pubWidth * textareaWidthPercentage) / 100;
-              const textareaHeight = (pubHeight * textareaHeightPercentage) / 100;
-              textarea.style.width = `${textareaWidth}px`;
-              textarea.style.height = `${textareaHeight}px`;
+                const pubWidth = pubElement.offsetWidth; 
+                const pubHeight = pubElement.offsetHeight; 
+                const textarea = form.querySelector('textarea');
 
-              form.addEventListener('submit', event => {
-                event.preventDefault();
+                const textareaWidthPercentage = 90; 
+                const textareaHeightPercentage = 35;
+                const textareaWidth = (pubWidth * textareaWidthPercentage) / 100;
+                const textareaHeight = (pubHeight * textareaHeightPercentage) / 100;
+                textarea.style.width = `${textareaWidth}px`;
+                textarea.style.height = `${textareaHeight}px`;
 
-                const dateVisitedInput = form.querySelector('#date_visited');
-                const contentInput = form.querySelector('#content');
+                form.addEventListener('submit', event => {
+                  event.preventDefault();
 
-                let date_visited = dateVisitedInput.value;
-                const content = contentInput.value;
+                  const dateVisitedInput = form.querySelector('#date_visited');
+                  const contentInput = form.querySelector('#content');
 
-                if (date_visited === "") {
-                  date_visited = null;
-                }
+                  let date_visited = dateVisitedInput.value;
+                  const content = contentInput.value;
 
-                fetch('/api/save_visit', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                  },
-                  body: JSON.stringify({
-                    date_visited: date_visited,
-                    content: content,
-                    pub_id: pub.id,
-                  }),
-                })
-                .then(response => response.json())
-                .then(data => {
-                  console.log(data);
-                })
-                .catch(error => {
-                  console.error('Error saving visit:', error);
+                  if (date_visited === "") {
+                    date_visited = null;
+                  }
+
+                  fetch('/api/save_visit', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                    body: JSON.stringify({
+                      date_visited: date_visited,
+                      content: content,
+                      pub_id: pub.id,
+                    }),
+                  })
+                  .then(response => response.json())
+                  .then(data => {
+                    console.log(data);
+                  })
+                  .catch(error => {
+                    console.error('Error saving visit:', error);
+                  });
+
+                  dateVisitedInput.value = '';
+                  contentInput.value = '';
                 });
-
-                dateVisitedInput.value = '';
-                contentInput.value = '';
-              });
-            } 
+              } 
+            }
+            expandedPub = pubElement;
           } else {
             pubElement.style.height = 'auto';
             const additionalContent = pubElement.querySelector('.additional-content');
@@ -148,10 +158,9 @@ function fetchPubData() {
             if (post) {
               post.remove();
             }
-
-          expandedPub = pubElement;
+          }
         }
-      }});
+      });
 
       pubsContainer.appendChild(pubElement);
     });

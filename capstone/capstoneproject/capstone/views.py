@@ -29,7 +29,7 @@ def encode_post(obj):
         return {
             'id':obj.id,
             'content': obj.content,
-            'date_visited' : obj.date_visited,
+            'date_visited' : obj.date_visited.strftime('%d-%m-%Y') if obj.date_visited else None,
         }
 
 def index(request):
