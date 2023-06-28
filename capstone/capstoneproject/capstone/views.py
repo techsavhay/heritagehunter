@@ -11,7 +11,7 @@ def encode_pub(obj):
     if isinstance(obj, Pub):
         return {
             'id': obj.id,
-            'custom_pub_id': obj.custom_pub_id,
+            'custom_pub_id': obj.custom_pub_id, #NEEDS TO BE UPDATED BEFORE BEING USED
             'name': obj.name,
             'address': obj.address,
             'inventory_stars': obj.inventory_stars,
@@ -24,6 +24,13 @@ def encode_pub(obj):
         }
     return None
 
+def encode_post(obj):
+    if isinstance(obj, Post):
+        return {
+            'id':obj.id,
+            'content': obj.content,
+            'date_visited' : obj.date_visited,
+        }
 
 def index(request):
     user = request.user
@@ -40,18 +47,18 @@ def profile(request):
 def pubs_api(request):
     current_user = request.user
 
-    pubs = Pub.objects.filter(inventory_stars='3')
+    pubs = Pub.objects.filter(inventory_stars='3') #NEED TO ADD PUB OPEN FILTER TOO
 
     pub_data = []
     for pub in pubs:
-        posts = getattr(pub, 'posts', None)
+        posts = pub.pub_posts.all()
         if posts is not None:
             posts = posts.filter(owner=current_user)
         else:
             posts = []
         pub_data.append({
             'pub': pub,
-            'posts': posts,
+            'posts': [encode_post(post) for post in posts],
         })
 
     return JsonResponse(pub_data, safe=False, json_dumps_params={'default': encode_pub})
@@ -74,3 +81,4 @@ def save_visit(request):
         new_post.save()
         
         return JsonResponse({"success": True})
+
