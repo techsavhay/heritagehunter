@@ -130,6 +130,11 @@
       margin-left: 30px;
     }
 
-    /*.post {
-      pass:pass;
-    } */
+    .delete-button {
+      margin: 8px;
+      float: right;
+  }
+  
+  .edit-button {
+    margin: 8px;
+  }

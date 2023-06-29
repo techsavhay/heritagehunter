@@ -19,7 +19,7 @@ function fetchData(url, method, body) {
   });
 }
 
-// fetches data from API about the pubs, and handles some UI interaction
+// fetches pub data from fetchdata function 
 function fetchPubData() {
   // POST request to fetchData function to get data
   fetchData('/api/pubs/', 'POST', {}).then(displayPubs).catch(console.error);
@@ -28,7 +28,6 @@ function fetchPubData() {
 // Function to create a form for editing a pub's details
 function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   let form = pubElement.querySelector('.additional-content');
-  let newDate = date_visited;
 
   if (form) {
     form.remove();
@@ -49,31 +48,30 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
     dateElement.remove();
   }
 
-  if (content || date_visited) {
-
-    // changing date formath from dd-mm-yy to yyyy-mm-dd so html date module accepts it for editing view
-    if (date_visited !="") {
-      let dateParts = date_visited.split("-");
-      newDate = dateParts.reverse().join("-");
-    }
-
-    // if the pub already has a related post populate the form with the post details
-    form.innerHTML = `
-      <label for="visit">Date of visit (optional):</label>
-      <input type="date" id="date_visited" name="date_visited" value="${newDate}"><br>
-      <textarea id="content" name="content" rows="3" cols="30" maxlength="280">${content}</textarea>
-      <input type="submit" id="save-visit-button" value="Save visit">
-    `;
-  } else //if the pub doesnt have a post related to it create a blank form
-  {
-    form.innerHTML = `
-      <label for="visit">Date of visit (optional):</label>
-      <input type="date" id="date_visited" name="date_visited"><br>
-      <textarea id="content" name="content" rows="3" cols="30" maxlength="280" placeholder="Space to write a short review, (optional)..."></textarea>
-      <input type="submit" id="save-visit-button" value="Save visit">
-    `;
+  let newDate = '';
+  if (date_visited) {
+    // changing date format from dd-mm-yy to yyyy-mm-dd so html date module accepts it for editing view
+    let dateParts = date_visited.split("-");
+    newDate = dateParts.reverse().join("-");
   }
+  
+  /* If 'date_visited' exists, set 'dateValue' to it. Otherwise, it remains empty. */
+  const dateValue = date_visited ? `value="${newDate}"` : '';
 
+  /* If 'content' exists, set 'textValue' to it. Otherwise, it remains empty. */
+  const textValue = content ? content : '';
+
+  /* If 'content' doesn't exist, display a placeholder in the textarea. Otherwise, no placeholder is needed. */
+  const placeholderText = !content ? 'placeholder="Space to write a short review, (optional)..."' : '';
+
+  
+  form.innerHTML = `
+    <label for="visit">Date of visit (optional):</label>
+    <input type="date" id="date_visited" name="date_visited" ${dateValue}><br>
+    <textarea id="content" name="content" rows="3" cols="30" maxlength="280" ${placeholderText}>${textValue}</textarea>
+    <input type="submit" id="save-visit-button" value="Save visit">
+  `;
+  
   //logic to resize textarea based on window dimensions.
   const pubWidth = pubElement.offsetWidth;
   const pubHeight = pubElement.offsetHeight;
@@ -217,15 +215,12 @@ function displayPubs(data){
               // create an edit button
               const editButton = document.createElement('button');
               editButton.textContent = 'Edit Post';
-              editButton.style.margin = '8px';
               editButton.classList.add('edit-button');
               contentElement.appendChild(editButton);
 
               // create a delete button
               const deleteButton = document.createElement('button');
               deleteButton.textContent = 'Delete Post';
-              deleteButton.style.margin = '8px';
-              deleteButton.style.float = 'right';
               deleteButton.classList.add('delete-button');
               contentElement.appendChild(deleteButton);
 
