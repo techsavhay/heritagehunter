@@ -1,21 +1,28 @@
-// fetches data from API about the pubs, and handles some UI interaction
-function fetchPubData() {
-  // POST request to get data
-  fetch('/api/pubs/', {
-    method: 'POST',
+// Defined outside because it's reused multiple times
+const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+// A function to make the fetch calls (DRY principle)
+function fetchData(url, method, body) {
+  return fetch(url, {
+    method: method,
     headers: {
       'Content-Type': 'application/json',
-      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+      'X-CSRFToken': csrfToken,
     },
-    body: JSON.stringify({}),
+    body: JSON.stringify(body),
   })
-  .then(response => response.json())
-  .then(data => {
-    displayPubs(data);
-  })
-  .catch(error => {
-    console.error('Error fetching data:', error);
+  .then(response => {
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
+    }
+    return response.json();
   });
+}
+
+// fetches data from API about the pubs, and handles some UI interaction
+function fetchPubData() {
+  // POST request to fetchData function to get data
+  fetchData('/api/pubs/', 'POST', {}).then(displayPubs).catch(console.error);
 }
 
 // Function to create a form for editing a pub's details
@@ -93,28 +100,18 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       date_visited = null;
     }
 
-    // POST request to save visit
-    fetch('/api/save_visit/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-      },
-      body: JSON.stringify({
-        date_visited: date_visited,
-        content: content,
-        pub_id: pubId,
-      }),
-    })
-      .then(response => response.json())
-      .then(data => {
-        console.log(data);
-        pubElement.classList.add('visited');
-        fetchPubData();
-      })
-      .catch(error => {
-        console.error('Error saving visit:', error);
-      });
+    // POST request to fetchData function to save visit
+    fetchData('/api/save_visit/', 'POST', {
+      date_visited: date_visited,
+      content: content,
+      pub_id: pubId,
+  }).then(data => {
+      console.log(data);
+      pubElement.classList.add('visited');
+      fetchPubData();
+  }).catch(error => {
+      console.error('Error saving visit:', error);
+  });
 
     dateVisitedInput.value = '';
     contentInput.value = '';
@@ -238,28 +235,15 @@ function displayPubs(data){
 
               // listener for delete visit button.
               deleteButton.addEventListener('click', function () {
-                fetch('/api/delete_visit/', {
-                  method: 'POST',
-                  headers: {
-                    'Content-Type': 'application/json',
-                    'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
-                  },
-                  body: JSON.stringify({
-                    id: post.id,
-                  }),
-                })
-                  .then(response => {
-                    if (!response.ok) {
-                      throw new Error('Network response was not ok');
-                    }
-                    return response.json();
-                  })
-                  .then(data => {
-                    fetchPubData();
-                  })
-                  .catch(error => {
-                    console.error('There has been a problem with your fetch operation:', error);
-                  });
+                //fetch request via fetchData function
+                fetchData('/api/delete_visit/', 'POST', {
+                  id: post.id,
+              }).then(data => {
+                  fetchPubData();
+              }).catch(error => {
+                  console.error('There has been a problem with your fetch operation:', error);
+              });
+              
               });
             }
           } else 
