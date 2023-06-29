@@ -1,4 +1,6 @@
+// fetches data from API about the pubs, and handles some UI interaction
 function fetchPubData() {
+  // POST request to get data
   fetch('/api/pubs/', {
     method: 'POST',
     headers: {
@@ -9,6 +11,7 @@ function fetchPubData() {
   })
     .then(response => response.json())
     .then(data => {
+      // Alphabetizes the pubs by their names
       const sorted_pubs = data.sort((a, b) => {
         if (a.pub.name < b.pub.name) {
           return -1;
@@ -19,37 +22,46 @@ function fetchPubData() {
         return 0;
       });
 
+      // Targets the DOM element to populate with our pubs
       const pubsContainer = document.querySelector('#pubs-container');
+      // Clears the container to ensure it's empty before we add to it
       pubsContainer.innerHTML = '';
 
+      // keeps track of the currently expanded pub, if there is one (helps ensure only one open at a time later)
       let expandedPub = null;
 
+      // Loops through the pubs to create DOM elements for each
       sorted_pubs.forEach(item => {
         const pub = item.pub;
+        // Gets the most recent post (in case a post has been deleted or edited)
         const post = item.posts[item.posts.length - 1];
 
         const name = pub.name;
         const address = pub.address;
 
+        // Creates a div for each pub
         const pubElement = document.createElement('div');
         pubElement.classList.add('pub');
 
+        // Assigns the pub's name and address to the new div
         pubElement.innerHTML = `
           <h5>${name}</h5>
           <p class="pub-address">${address}</p>
         `;
 
+        // If the pub has been visited, it gets a 'visited' class
         if (post) {
           pubElement.classList.add('visited');
         } else {
           pubElement.classList.remove('visited');
         }
 
+        // Assigns a click event to each pub
         pubElement.addEventListener('click', event => {
           const clickedElement = event.target;
           const clickedParent = clickedElement.parentElement;
 
-          if (
+          if (//Makes sure certain elements are ignored when listening for clicks to collapse the entry
             !clickedElement.classList.contains('additional-content') &&
             !clickedElement.classList.contains('edit-button') &&
             !clickedElement.classList.contains('delete-button') &&
@@ -156,7 +168,7 @@ function fetchPubData() {
             }
           }
         });
-
+        // Adds the newly created div to the container
         pubsContainer.appendChild(pubElement);
       });
     })
@@ -165,6 +177,7 @@ function fetchPubData() {
     });
 }
 
+// Function to create a form for editing a pub's details
 function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   let form = pubElement.querySelector('.additional-content');
   let newDate = date_visited;
@@ -188,14 +201,14 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
     dateElement.remove();
   }
 
-  if (content && date_visited) {
+  if (content || date_visited) {
 
     // changing date formath from dd-mm-yy to yyyy-mm-dd so html date module accepts it for editing view
     if (date_visited !="") {
       let dateParts = date_visited.split("-");
       newDate = dateParts.reverse().join("-");
     }
-    console.log("newDate = ", newDate);
+
 
     form.innerHTML = `
       <label for="visit">Date of visit (optional):</label>
@@ -263,4 +276,5 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   });
 }
 
+// Calls fetchPubData() to start the process
 fetchPubData();

@@ -47,7 +47,7 @@ def profile(request):
 def pubs_api(request):
     current_user = request.user
 
-    pubs = Pub.objects.filter(inventory_stars='3') #NEED TO ADD PUB OPEN FILTER TOO
+    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') #PUB OPEN & ***s FILTER HERE!
 
     pub_data = []
     for pub in pubs:
