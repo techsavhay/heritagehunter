@@ -85,11 +85,14 @@ def save_visit(request):
 @require_POST
 @login_required
 def delete_visit(request):
-    post = get_object_or_404(Post, id=id) #  return 404 error if  no post with  id
+    data = json.loads(request.body)
+    post_id = data.get('id')
+    post = get_object_or_404(Post, id=post_id) #  return 404 error if  no post with  id
     if post.owner != request.user:  # Checking if the current user is the owner of the post
         return JsonResponse({"error": "Not authorized"}, status=401)
     post.delete()
     return JsonResponse({"Post deleted": True})
+
 
 
 

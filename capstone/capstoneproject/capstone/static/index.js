@@ -27,7 +27,6 @@ function fetchPubData() {
     sorted_pubs.forEach(item => {
       const pub = item.pub;
       const post = item.posts[0];
-      //console.log(post);
 
       const name = pub.name;
       const address = pub.address;
@@ -69,6 +68,7 @@ function fetchPubData() {
           pubsContainer.style.height = `${containerHeight}px`;
 
           if (pubElement.classList.contains('pub-expanded')) {
+            // if there is a post related to the pub then do the following
             if (post) {
               // Only add post content if it doesn't already exist in the pub.
               if (!pubElement.querySelector('.post')) {
@@ -83,18 +83,43 @@ function fetchPubData() {
                   
                 const contentElement = document.createElement('p');
                 contentElement.classList.add('post');
-
-                // ADD DELETE AND EDIT POST BUTTONS IN HERE?
-
                 contentElement.innerHTML = `<h6>Date visited:</h6> ${date_visited}<br><p><h6>Review:</h6> ${content}</p>`;
                 pubElement.appendChild(contentElement);
 
+                // Create a delete button
+                const deleteButton = document.createElement('button');
+                deleteButton.textContent = "Delete Post";
+                deleteButton.style.margin = "8px";
+                deleteButton.style.float = "right";
+                contentElement.appendChild(deleteButton);
+
+                // Add event listener for delete button
+                deleteButton.addEventListener('click', function() {
+                  fetch('/api/delete_visit/', {
+                    method: 'POST',
+                    headers: {
+                      'Content-Type': 'application/json',
+                      'X-CSRFToken': document.querySelector('[name=csrfmiddlewaretoken]').value,
+                    },
+                    body: JSON.stringify({
+                      id: post.id,
+                    })
+                  })
+                  .then(response => {
+                    if (!response.ok) {
+                      throw new Error('Network response was not ok');
+                    }
+                    return response.json();
+                  })
+                  .then(data => {
+                    fetchPubData();
+                  })
+                  .catch(error => {
+                    console.error('There has been a problem with your fetch operation:', error);
+                  });
+                });
               }
-            } 
-            
-            else
-            
-            {
+            } else {
               // Only add the form if it doesn't already exist in the pub.
               if (!pubElement.querySelector('.additional-content')) {
                 const expandedPubHeight = pubElement.offsetHeight * 4;
@@ -136,7 +161,7 @@ function fetchPubData() {
                     date_visited = null;
                   }
 
-                  fetch('/api/save_visit', {
+                  fetch('/api/save_visit/', {
                     method: 'POST',
                     headers: {
                       'Content-Type': 'application/json',
@@ -152,8 +177,6 @@ function fetchPubData() {
                   .then(data => {
                     console.log(data);
                     pubElement.classList.add('visited');
-
-
                   })
                   .catch(error => {
                     console.error('Error saving visit:', error);

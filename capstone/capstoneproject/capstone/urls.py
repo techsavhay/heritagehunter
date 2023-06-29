@@ -7,6 +7,6 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('profile/', views.profile, name='profile'),
     path('api/pubs/', views.pubs_api, name='pubs_api'),
-    path('api/save_visit', views.save_visit, name='save_visit'),
-    #path('api/delete_visit', views.delete_visit, name='delete_visit'),
+    path('api/save_visit/', views.save_visit, name='save_visit'),
+    path('api/delete_visit/', views.delete_visit, name='delete_visit'),
 ]
