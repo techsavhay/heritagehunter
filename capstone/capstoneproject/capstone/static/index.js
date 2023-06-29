@@ -119,7 +119,7 @@ function fetchPubData() {
                   });
                 });
               }
-            } else {
+            } else { // (IF THERE ARE NO POSTS THEN >)
               // Only add the form if it doesn't already exist in the pub.
               if (!pubElement.querySelector('.additional-content')) {
                 const expandedPubHeight = pubElement.offsetHeight * 4;
