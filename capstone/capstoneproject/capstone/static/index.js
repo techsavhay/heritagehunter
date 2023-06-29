@@ -84,6 +84,7 @@ function fetchPubData() {
                   if (date_visited == null) {
                     date_visited = '';
                   }
+                  
 
                   const contentElement = document.createElement('p');
                   contentElement.classList.add('post');
@@ -166,6 +167,8 @@ function fetchPubData() {
 
 function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   let form = pubElement.querySelector('.additional-content');
+  let newDate = date_visited;
+
   if (form) {
     form.remove();
   }
@@ -186,9 +189,17 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   }
 
   if (content && date_visited) {
+
+    // changing date formath from dd-mm-yy to yyyy-mm-dd so html date module accepts it for editing view
+    if (date_visited !="") {
+      let dateParts = date_visited.split("-");
+      newDate = dateParts.reverse().join("-");
+    }
+    console.log("newDate = ", newDate);
+
     form.innerHTML = `
       <label for="visit">Date of visit (optional):</label>
-      <input type="date" id="date_visited" name="date_visited" value="${date_visited}"><br>
+      <input type="date" id="date_visited" name="date_visited" value="${newDate}"><br>
       <textarea id="content" name="content" rows="3" cols="30" maxlength="280">${content}</textarea>
       <input type="submit" id="save-visit-button" value="Save visit">
     `;
