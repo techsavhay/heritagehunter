@@ -114,9 +114,16 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   }).then(data => {
       console.log(data);
       pubElement.classList.add('visited');
-      fetchPubData();
+
+      // Fetch the latest pub data after saving the visit
+      return fetchData('/api/pubs/', 'POST', {});
+
+    }).then(data => {
+      // Update pubData with the latest data and then update the displayed pubs
+      pubData = data;
+      updateDisplayedPubs();
   }).catch(error => {
-      console.error('Error saving visit:', error);
+      console.error('Error:', error);
   });
 
     dateVisitedInput.value = '';
@@ -279,22 +286,25 @@ function displayPubs(data){
   });
 }
 
+// displays pubs whose name or address is a match or partial match to the search box value.
+function updateDisplayedPubs() {
+  // Get the current filter value from the search input
+  var searchInput = document.getElementById('searchInput');
+  var filter = searchInput.value.toUpperCase();
+
+  // Filter the pubs and display the ones that match the filter
+  const filteredpubData = pubData.filter(pub =>
+    pub.pub.name.toUpperCase().includes(filter) || 
+    pub.pub.address.toUpperCase().includes(filter)
+  );
+  
+  displayPubs(filteredpubData);
+}
+
+
 // search box functionality, to search dynamically
 function dynamicSearch(){
-  console.log("pubData:",pubData)
-
-  // declare variables
-  var searchInput, filter;
-  searchInput = document.getElementById('searchInput');
-  filter = searchInput.value.toUpperCase();
-
-  const filteredpubData = pubData.filter(pub => 
-    (pub.pub.name.toUpperCase().includes(filter)) || 
-    (pub.pub.address.toUpperCase().includes(filter))
-  );
-  console.log("filteredpubData: ", filteredpubData)
-
-  displayPubs(filteredpubData);
+  updateDisplayedPubs();
 }
 
 
