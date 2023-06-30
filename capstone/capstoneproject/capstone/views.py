@@ -5,6 +5,7 @@ from .models import Post, Pub
 from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
+from django.db.models import Q
 
 
 def encode_pub(obj):
@@ -86,12 +87,19 @@ def save_visit(request):
 @login_required
 def delete_visit(request):
     data = json.loads(request.body)
-    post_id = data.get('id')
-    post = get_object_or_404(Post, id=post_id) #  return 404 error if  no post with  id
-    if post.owner != request.user:  # Checking if the current user is the owner of the post
-        return JsonResponse({"error": "Not authorized"}, status=401)
-    post.delete()
-    return JsonResponse({"Post deleted": True})
+    pub_id = data.get('pub_id')
+    user = request.user
+
+    # Query to find all posts related to a specific pub by a specific user
+    posts = Post.objects.filter(Q(pub_id=pub_id) & Q(owner=user))
+
+    if not posts: # if no matching posts found, return an error
+        return JsonResponse({"error": "No matching posts found"}, status=404)
+
+    # Delete all matching posts
+    posts.delete()
+
+    return JsonResponse({"Posts deleted": True})
 
 
 

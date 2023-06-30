@@ -235,7 +235,7 @@ function displayPubs(data){
 
               // create a delete button
               const deleteButton = document.createElement('button');
-              deleteButton.textContent = 'Delete Post';
+              deleteButton.textContent = 'Delete post & visit';
               deleteButton.classList.add('delete-button');
               contentElement.appendChild(deleteButton);
 
@@ -245,19 +245,23 @@ function displayPubs(data){
 
               // listener for delete visit button.
               deleteButton.addEventListener('click', function () {
-                //fetch request via fetchData function
+              //fetch request via fetchData function
                 fetchData('/api/delete_visit/', 'POST', {
-                  id: post.id,
+                  pub_id: pub.id,
               }).then(data => {
-                  fetchPubData();
+              // Fetch the latest pub data after deleting the visit
+              return fetchData('/api/pubs/', 'POST', {});
+              }).then(data => {
+              // Update pubData with the latest data and then update the displayed pubs
+              pubData = data;
+              updateDisplayedPubs();
               }).catch(error => {
                   console.error('There has been a problem with your fetch operation:', error);
               });
-              
-              });
-            }
-          } else 
-          //if pub doesnt have a post and is clicked, invoke create form funciton
+            });
+          }
+             } else 
+          //if pub doesnt have a post and is clicked, invoke create form function
           {
             if (!pubElement.querySelector('.additional-content')) {
               const expandedPubHeight = pubElement.offsetHeight * 4;
