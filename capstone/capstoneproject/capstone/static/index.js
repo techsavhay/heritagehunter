@@ -1,6 +1,9 @@
 // Defined outside because it's reused multiple times
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 
+// declaring global variable which will store all the pub data from the fetch request
+let pubData;
+
 // A function to make the fetch calls (DRY principle)
 function fetchData(url, method, body) {
   return fetch(url, {
@@ -22,7 +25,12 @@ function fetchData(url, method, body) {
 // fetches pub data from fetchdata function 
 function fetchPubData() {
   // POST request to fetchData function to get data
-  fetchData('/api/pubs/', 'POST', {}).then(displayPubs).catch(console.error);
+  fetchData('/api/pubs/', 'POST', {})
+    .then(data => {
+      pubData = data;  // Store the pub data in the global variable, can then be used by dynamicSearch etc
+      displayPubs(data);  
+    })
+    .catch(console.error);
 }
 
 // Function to create a form for editing a pub's details
@@ -270,6 +278,25 @@ function displayPubs(data){
     pubsContainer.appendChild(pubElement);
   });
 }
+
+// search box functionality, to search dynamically
+function dynamicSearch(){
+  console.log("pubData:",pubData)
+
+  // declare variables
+  var searchInput, filter;
+  searchInput = document.getElementById('searchInput');
+  filter = searchInput.value.toUpperCase();
+
+  const filteredpubData = pubData.filter(pub => 
+    (pub.pub.name.toUpperCase().includes(filter)) || 
+    (pub.pub.address.toUpperCase().includes(filter))
+  );
+  console.log("filteredpubData: ", filteredpubData)
+
+  displayPubs(filteredpubData);
+}
+
 
 // Calls fetchPubData() to start the process
 fetchPubData();
