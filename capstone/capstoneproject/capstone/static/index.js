@@ -33,6 +33,7 @@ function fetchPubData() {
       pubData = data.pubs;  // Store the pub data in the global variable, can then be used by dynamicSearch etc
       console.log(pubData);
       currentUserId = data.user_id;
+      console.log("currentUserId: ",currentUserId); // Logs the user's id to the console
       pubStats(currentUserId); // call pubStats function
       displayPubs(pubData);  
     })
