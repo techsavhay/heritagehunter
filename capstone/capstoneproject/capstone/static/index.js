@@ -4,6 +4,9 @@ const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 // declaring global variable which will store all the pub data from the fetch request
 let pubData;
 
+// global variable which will contain user id (updated as part of pubs api fetch request.)
+let currentUserId;
+
 // A function to make the fetch calls (DRY principle)
 function fetchData(url, method, body) {
   return fetch(url, {
@@ -27,8 +30,11 @@ function fetchPubData() {
   // POST request to fetchData function to get data
   fetchData('/api/pubs/', 'POST', {})
     .then(data => {
-      pubData = data;  // Store the pub data in the global variable, can then be used by dynamicSearch etc
-      displayPubs(data);  
+      pubData = data.pubs;  // Store the pub data in the global variable, can then be used by dynamicSearch etc
+      console.log(pubData);
+      currentUserId = data.user_id;
+      pubStats(currentUserId); // call pubStats function
+      displayPubs(pubData);  
     })
     .catch(console.error);
 }
@@ -309,6 +315,15 @@ function updateDisplayedPubs() {
 // search box functionality, to search dynamically
 function dynamicSearch(){
   updateDisplayedPubs();
+}
+
+//creates stats for how many pubs the user has visited, out of XXX many.
+function pubStats(userid){
+  const total3starpubs = pubData.length;
+  console.log("total3starpubs:", total3starpubs)
+
+  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
+  console.log("userVisitCount:", userVisitCount);
 }
 
 

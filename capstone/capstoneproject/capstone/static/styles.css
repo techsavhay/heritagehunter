@@ -30,7 +30,9 @@
     font-weight: 400;
 }
 
-
+.searchInput{
+  width: min-content;
+}
   
   /* search button */
   .btn-outline-success {

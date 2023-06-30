@@ -48,7 +48,7 @@ def profile(request):
 def pubs_api(request):
     current_user = request.user
 
-    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') #PUB OPEN & ***s FILTER HERE!
+    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') 
 
     pub_data = []
     for pub in pubs:
@@ -62,7 +62,14 @@ def pubs_api(request):
             'posts': [encode_post(post) for post in posts],
         })
 
-    return JsonResponse(pub_data, safe=False, json_dumps_params={'default': encode_pub})
+    # Return the current user's ID along with the pub data
+    response = {
+        'user_id': current_user.id,
+        'pubs': pub_data,
+    }
+
+    return JsonResponse(response, safe=False, json_dumps_params={'default': encode_pub})
+
 
 @require_POST
 @login_required
