@@ -127,7 +127,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
 
     }).then(data => {
       // Update pubData with the latest data and then update the displayed pubs
-      pubData = data;
+      pubData = data.pubs;
       updateDisplayedPubs();
   }).catch(error => {
       console.error('Error:', error);
