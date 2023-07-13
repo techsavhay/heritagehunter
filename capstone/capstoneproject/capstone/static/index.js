@@ -260,7 +260,7 @@ function displayPubs(data){
               return fetchData('/api/pubs/', 'POST', {});
               }).then(data => {
               // Update pubData with the latest data and then update the displayed pubs
-              pubData = data;
+              pubData = data.pubs;
               updateDisplayedPubs();
               }).catch(error => {
                   console.error('There has been a problem with your fetch operation:', error);

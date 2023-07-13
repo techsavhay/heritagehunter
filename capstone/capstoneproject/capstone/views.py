@@ -80,7 +80,7 @@ def save_visit(request):
         pub_id = data.get('pub_id')  # This is Django's internal ID field
         content = data.get('content', '').strip()
         date_visited = data.get('date_visited')
-        users_visited = data.get('')
+        #users_visited = data.get('')
 
         # Find the Pub instance with the given pub_id
         pub = Pub.objects.get(id=pub_id)
