@@ -118,6 +118,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       date_visited: date_visited,
       content: content,
       pub_id: pubId,
+      //users_visited: currentUserId,
   }).then(data => {
       console.log(data);
       pubElement.classList.add('visited');

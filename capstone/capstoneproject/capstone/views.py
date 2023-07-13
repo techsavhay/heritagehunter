@@ -76,11 +76,11 @@ def pubs_api(request):
 def save_visit(request):
 
         data = json.loads(request.body)
-
+        current_user = request.user
         pub_id = data.get('pub_id')  # This is Django's internal ID field
         content = data.get('content', '').strip()
         date_visited = data.get('date_visited')
-        #users_visited = data.get('')
+        
 
         # Find the Pub instance with the given pub_id
         pub = Pub.objects.get(id=pub_id)
@@ -88,7 +88,10 @@ def save_visit(request):
         # Create a new Post and assign the pub to it
         new_post = Post(content=content, owner=request.user, date_visited=date_visited, pub=pub)
         new_post.save()
-        
+
+        # Add the user to the pub's users_visited
+        pub.users_visited.add(current_user)
+        pub.save()
         return JsonResponse({"success": True})
 
 @require_POST
