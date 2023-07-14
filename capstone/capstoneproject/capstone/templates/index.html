@@ -46,9 +46,14 @@
         <div id="pubs-container">
             <!-- The pubs will be loaded here -->
         </div>
-        <div id="map-container"></div>
+        <div id="map-container">
+            <script async
+            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+            </script>
+        </div>
         <div id="pint-container">
             <!-- pint related content here -->
+            <h4 id="pinttitletop" class="pinttitle">Percentage of ⭐⭐⭐ heritage pubs visited</h4>
             <div id="animation-container">
                 <p id="animation-text"></p>
                 <svg
@@ -59,6 +64,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
                   viewBox="0 0 501 501"
+                  preserveAspectRatio="none"
                 >
                   <defs>
                     <clipPath id="clippath">
@@ -90,7 +96,7 @@
                     <path
                       id="animation-water"
                       d="M169.5,122.5l28.81,271.81s34.8,3.23,52.19,3.23,52.19-3.23,52.19-3.23l29.81-269.81s-35.46-4-82-4c-44,0-81,2-81,2Z"
-                      style="fill: #fbb017"
+                      style="fill: #fb8517"
                     />
                   </g>
                   <path
@@ -99,6 +105,7 @@
                   />
                 </svg>
         </div>
+        <h4 id="pinttitlebottom" class="pinttitle"></h4>
     </div>
     
     {% block content %}

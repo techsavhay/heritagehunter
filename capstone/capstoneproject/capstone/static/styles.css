@@ -147,30 +147,44 @@
   display: flex;
 }
 
+#pubs-container {
+  overflow-y: auto;
+}
+
+
 #pubs-container, #map-container, #pint-container {
   width: 33vw; /*  sets  width to 33% of the viewport width */
   height: calc(100vh - 90px);
   padding: 20px;
   box-sizing: border-box;
-  overflow-y: auto;
+  
 }
 
+#map-container, #pint-container {
+  overflow-y: hidden;
+}
+
+
 #map-container {
-  background-color: red; /* change as needed */
+  background-color: red; 
 }
 
 #pint-container {
-  background-color: white; /* change as needed */
+  background-color: white; 
+
 }
 
+.pinttitle {
+  text-align: center;
+}
 
 
 /* Pint glass animation */
 
 #animation-container {
   position: relative;
-  height: 400px;
-  width: 400px;
+  height: 100%; /* updated from 400px */
+  width: 100%;  /* updated from 400px */
 }
 #animation-text {
   position: absolute;
