@@ -140,3 +140,50 @@
   .edit-button {
     margin: 8px;
   }
+
+
+  /*second and third containers for map and pint glass*/
+#parent-container {
+  display: flex;
+}
+
+#pubs-container, #map-container, #pint-container {
+  width: 33vw; /*  sets  width to 33% of the viewport width */
+  height: calc(100vh - 90px);
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+}
+
+#map-container {
+  background-color: red; /* change as needed */
+}
+
+#pint-container {
+  background-color: white; /* change as needed */
+}
+
+
+
+/* Pint glass animation */
+
+#animation-container {
+  position: relative;
+  height: 400px;
+  width: 400px;
+}
+#animation-text {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%);
+  font-size: xx-large;
+  color: black;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+#animation-water {
+  transition: all 0.5s ease;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}

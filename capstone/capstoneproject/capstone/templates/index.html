@@ -42,9 +42,16 @@
             </div>
         </div>
     </nav>
-    <div id="pubs-container">
-        <!-- The pubs will be loaded here -->
+    <div id="parent-container">
+        <div id="pubs-container">
+            <!-- The pubs will be loaded here -->
+        </div>
+        <div id="map-container"></div>
+        <div id="pint-container">
+            <!-- pint related content here -->
+        </div>
     </div>
+    
     {% block content %}
     <!-- Default content for index.html will go here, currently profile page -->
     {% endblock %}

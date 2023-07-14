@@ -7,6 +7,9 @@ let pubData;
 // global variable which will contain user id (updated as part of pubs api fetch request.)
 let currentUserId;
 
+// global variable to store pubs visited percentage
+let pubsVisitedPercentage = 0;
+
 // A function to make the fetch calls (DRY principle)
 function fetchData(url, method, body) {
   return fetch(url, {
@@ -326,7 +329,31 @@ function pubStats(userid){
 
   const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
   console.log("userVisitCount:", userVisitCount);
+
+  const pubsVisitedPercentage = ((userVisitCount / total3starpubs)*100)
+  console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+
+  return {total3starpubs, userVisitCount, pubsVisitedPercentage};
 }
+
+document.addEventListener('DOMContentLoaded', (event) => {
+  // pint glass animation
+  const water = document.querySelector("#animation-water");
+  const animationText = document.querySelector("#animation-text");
+
+  let percentage = pubsVisitedPercentage;
+  if (percentage > 1) {
+    percentage = 1;
+  } else if (percentage < 0) {
+    percentage = 0;
+  }
+  water.style.transform = `scaleY(${percentage})`;
+  setInterval(() => {
+    animationText.innerHTML = `${(
+      water.getBoundingClientRect().height / 2.21
+    ).toFixed(0)}%`;
+  }, 50);
+});
 
 
 // Calls fetchPubData() to start the process
