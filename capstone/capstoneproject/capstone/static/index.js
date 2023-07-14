@@ -133,6 +133,13 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       // Update pubData with the latest data and then update the displayed pubs
       pubData = data.pubs;
       updateDisplayedPubs();
+      
+      // Update the pint glass animation
+      pubStats(currentUserId);
+
+      console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+
+
   }).catch(error => {
       console.error('Error:', error);
   });
@@ -266,6 +273,12 @@ function displayPubs(data){
               // Update pubData with the latest data and then update the displayed pubs
               pubData = data.pubs;
               updateDisplayedPubs();
+
+              console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+
+              // Update the pint glass animation
+              pubStats(currentUserId);
+
               }).catch(error => {
                   console.error('There has been a problem with your fetch operation:', error);
               });
@@ -322,7 +335,7 @@ function dynamicSearch(){
   updateDisplayedPubs();
 }
 
-//creates stats for how many pubs the user has visited, out of XXX many.
+//creates stats for how many pubs the user has visited, out of XXX many and others.
 function pubStats(userid){
   const total3starpubs = pubData.length;
   console.log("total3starpubs:", total3starpubs)
@@ -330,31 +343,31 @@ function pubStats(userid){
   const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
   console.log("userVisitCount:", userVisitCount);
 
-  const pubsVisitedPercentage = ((userVisitCount / total3starpubs)*100)
+   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100)) //working out percentage and rounding it to nearest whole number.
   console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+
+  // update the pint glass animation now
+  updatePintGlassAnimation();
 
   return {total3starpubs, userVisitCount, pubsVisitedPercentage};
 }
 
-document.addEventListener('DOMContentLoaded', (event) => {
-  // pint glass animation
+function updatePintGlassAnimation() {
   const water = document.querySelector("#animation-water");
   const animationText = document.querySelector("#animation-text");
 
-  let percentage = pubsVisitedPercentage;
+  let percentage = pubsVisitedPercentage / 100;
   if (percentage > 1) {
     percentage = 1;
   } else if (percentage < 0) {
     percentage = 0;
   }
   water.style.transform = `scaleY(${percentage})`;
-  setInterval(() => {
-    animationText.innerHTML = `${(
-      water.getBoundingClientRect().height / 2.21
-    ).toFixed(0)}%`;
-  }, 50);
+  animationText.innerHTML = `${pubsVisitedPercentage}%`;
+}
+
+// calls main function
+document.addEventListener('DOMContentLoaded', (event) => {
+  // Calls fetchPubData() to start the process
+  fetchPubData();
 });
-
-
-// Calls fetchPubData() to start the process
-fetchPubData();

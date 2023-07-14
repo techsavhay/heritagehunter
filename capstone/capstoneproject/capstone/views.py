@@ -107,6 +107,13 @@ def delete_visit(request):
     if not posts: # if no matching posts found, return an error
         return JsonResponse({"error": "No matching posts found"}, status=404)
 
+    # Find the Pub instance with the given pub_id
+    pub = Pub.objects.get(id=pub_id)
+
+    # Delete the user from the pub's users_visited
+    pub.users_visited.remove(user)
+    pub.save()
+
     # Delete all matching posts
     posts.delete()
 
