@@ -343,7 +343,7 @@ function pubStats(userid){
   const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
   console.log("userVisitCount:", userVisitCount);
 
-   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100)) //working out percentage and rounding it to nearest whole number.
+   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
   console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
   // update the pint glass animation now

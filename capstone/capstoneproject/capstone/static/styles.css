@@ -186,10 +186,12 @@
   height: 100%; /* updated from 400px */
   width: 100%;  /* updated from 400px */
   overflow-x: hidden;
-  /*overflow-y: hidden;*/
+  justify-content: center; 
+  align-items: center; 
+
 }
 #animation-text {
-  position: absolute;
+  position: absolute; 
   left: 50%;
   top: 40%;
   transform: translate(-50%);
@@ -197,6 +199,8 @@
   color: black;
   font-family: sans-serif;
   font-weight: bold;
+  z-index: 1; 
+  
 }
 #animation-water {
   transition: all 0.5s ease;
