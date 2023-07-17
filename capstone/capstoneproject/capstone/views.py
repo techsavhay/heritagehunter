@@ -37,7 +37,12 @@ def encode_post(obj):
 
 def index(request):
     user = request.user
-    return render(request, "index.html", {'user': user})
+    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') 
+    context = {
+        'user': user, 
+        'pubs': pubs,
+    }
+    return render(request, "index.html", context)
 
 #Profile page
 @login_required

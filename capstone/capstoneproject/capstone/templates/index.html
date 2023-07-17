@@ -49,11 +49,16 @@
         <div id="map-container">
 
           <script>
-            function initMap() {
-                var map = new google.maps.Map(document.getElementById('map-container'), {
-                    center: {lat: 54.09341667, lng: -2.89477778},
-                    zoom: 6
-                });
+
+                // Add a marker for each pub
+                {% for pub in pubs %}
+                    new google.maps.Marker({
+                        position: {lat: {{ pub.latitude }}, lng: {{ pub.longitude }}},
+                        map: map,
+                        title: "{{ pub.name }}"
+                    });
+                {% endfor %}
+                
             }
         </script>
             <script async
