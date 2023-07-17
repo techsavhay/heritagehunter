@@ -15,6 +15,8 @@ def encode_pub(obj):
             'custom_pub_id': obj.custom_pub_id, #NEEDS TO BE UPDATED BEFORE BEING USED
             'name': obj.name,
             'address': obj.address,
+            'latitude': obj.latitude,
+            'longitude': obj.longitude,
             'inventory_stars': obj.inventory_stars,
             'url': obj.url,
             'description': obj.description,
