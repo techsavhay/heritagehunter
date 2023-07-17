@@ -185,6 +185,8 @@
   position: relative;
   height: 100%; /* updated from 400px */
   width: 100%;  /* updated from 400px */
+  overflow-x: hidden;
+  /*overflow-y: hidden;*/
 }
 #animation-text {
   position: absolute;
@@ -200,4 +202,12 @@
   transition: all 0.5s ease;
   transform-box: fill-box;
   transform-origin: bottom;
+}
+
+svg {
+  margin-left: 80px; /* to centre the pint glass (crops shadow) */
+  width: 90%; /* reduce width to 80% of its original size */
+  height: 90%; /* reduce height to 80% of its original size */
+}
+  
 }
