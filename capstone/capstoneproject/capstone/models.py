@@ -12,6 +12,8 @@ class Pub(models.Model):
     custom_pub_id = models.CharField(max_length=32, unique=True)
     name = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=200, blank=False)
+    latitude = models.FloatField(null=True, blank=True)
+    longitude = models.FloatField(null=True, blank=True)
     inventory_stars = models.IntegerField(default=0, null=True)
     url = models.URLField(blank=False)
     description = models.TextField(blank=True)
