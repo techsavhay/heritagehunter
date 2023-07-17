@@ -47,8 +47,17 @@
             <!-- The pubs will be loaded here -->
         </div>
         <div id="map-container">
+
+          <script>
+            function initMap() {
+                var map = new google.maps.Map(document.getElementById('map-container'), {
+                    center: {lat: -34.397, lng: 150.644},
+                    zoom: 8
+                });
+            }
+        </script>
             <script async
-            src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap">
+            src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap">
             </script>
         </div>
         <div id="pint-container">
