@@ -322,7 +322,6 @@ function displayPubs(data){
 }
 
 
-
 // display the map with markers
 function displayMap(pubData) {
   //clear exisiting map markers
@@ -342,11 +341,19 @@ pubData.forEach(item => {
   // DEBUGGING STATEMENT WITH COORDS FOR EACH PUB console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
 
 
+  let icon;
+  let userhasvisited = pub.users_visited.includes(currentUserId);
+  if (userhasvisited) {
+    icon = '/static/GREEN-marker.png';
+  }
+  
   let marker = new google.maps.Marker({
     position: {lat: lat, lng: lng},
     map,
     title: name,
+    icon: icon,
   });
+  
 
   let InfoWindow = new google.maps.InfoWindow({
     content: name,
@@ -364,10 +371,7 @@ pubData.forEach(item => {
   for (let i = 0; i < markers.length; i++) {
     markers[i].setMap(map);
   }
-
-
 }
-
 
 
 // displays pubs whose name or address is a match or partial match to the search box value.
