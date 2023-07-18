@@ -321,16 +321,7 @@ function displayPubs(data){
   });
 }
 
-// initilise the map
-function initMap() {
-  map = new google.maps.Map(document.getElementById('map-container'), {
-      center: {
-          lat: 54.09341667,
-          lng: -2.89477778
-      },
-      zoom: 6
-  });
-}
+
 
 // display the map with markers
 function displayMap(pubData) {
@@ -423,11 +414,27 @@ function updatePintGlassAnimation() {
   animationText.innerHTML = `${pubsVisitedPercentage}%`;
 }
 
+// initilise the map
+window.initMap = function() {
+  map = new google.maps.Map(document.getElementById('map-container'), {
+      center: {
+          lat: 54.09341667,
+          lng: -2.89477778
+      },
+      zoom: 6
+  });
+}
+
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
   // Calls fetchPubData() to start the process of the whole app
   fetchPubData();
-
-  // initialise the map
-  	initMap();
 });
+
+// Create the script tag, set the appropriate attributes
+var script = document.createElement('script');
+script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap';
+script.defer = true;
+
+// Append the 'script' element to 'head'
+document.head.appendChild(script);
