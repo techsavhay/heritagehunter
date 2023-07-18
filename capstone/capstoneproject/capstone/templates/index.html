@@ -47,23 +47,11 @@
             <!-- The pubs will be loaded here -->
         </div>
         <div id="map-container">
-
-          <script>
-
-                // Add a marker for each pub
-                {% for pub in pubs %}
-                    new google.maps.Marker({
-                        position: {lat: {{ pub.latitude }}, lng: {{ pub.longitude }}},
-                        map: map,
-                        title: "{{ pub.name }}"
-                    });
-                {% endfor %}
-                
-            }
-        </script>
-            <script async
-            src="https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap">
-            </script>
+          <!-- The map will be loaded here -->
+          </script> <script async
+        src = "https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap" >
+        	</script> 
+        
         </div>
         <div id="pint-container">
             <!-- pint related content here -->

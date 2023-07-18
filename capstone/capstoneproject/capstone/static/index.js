@@ -4,6 +4,12 @@ const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 // declaring global variable which will store all the pub data from the fetch request
 let pubData;
 
+// global variable to hold map
+let map;
+
+// global variable for map markers
+let markers = [];
+
 // global variable which will contain user id (updated as part of pubs api fetch request.)
 let currentUserId;
 
@@ -38,7 +44,8 @@ function fetchPubData() {
       currentUserId = data.user_id;
       console.log("currentUserId: ",currentUserId); // Logs the user's id to the console
       pubStats(currentUserId); // call pubStats function
-      displayPubs(pubData);  
+      displayPubs(pubData); 
+      displayMap(pubData)
     })
     .catch(console.error);
 }
@@ -314,6 +321,56 @@ function displayPubs(data){
   });
 }
 
+// initilise the map
+function initMap() {
+  map = new google.maps.Map(document.getElementById('map-container'), {
+      center: {
+          lat: 54.09341667,
+          lng: -2.89477778
+      },
+      zoom: 6
+  });
+}
+
+// display the map with markers
+function displayMap(pubData) {
+  //clear exisiting map markers
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(null);
+  }
+
+  // Clear the markers array
+  markers = [];
+
+// Add a marker for each pub
+pubData.forEach(item => {
+  const pub = item.pub;
+  const name = pub.name;
+  const  lat = pub.latitude;
+  const lng = pub.longitude;
+  // DEBUGGING STATEMENT WITH COORDS FOR EACH PUB console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
+
+
+  let marker = new google.maps.Marker({
+    position: {lat: lat, lng: lng},
+    map,
+    title: name,
+  });
+
+        // Store the marker for future use
+        markers.push(marker);
+})
+
+  // Sets the map on all markers in the array.
+  for (let i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+
+
+}
+
+
+
 // displays pubs whose name or address is a match or partial match to the search box value.
 function updateDisplayedPubs() {
   // Get the current filter value from the search input
@@ -368,6 +425,9 @@ function updatePintGlassAnimation() {
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
-  // Calls fetchPubData() to start the process
+  // Calls fetchPubData() to start the process of the whole app
   fetchPubData();
+
+  // initialise the map
+  	initMap();
 });
