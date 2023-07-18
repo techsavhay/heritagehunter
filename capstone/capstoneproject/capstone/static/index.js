@@ -348,6 +348,14 @@ pubData.forEach(item => {
     title: name,
   });
 
+  let InfoWindow = new google.maps.InfoWindow({
+    content: name,
+  })
+
+  marker.addListener("click", function() {
+    InfoWindow.open(map, marker);
+});
+
         // Store the marker for future use
         markers.push(marker);
 })
