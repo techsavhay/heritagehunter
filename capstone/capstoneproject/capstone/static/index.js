@@ -10,6 +10,10 @@ let map;
 // global variable for map markers
 let markers = [];
 
+// global variable for tracking if a marker was clicked (to prevent panTo)
+let markerClicked = false;
+
+
 // global map for markers
 let markerMap = new Map();
 
@@ -245,7 +249,7 @@ function displayPubs(data){
         pubElement.classList.toggle('pub-expanded', !isExpanded);
 
     // zoom map out before then zooming into clicked marker
-    if (!isExpanded){
+    if (!isExpanded && !markerClicked) {
       const clickedMarker = markerMap.get(custom_pub_id);
       if (clickedMarker){
         // Zoom out before panning to new location
@@ -398,17 +402,14 @@ pubData.forEach(item => {
   })
 
   marker.addListener("click", function() {
-
-  // Set content and open the global InfoWindow
-  InfoWindow.setContent(name);
-  InfoWindow.open(map, marker);
-  scrollToPub(custom_pub_id);
-  
-    
-    // Open the new InfoWindow
+    markerClicked = true;
+    // Set content and open the InfoWindow
+    InfoWindow.setContent(name);
     InfoWindow.open(map, marker);
     scrollToPub(custom_pub_id);
-  });
+    markerClicked = false;
+});
+
   
 
         // Store the marker for future use
