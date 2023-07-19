@@ -10,6 +10,9 @@ let map;
 // global variable for map markers
 let markers = [];
 
+// global map for markers
+let markerMap = new Map();
+
 // global variable which will contain user id (updated as part of pubs api fetch request.)
 let currentUserId;
 
@@ -217,6 +220,13 @@ function displayPubs(data){
       const clickedElement = event.target;
       const clickedParent = clickedElement.parentElement;
 
+      const clickedMarker = markerMap.get(custom_pub_id);
+      if (clickedMarker){
+        map.panTo(clickedMarker.getPosition());
+        map.setZoom(15);
+      }
+
+
       if (//Makes sure certain elements are ignored when listening for clicks to collapse the entry
         !clickedElement.classList.contains('additional-content') &&
         !clickedElement.classList.contains('edit-button') &&
@@ -366,6 +376,9 @@ pubData.forEach(item => {
 
   // add custom_id_property to the map marker
   marker.custom_pub_id = custom_pub_id;
+
+  // set custom pub id as a key and the marker as the value for use in panTo map
+  markerMap.set(custom_pub_id, marker);
   
 
   let InfoWindow = new google.maps.InfoWindow({
