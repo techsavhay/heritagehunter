@@ -344,7 +344,7 @@ pubData.forEach(item => {
   let icon;
   let userhasvisited = pub.users_visited.includes(currentUserId);
   if (userhasvisited) {
-    icon = '/static/GREEN-marker.png';
+    icon = '/static/GREEN-marker3.png';
   }
   
   let marker = new google.maps.Marker({
