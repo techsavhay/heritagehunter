@@ -186,10 +186,14 @@ function displayPubs(data){
 
     const name = pub.name;
     const address = pub.address;
+    const custom_pub_id = pub.custom_pub_id;
 
     // Creates a div for each pub
     const pubElement = document.createElement('div');
     pubElement.classList.add('pub');
+
+    // gives each pub element a custom_pub_id (from model)
+    pubElement.id = custom_pub_id;
 
     // Assigns the pub's name and address to the new div
     pubElement.innerHTML = `
