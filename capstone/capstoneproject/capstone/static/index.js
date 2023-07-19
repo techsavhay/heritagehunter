@@ -16,6 +16,10 @@ let currentUserId;
 // global variable to store pubs visited percentage
 let pubsVisitedPercentage = 0;
 
+// global variable for map marker info window (will help to track only one being opened at a time)
+let InfoWindow;
+
+
 // A function to make the fetch calls (DRY principle)
 function fetchData(url, method, body) {
   return fetch(url, {
@@ -369,10 +373,18 @@ pubData.forEach(item => {
   })
 
   marker.addListener("click", function() {
+
+  // Set content and open the global InfoWindow
+  InfoWindow.setContent(name);
+  InfoWindow.open(map, marker);
+  scrollToPub(custom_pub_id);
+  
+    
+    // Open the new InfoWindow
     InfoWindow.open(map, marker);
     scrollToPub(custom_pub_id);
-
-});
+  });
+  
 
         // Store the marker for future use
         markers.push(marker);
@@ -384,8 +396,17 @@ pubData.forEach(item => {
   }
 }
 
+// clears the searchbox, scrolls the pub whose map marker was clicked to the top of the window and then clicks it.
 function scrollToPub(custom_pub_id) {
   document.getElementById('searchInput').value ="";
+
+  // Manually trigger 'input' event
+  const event = new Event('input', {
+    bubbles: true,
+    cancelable: true,
+  });
+  searchInput.dispatchEvent(event);
+
   const selectedPub = document.getElementById(custom_pub_id);
   selectedPub.scrollIntoView({behavior: "smooth", block: "start"})
   selectedPub.click()
@@ -452,6 +473,8 @@ window.initMap = function() {
       },
       zoom: 6
   });
+    // Initialize InfoWindow 
+    InfoWindow = new google.maps.InfoWindow();
 }
 
 // calls main function
