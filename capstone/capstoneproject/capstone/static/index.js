@@ -344,8 +344,8 @@ pubData.forEach(item => {
   const name = pub.name;
   const  lat = pub.latitude;
   const lng = pub.longitude;
+  const custom_pub_id = pub.custom_pub_id;
   // DEBUGGING STATEMENT WITH COORDS FOR EACH PUB console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
-
 
   let icon;
   let userhasvisited = pub.users_visited.includes(currentUserId);
@@ -359,6 +359,9 @@ pubData.forEach(item => {
     title: name,
     icon: icon,
   });
+
+  // add custom_id_property to the map marker
+  marker.custom_pub_id = custom_pub_id;
   
 
   let InfoWindow = new google.maps.InfoWindow({
@@ -367,6 +370,8 @@ pubData.forEach(item => {
 
   marker.addListener("click", function() {
     InfoWindow.open(map, marker);
+    scrollToPub(custom_pub_id);
+
 });
 
         // Store the marker for future use
@@ -379,6 +384,12 @@ pubData.forEach(item => {
   }
 }
 
+function scrollToPub(custom_pub_id) {
+  document.getElementById('searchInput').value ="";
+  const selectedPub = document.getElementById(custom_pub_id);
+  selectedPub.scrollIntoView({behavior: "smooth", block: "start"})
+  selectedPub.click()
+}
 
 // displays pubs whose name or address is a match or partial match to the search box value.
 function updateDisplayedPubs() {
