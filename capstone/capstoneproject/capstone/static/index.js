@@ -220,11 +220,7 @@ function displayPubs(data){
       const clickedElement = event.target;
       const clickedParent = clickedElement.parentElement;
 
-      const clickedMarker = markerMap.get(custom_pub_id);
-      if (clickedMarker){
-        map.panTo(clickedMarker.getPosition());
-        map.setZoom(15);
-      }
+
 
 
       if (//Makes sure certain elements are ignored when listening for clicks to collapse the entry
@@ -247,6 +243,21 @@ function displayPubs(data){
         const isExpanded = pubElement.classList.contains('pub-expanded');
 
         pubElement.classList.toggle('pub-expanded', !isExpanded);
+
+    // zoom map out before then zooming into clicked marker
+    if (!isExpanded){
+      const clickedMarker = markerMap.get(custom_pub_id);
+      if (clickedMarker){
+        // Zoom out before panning to new location
+        map.setZoom(7);
+        setTimeout(function() {
+          map.panTo(clickedMarker.getPosition());
+          setTimeout(function() {
+            map.setZoom(11);
+          }, 500);
+        }, 500);
+      }
+  }
 
         // logic to resize pub container based on screen size etc
         const containerHeight = pubsContainer.offsetHeight;
@@ -314,6 +325,7 @@ function displayPubs(data){
              } else 
           //if pub doesnt have a post and is clicked, invoke create form function
           {
+
             if (!pubElement.querySelector('.additional-content')) {
               const expandedPubHeight = pubElement.offsetHeight * 4;
               pubElement.style.height = `${expandedPubHeight}px`;
