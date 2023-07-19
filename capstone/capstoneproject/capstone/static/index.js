@@ -45,7 +45,7 @@ function fetchPubData() {
       console.log("currentUserId: ",currentUserId); // Logs the user's id to the console
       pubStats(currentUserId); // call pubStats function
       displayPubs(pubData); 
-      displayMap(pubData)
+      displayMap(pubData);
     })
     .catch(console.error);
 }
@@ -140,7 +140,8 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       // Update pubData with the latest data and then update the displayed pubs
       pubData = data.pubs;
       updateDisplayedPubs();
-      
+      displayMap(pubData)
+
       // Update the pint glass animation
       pubStats(currentUserId);
 
@@ -280,6 +281,7 @@ function displayPubs(data){
               // Update pubData with the latest data and then update the displayed pubs
               pubData = data.pubs;
               updateDisplayedPubs();
+              displayMap(pubData);
 
               console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
