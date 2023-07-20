@@ -192,8 +192,17 @@ function displayPubs(data){
   // Loops through the pubs to create DOM elements for each
   sorted_pubs.forEach(item => {
     const pub = item.pub;
-    // Gets the most recent post (in case a post has been deleted or edited)
-    const post = item.posts[item.posts.length - 1];
+
+  // Logic to get posts by current user
+  const currentUserPosts = item.posts.filter(post => post.owner === currentUserId);
+
+  // Get the most recent post by the current user
+  const post = currentUserPosts[currentUserPosts.length - 1];
+
+  // checks if current visitor has visited the current pub in the loop and returns True or false.
+  const visited = item.pub.users_visited.includes(currentUserId);
+
+
 
     const name = pub.name;
     const address = pub.address;
@@ -213,7 +222,7 @@ function displayPubs(data){
     `;
 
     // If the pub has been visited, it gets a 'visited' class
-    if (post) {
+    if (visited) {
       pubElement.classList.add('visited');
     } else {
       pubElement.classList.remove('visited');
@@ -460,14 +469,14 @@ function dynamicSearch(){
 }
 
 //creates stats for how many pubs the user has visited, out of XXX many and others.
-function pubStats(userid){
+function pubStats(currentUserId){
   const total3starpubs = pubData.length;
   console.log("total3starpubs:", total3starpubs)
 
-  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
+  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(currentUserId)).length;
   console.log("userVisitCount:", userVisitCount);
 
-   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
+   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to one decimal place.
   console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
   // update the pint glass animation now
