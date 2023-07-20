@@ -17,6 +17,9 @@ let markerClicked = false;
 // global map for markers
 let markerMap = new Map();
 
+// global content variable
+let content = ""
+
 // global variable which will contain user id (updated as part of pubs api fetch request.)
 let currentUserId;
 
@@ -193,14 +196,18 @@ function displayPubs(data){
   sorted_pubs.forEach(item => {
     const pub = item.pub;
 
-  // Logic to get posts by current user
+  /* Gets the most recent post (in case a post has been deleted or edited)
+  const post = item.posts[item.posts.length - 1]; */
+
+
   const currentUserPosts = item.posts.filter(post => post.owner === currentUserId);
 
-  // Get the most recent post by the current user
-  const post = currentUserPosts[currentUserPosts.length - 1];
+  console.log("currentUserPosts:", currentUserPosts);
 
-  // checks if current visitor has visited the current pub in the loop and returns True or false.
-  const visited = item.pub.users_visited.includes(currentUserId);
+  // Get the most recent post by the current user
+  let post = currentUserPosts[currentUserPosts.length - 1];
+
+  console.log("Latest pub post:", post);
 
 
 
@@ -222,7 +229,7 @@ function displayPubs(data){
     `;
 
     // If the pub has been visited, it gets a 'visited' class
-    if (visited) {
+    if (post) {
       pubElement.classList.add('visited');
     } else {
       pubElement.classList.remove('visited');
@@ -278,16 +285,22 @@ function displayPubs(data){
 
         if (pubElement.classList.contains('pub-expanded')) {
           // if a pub has a post and is clicked
-          if (post) {
+          if (visited) {
             if (!pubElement.querySelector('.post')) {
               const expandedPubHeight = pubElement.offsetHeight * 4;
               pubElement.style.height = `${expandedPubHeight}px`;
 
-              const content = post.content;
-              let date_visited = post.date_visited;
-              if (date_visited == null) {
-                date_visited = '';
+              if (post) {
+                content = post.content;
               }
+              let date_visited;
+              if (post) {
+                date_visited = post.date_visited;
+                if (date_visited == null) {
+                  date_visited = '';
+                }
+              }
+              
               
               // create elements and show the date visited and pub review.
               const contentElement = document.createElement('p');

@@ -59,7 +59,7 @@ def pubs_api(request):
 
     pub_data = []
     for pub in pubs:
-        posts = pub.pub_posts.all()
+        posts = pub.pub_posts.all() #.order_by('created_at') ENABLE ONCE POSTS ARE WORKING? SHOULD BE THE BETTER SYSTEM IN THE LONG TERM.
         if posts is not None:
             posts = posts.filter(owner=current_user)
         else:
