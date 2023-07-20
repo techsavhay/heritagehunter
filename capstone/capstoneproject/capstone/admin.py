@@ -11,16 +11,15 @@ admin.site.register(User, BaseUserAdmin)
 
 @admin.register(Pub)
 class PubAdmin(admin.ModelAdmin):
-    list_display = ['name', 'address', 'inventory_stars', 'open', ]
+    list_display = ['name', 'address', 'inventory_stars', 'open']
     list_filter = ['inventory_stars', 'open']
     search_fields = ['name', 'address',]
-
 
 @admin.register(Post)
 class PostAdmin(admin.ModelAdmin):
     list_display = ['content', 'date_visited', 'owner', 'created_at', 'get_pub_name']
     list_filter = ['owner', 'date_visited']
-    search_fields = ['content', 'owner__username', 'pub__name']
+    search_fields = ['content', 'owner__username']
 
     def get_pub_name(self, obj):
         return obj.pub.name

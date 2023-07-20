@@ -17,9 +17,6 @@ let markerClicked = false;
 // global map for markers
 let markerMap = new Map();
 
-// global content variable
-let content = ""
-
 // global variable which will contain user id (updated as part of pubs api fetch request.)
 let currentUserId;
 
@@ -195,21 +192,8 @@ function displayPubs(data){
   // Loops through the pubs to create DOM elements for each
   sorted_pubs.forEach(item => {
     const pub = item.pub;
-
-  /* Gets the most recent post (in case a post has been deleted or edited)
-  const post = item.posts[item.posts.length - 1]; */
-
-
-  const currentUserPosts = item.posts.filter(post => post.owner === currentUserId);
-
-  console.log("currentUserPosts:", currentUserPosts);
-
-  // Get the most recent post by the current user
-  let post = currentUserPosts[currentUserPosts.length - 1];
-
-  console.log("Latest pub post:", post);
-
-
+    // Gets the most recent post (in case a post has been deleted or edited)
+    const post = item.posts[item.posts.length - 1];
 
     const name = pub.name;
     const address = pub.address;
@@ -285,22 +269,16 @@ function displayPubs(data){
 
         if (pubElement.classList.contains('pub-expanded')) {
           // if a pub has a post and is clicked
-          if (visited) {
+          if (post) {
             if (!pubElement.querySelector('.post')) {
               const expandedPubHeight = pubElement.offsetHeight * 4;
               pubElement.style.height = `${expandedPubHeight}px`;
 
-              if (post) {
-                content = post.content;
+              const content = post.content;
+              let date_visited = post.date_visited;
+              if (date_visited == null) {
+                date_visited = '';
               }
-              let date_visited;
-              if (post) {
-                date_visited = post.date_visited;
-                if (date_visited == null) {
-                  date_visited = '';
-                }
-              }
-              
               
               // create elements and show the date visited and pub review.
               const contentElement = document.createElement('p');
@@ -482,14 +460,14 @@ function dynamicSearch(){
 }
 
 //creates stats for how many pubs the user has visited, out of XXX many and others.
-function pubStats(currentUserId){
+function pubStats(userid){
   const total3starpubs = pubData.length;
   console.log("total3starpubs:", total3starpubs)
 
-  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(currentUserId)).length;
+  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
   console.log("userVisitCount:", userVisitCount);
 
-   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to one decimal place.
+   pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
   console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
   // update the pint glass animation now
