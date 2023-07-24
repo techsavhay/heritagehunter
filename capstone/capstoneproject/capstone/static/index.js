@@ -109,11 +109,11 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
   form.innerHTML = `
     <label for="visit">Date of visit (optional):</label>
     <input type="date" id="date_visited" name="date_visited" ${dateValue}><br>
-    <textarea id="content" name="content" rows="3" cols="30" maxlength="280" ${placeholderText}>${textValue}</textarea>
+    <textarea id="content" name="content" maxlength="280" ${placeholderText}>${textValue}</textarea>
     <input type="submit" id="save-visit-button" value="Save visit">
   `;
   
-  //logic to resize textarea based on window dimensions.
+  /* /logic to resize textarea based on window dimensions.
   const pubWidth = pubElement.offsetWidth;
   const pubHeight = pubElement.offsetHeight;
   const textareaWidthPercentage = 90;
@@ -123,7 +123,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
 
   const textarea = form.querySelector('textarea');
   textarea.style.width = `${textareaWidth}px`;
-  textarea.style.height = `${textareaHeight}px`;
+  textarea.style.height = `${textareaHeight}px`; */
 
   // listener for Save visit button
   form.addEventListener('submit', event => {
@@ -274,8 +274,8 @@ function displayPubs(data){
           // if a pub has a post and is clicked
           if (userHasVisited) {
             if (!pubElement.querySelector('.post')) {
-              const expandedPubHeight = pubElement.offsetHeight * 4;
-              pubElement.style.height = `${expandedPubHeight}px`;
+              //const expandedPubHeight = pubElement.offsetHeight * 4;
+              //pubElement.style.height = `${expandedPubHeight}px`;
 
               const content = post.content;
               let date_visited = post.date_visited;
@@ -334,8 +334,8 @@ function displayPubs(data){
           {
 
             if (!pubElement.querySelector('.additional-content')) {
-              const expandedPubHeight = pubElement.offsetHeight * 4;
-              pubElement.style.height = `${expandedPubHeight}px`;
+             // const expandedPubHeight = pubElement.offsetHeight * 4;
+              //pubElement.style.height = `${expandedPubHeight}px`;
 
               createForm(pubElement, pub.id, fetchPubData);
             }

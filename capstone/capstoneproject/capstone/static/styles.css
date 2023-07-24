@@ -93,46 +93,59 @@
     
     .pub {
       border: 2px solid #000000;
-      padding: 3px;
       margin-bottom: 8px;
       background-color: #6580b1;
-      overflow: hidden;
-      /* max-height: 200px;  /* ADJUST */
-      /*transition: max-height 1.9s ease-in-out;*/
+      max-height: 200px;  /* ADJUST */
+      transition: max-height 1.0s ease-in-out;
     }
 
     .visited {
       background-color: #378137;
     }
-    
-    .pub-expanded {
+
+    .pub, .pub-expanded {
+      padding: 3px 3px 3px 10px;
       border: 2px solid #000000;
-      padding: 3px;
       margin-bottom: 8px;
+      position: relative;
+    }
+
+    .pub-expanded {
       background-color: #ce934f;
       color: rgb(0, 0, 0);
-      /* max-height: 500px;  /* larger than BIGGEST content */
+      min-height: auto;
+      max-height: none;  /* TBC */
+      /* transition: max-height 0.9s ease-in-out; */
 
+    }
+
+    .pub-expanded .additional-content textarea {
+      /* max-height: 40%;  Ending height */
     }
     
     .additional-content {
       position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between; /* this will push the button to the bottom */
+      align-items: start;
+
     }
 
     .additional-content input[type="date"] {
-      margin: 15px;
+      margin: 1%; /* space around the date input */
     }
 
     .additional-content textarea {
-      margin: 15px;
+      margin: 5% auto;
+      margin-bottom: 30px; 
+      width:90%;
+      /*max-height: 20px;  Starting height */
+      transition: max-height 0.9s ease-in-out;
     }
 
     .additional-content input[type="submit"] {
-      position: absolute;
-      bottom: -20px;
-      right: 0;
-      margin-right: 15px;
-      margin-left: 30px;
+      align-self: flex-end;
     }
 
     .delete-button {
@@ -150,16 +163,13 @@
   display: flex;
 }
 
-#pubs-container {
-  overflow-y: auto;
-}
-
 
 #pubs-container, #map-container, #pint-container {
   width: 33vw; /*  sets  width to 33% of the viewport width */
   height: calc(100vh - 110px);
   padding: 20px;
   box-sizing: border-box;
+  overflow-y: auto;
   
 }
 
