@@ -21,6 +21,6 @@ class Pub(models.Model):
     photos = models.ImageField(upload_to='pub_photos', blank=True)
     open = models.BooleanField(default=True)
     listed = models.CharField(max_length=100, blank=True)
-    users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='visited_pubs')
+    users_visited = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name='visited_pubs', blank=True)
  
 

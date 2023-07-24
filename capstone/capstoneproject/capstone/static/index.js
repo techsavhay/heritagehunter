@@ -13,6 +13,11 @@ let markers = [];
 // global variable for tracking if a marker was clicked (to prevent panTo)
 let markerClicked = false;
 
+// global for total 3 star pubs stat
+let total3starpubs = 0;
+
+// global for how many pubs the user has visited
+let userVisitCount = 0
 
 // global map for markers
 let markerMap = new Map();
@@ -228,8 +233,6 @@ function displayPubs(data){
       const clickedParent = clickedElement.parentElement;
 
 
-
-
       if (//Makes sure certain elements are ignored when listening for clicks to collapse the entry
         !clickedElement.classList.contains('additional-content') &&
         !clickedElement.classList.contains('edit-button') &&
@@ -266,9 +269,6 @@ function displayPubs(data){
       }
   }
 
-        // logic to resize pub container based on screen size etc
-        const containerHeight = pubsContainer.offsetHeight;
-        pubsContainer.style.height = `${containerHeight}px`;
 
         if (pubElement.classList.contains('pub-expanded')) {
           // if a pub has a post and is clicked
@@ -464,10 +464,10 @@ function dynamicSearch(){
 
 //creates stats for how many pubs the user has visited, out of XXX many and others.
 function pubStats(userid){
-  const total3starpubs = pubData.length;
+  total3starpubs = pubData.length;
   console.log("total3starpubs:", total3starpubs)
 
-  const userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
+  userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
   console.log("userVisitCount:", userVisitCount);
 
    pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs)*100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
@@ -491,6 +491,9 @@ function updatePintGlassAnimation() {
   }
   water.style.transform = `scaleY(${percentage})`;
   animationText.innerHTML = `${pubsVisitedPercentage}%`;
+
+  const pintBottomContainer = document.querySelector("#pint-bottomcontainer");
+  pintBottomContainer.innerHTML = `<br /><h5>(That's ${userVisitCount} out of ${total3starpubs} pubs.)<\h5>`
 }
 
 // initilise the map
