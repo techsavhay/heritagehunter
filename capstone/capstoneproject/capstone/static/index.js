@@ -212,12 +212,15 @@ function displayPubs(data){
       <p class="pub-address">${address}</p>
     `;
 
-    // If the pub has been visited, it gets a 'visited' class
-    if (post) {
+    // If the pub has been visited by the user, it gets a 'visited' class
+    let userHasVisited = pub.users_visited.includes(currentUserId);
+
+    if (userHasVisited) {
       pubElement.classList.add('visited');
     } else {
       pubElement.classList.remove('visited');
     }
+    
 
     // Assigns a click event to each pub
     pubElement.addEventListener('click', event => {
@@ -269,7 +272,7 @@ function displayPubs(data){
 
         if (pubElement.classList.contains('pub-expanded')) {
           // if a pub has a post and is clicked
-          if (post) {
+          if (userHasVisited) {
             if (!pubElement.querySelector('.post')) {
               const expandedPubHeight = pubElement.offsetHeight * 4;
               pubElement.style.height = `${expandedPubHeight}px`;
@@ -346,7 +349,7 @@ function displayPubs(data){
           if (additionalContent) {
             additionalContent.remove();
           }
-          if (post) {
+          if (userHasVisited) {
             post.remove();
           }
         }

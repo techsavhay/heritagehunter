@@ -19,7 +19,7 @@ class PubAdmin(admin.ModelAdmin):
 class PostAdmin(admin.ModelAdmin):
     list_display = ['content', 'date_visited', 'owner', 'created_at', 'get_pub_name']
     list_filter = ['owner', 'date_visited']
-    search_fields = ['content', 'owner__username']
+    search_fields = ['content', 'owner__username','pub__name']
 
     def get_pub_name(self, obj):
         return obj.pub.name
