@@ -205,7 +205,7 @@ function displayPubs(data){
 
     // Assigns the pub's name and address to the new div
     pubElement.innerHTML = `
-      <h5>${name}</h5>
+      <p class="pub-name">${name}</p>
       <p class="pub-address">${address}</p>
     `;
 

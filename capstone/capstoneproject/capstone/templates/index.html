@@ -9,22 +9,21 @@
     <link href="{% static 'styles.css' %}" rel="stylesheet">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
 
 </head>
 <body>
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
         <div class="container">
-            <div class="d-flex justify-content-start">
+            <div class="d-flex justify-content-start ml-1">
                 <form class="form-inline">
                     <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" autofocus="on" oninput="dynamicSearch()" placeholder="Search pubs using the pub name or address..." aria-label="Search">
                     <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
                 </form>
             </div>
-            <div class="logo-container">
-                <!--<a class="navbar-brand">Heritage Hunter</a>-->
-                <img src="{% static 'toolbar_logo1.png' %}" alt="Logo" class="logo-image">
+            <div class="page-title">
+                <p>Heritage Hunter</p>
             </div>
             <div class="d-flex flex-column align-items-center">
                 {% if user.is_authenticated %}
@@ -64,7 +63,7 @@
                   xmlns="http://www.w3.org/2000/svg"
                   xmlns:xlink="http://www.w3.org/1999/xlink"
                   viewBox="155 103 270 321"
-                  preserveAspectRatio="none"
+                  preserveAspectRatio="xMidYMid meet"
                 >
                   <defs>
                     <clipPath id="clippath">

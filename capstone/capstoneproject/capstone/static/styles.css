@@ -1,6 +1,7 @@
 /* main page background */
 body {
-  background-color: #C38154; 
+  background-color: #000000;
+  font-family: 'Cabin', sans-serif;
 }
 
 /* toolbar logo */
@@ -10,15 +11,19 @@ body {
   padding: 0%;
 }
 
-.logo-container {
+.page-title {
   display: flex;
   justify-content: center;
+  color:#FB8517;
+  font-size: 80px;
+  margin: 0px;
+  
 }
 
 /* navbar and search form styles */
 .navbar-light .navbar-brand {
   color: #ffffff;
-  font-family: 'Playfair Display', serif;
+  font-family: 'Cabin', sans-serif;
   font-size: 40px;
 }
 
@@ -63,7 +68,7 @@ body {
 }
 
 .btn-outline-success:hover {
-  background-color: #C38154;
+  background-color: #FB8517;
   color: black;
 }
 
@@ -85,12 +90,14 @@ body {
 /*container for publist, map and pint glass*/
 #parent-container {
   display: flex;
+  height: calc(100vh - 182px); /* Subtract the navbar's height from the viewport height */
+  overflow: auto;
 }
 
 #pubs-container, #map-container, #pint-container {
   width: 33vw; /* sets width to 33% of the viewport width */
-  height: calc(100vh - 110px);
-  padding: 20px;
+  height: 100%; /* of the container its contained inside of */
+  padding: 0px;
   box-sizing: border-box;
   overflow-y: auto;
   background-color: #242928;
@@ -109,12 +116,18 @@ body {
   transition: max-height 1.0s ease-in-out;
 }
 
+.pub-name {
+  font-family: 'Cabin', sans-serif;
+  font-size: 20px;
+  font-weight: 700; 
+}
+
 .visited {
   background-color: #FB8517;
 }
 
-.pub, .pub-expanded {
-  padding: 3px 10px 3px 10px;
+.pub .pub-expanded {
+  padding: 10px 30px 10px 30px;
   position: relative;
 }
 
@@ -170,6 +183,12 @@ body {
   padding: 10px; 
 }
 
+#pint-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
 /* Pint glass animation */
 .pinttitle {
   text-align: center;
@@ -181,7 +200,8 @@ body {
   height: 100%;
   width: 100%;
   justify-content: center; 
-  align-items: center; 
+  align-items: center;
+  flex-grow: 1;
 }
 
 #animation-text {
@@ -191,7 +211,7 @@ body {
   transform: translate(-50%);
   font-size: xx-large;
   color: black;
-  font-family: sans-serif;
+  font-family: 'Cabin', sans-serif;
   font-weight: bold;
   z-index: 1; 
 }
@@ -204,8 +224,13 @@ body {
 
 svg {
   margin-left: 20%; /* to centre the pint glass (crops shadow) */
-  width: 85%; /* reduce width to 80% of its original size */
-  height: 85%; /* reduce height to 80% of its original size */
+  width: 75%; /* reduce width to 80% of its original size */
+  height: 75%; /* reduce height to 80% of its original size */
+
+}
+
+.pinttitle, #pint-bottomcontainer {
+  max-height: 10%; /* adjust as needed */
 }
 
 #pint-bottomcontainer {
