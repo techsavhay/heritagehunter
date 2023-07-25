@@ -1,63 +1,13 @@
-.navbar-light .form-inline {
-    display: flex;
-    align-items: center;
-    
-  }
-
-  .navbar .form-inline .form-control {
-    margin-right: 10px; 
-}
-
-.navbar .form-inline .btn {
-    margin-left: 10px; 
-    font-family: 'Playfair Display', serif;
-    font-weight: 500;
-}
-
-  
-  .navbar-light .navbar-brand {
-      color: #ffffff;
-      font-family: 'Playfair Display', serif;
-      font-size: 40px;
-      
-  }
-
-  nav {
-    background-color: #592327;
-  }
-
-  .navbar .form-inline .btn.btn-outline-success {
-    font-weight: 400;
-}
-
-.searchInput{
-  width: min-content;
-}
-  
-  /* search button */
-  .btn-outline-success {
-    border-color: white;
-    border-width: 1px;
-    color: white;
-    padding: 0.05rem 0.5rem;
-    
-  }
-
-  .btn-outline-success:hover {
-    background-color: #C38154;
-    color: black;
-  }
-
-  /* main page background */
-  body {
-    background-color: #C38154; 
+/* main page background */
+body {
+  background-color: #C38154; 
 }
 
 /* toolbar logo */
 .logo-image {
-    width: 250px; 
-    height: auto; 
-    padding: 0%;
+  width: 250px; 
+  height: auto; 
+  padding: 0%;
 }
 
 .logo-container {
@@ -65,138 +15,175 @@
   justify-content: center;
 }
 
+/* navbar and search form styles */
+.navbar-light .navbar-brand {
+  color: #ffffff;
+  font-family: 'Playfair Display', serif;
+  font-size: 40px;
+}
+
+.nav {
+  background-color: #242928;
+}
+
+.navbar {
+  background-color: #242928;
+}
+
+
+.navbar-light .form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .form-inline .form-control {
+  margin-right: 10px; 
+}
+
+.navbar .form-inline .btn {
+  margin-left: 10px; 
+  font-family: 'Playfair Display', serif;
+  font-weight: 500;
+}
+
+.navbar .form-inline .btn.btn-outline-success {
+  font-weight: 400;
+}
+
+.searchInput{
+  width: min-content;
+}
+
+/* search button */
+.btn-outline-success {
+  border-color: white;
+  border-width: 1px;
+  color: white;
+  padding: 0.05rem 0.5rem;
+}
+
+.btn-outline-success:hover {
+  background-color: #C38154;
+  color: black;
+}
+
 /* login logout welcome text */
-  .light-text {
-        color: white 
-    }
+.light-text {
+  color: white 
+}
 
-    .navbar-text li {
-      list-style: none;
-      padding: 0;
-      margin: 0;
-    }
-    
-    .logout {
-      font-size:small
-    }
+.navbar-text li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
 
-    #pubs-container {
-      transition: max-height 0.9s ease-in-out;
-      width: 33vw;
-      padding: 20px;
-      padding-left: 40px;
-      overflow-y: auto;
-      background-color: #C38154;
-      height: calc(100vh - 90px);
-      box-sizing: border-box;
-    }
-    
-    .pub {
-      border: 2px solid #000000;
-      margin-bottom: 8px;
-      background-color: #6580b1;
-      max-height: 200px;  /* ADJUST */
-      transition: max-height 1.0s ease-in-out;
-    }
+.logout {
+  font-size:small
+}
 
-    .visited {
-      background-color: #378137;
-    }
-
-    .pub, .pub-expanded {
-      padding: 3px 10px 3px 10px;
-      border: 2px solid #000000;
-      margin-bottom: 8px;
-      position: relative;
-    }
-
-    .pub-expanded {
-      background-color: #ce934f;
-      color: rgb(0, 0, 0);
-      min-height: auto;
-      max-height: none;  /* TBC */
-      /* transition: max-height 0.9s ease-in-out; */
-
-    }
-
-    
-    .additional-content {
-      position: relative;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-between; /* this will push the button to the bottom */
-      align-items: start;
-
-    }
-
-    .additional-content input[type="date"] {
-      margin: 1%; /* space around the date input */
-    }
-
-    .additional-content textarea {
-      margin: 5% auto;
-      margin-bottom: 0%; 
-      width:100%;
-      /*max-height: 20px;  Starting height */
-      transition: max-height 0.9s ease-in-out;
-    }
-
-    .additional-content input[type="submit"] {
-      align-self: flex-end;
-    }
-
-    .delete-button {
-      margin: 8px;
-      float: right;
-  }
-  
-  .edit-button {
-    margin: 8px;
-  }
-
-
-  /*container for publist, map and pint glass*/
+/*container for publist, map and pint glass*/
 #parent-container {
   display: flex;
 }
 
-
 #pubs-container, #map-container, #pint-container {
-  width: 33vw; /*  sets  width to 33% of the viewport width */
+  width: 33vw; /* sets width to 33% of the viewport width */
   height: calc(100vh - 110px);
   padding: 20px;
   box-sizing: border-box;
   overflow-y: auto;
-  
+  background-color: #242928;
 }
 
+#pubs-container {
+  transition: max-height 0.9s ease-in-out;
+}
+
+/* styles for individual pub elements */
+.pub {
+  border: 2px solid #000000;
+  margin-bottom: 8px;
+  background-color: #cae6f4 ;
+  max-height: 200px;  /* ADJUST */
+  transition: max-height 1.0s ease-in-out;
+}
+
+.visited {
+  background-color: #FB8517;
+}
+
+.pub, .pub-expanded {
+  padding: 3px 10px 3px 10px;
+  position: relative;
+}
+
+.pub-expanded {
+  background-color: #f7f7ff;
+  color: rgb(0, 0, 0);
+  min-height: auto;
+  max-height: none;  /* TBC */
+}
+
+/* holds date label and date value */
+.input-row {
+  display: flex;
+  align-items: center;
+  gap:5px;
+}
+
+.pub-address {
+  margin: 0px 0px 5px 0px;
+}
+
+.additional-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* this will push the button to the bottom */
+  align-items: start;
+  border: black 2px;
+}
+
+.additional-content textarea {
+  margin-top: 5px;
+  margin-bottom: 0%; 
+  width:100%;
+  transition: max-height 0.9s ease-in-out;
+}
+
+.additional-content input[type="submit"] {
+  align-self: flex-end;
+}
+
+.delete-button {
+  margin: 8px;
+  float: right;
+}
+
+.edit-button {
+  margin: 8px;
+}
 
 #map-container {
-  background-color: rgb(0, 0, 0); 
+  border: 2px #4a5454;
+  padding: 10px; 
 }
 
-#pint-container {
-  background-color: rgb(0, 0, 0); 
-
-}
-
+/* Pint glass animation */
 .pinttitle {
   text-align: center;
   color: #ffffff;
 }
 
-
-/* Pint glass animation */
-
 #animation-container {
   position: relative;
-  height: 100%; /* updated from 400px */
-  width: 100%;  /* updated from 400px */
-  /*overflow-x: hidden;*/
+  height: 100%;
+  width: 100%;
   justify-content: center; 
   align-items: center; 
-
 }
+
 #animation-text {
   position: absolute; 
   left: 50%;
@@ -207,8 +194,8 @@
   font-family: sans-serif;
   font-weight: bold;
   z-index: 1; 
-  
 }
+
 #animation-water {
   transition: all 0.5s ease;
   transform-box: fill-box;
@@ -225,4 +212,3 @@ svg {
   color: #ffffff;
   text-align: center;
 }
-

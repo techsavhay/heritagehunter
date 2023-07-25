@@ -107,23 +107,15 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
 
   
   form.innerHTML = `
-    <label for="visit">Date of visit (optional):</label>
-    <input type="date" id="date_visited" name="date_visited" ${dateValue}>
+    <div class="input-row">
+      <label for="visit" style="white-space: nowrap;">Date of visit (optional):</label>
+      <input type="date" id="date_visited" name="date_visited" ${dateValue}>
+    </div>
     <textarea id="content" name="content" maxlength="280" ${placeholderText}>${textValue}</textarea>
     <input type="submit" id="save-visit-button" value="Save visit">
   `;
   
-  /* /logic to resize textarea based on window dimensions.
-  const pubWidth = pubElement.offsetWidth;
-  const pubHeight = pubElement.offsetHeight;
-  const textareaWidthPercentage = 90;
-  const textareaHeightPercentage = 35;
-  const textareaWidth = (pubWidth * textareaWidthPercentage) / 100;
-  const textareaHeight = (pubHeight * textareaHeightPercentage) / 100;
 
-  const textarea = form.querySelector('textarea');
-  textarea.style.width = `${textareaWidth}px`;
-  textarea.style.height = `${textareaHeight}px`; */
 
   // listener for Save visit button
   form.addEventListener('submit', event => {
@@ -383,7 +375,10 @@ pubData.forEach(item => {
   let icon;
   let userhasvisited = pub.users_visited.includes(currentUserId);
   if (userhasvisited) {
-    icon = '/static/GREEN-marker3.png';
+    icon = '/static/BEERmarker3.png';
+  }
+  else {
+    icon = '/static/LIGHTBLUEmarker3.png';
   }
   
   let marker = new google.maps.Marker({
@@ -493,16 +488,14 @@ function updatePintGlassAnimation() {
   animationText.innerHTML = `${pubsVisitedPercentage}%`;
 
   const pintBottomContainer = document.querySelector("#pint-bottomcontainer");
-  pintBottomContainer.innerHTML = `<br /><h5>(That's ${userVisitCount} out of ${total3starpubs} pubs.)<\h5>`
+  pintBottomContainer.innerHTML = `<br /><h5>(That's ${userVisitCount} out of ${total3starpubs} pubs.)</h5>`
 }
 
 // initilise the map
 window.initMap = function() {
   map = new google.maps.Map(document.getElementById('map-container'), {
-      center: {
-          lat: 54.09341667,
-          lng: -2.89477778
-      },
+    mapId:'5d9e03b671899eb4',
+          center: {lat: 54.09341667, lng: -2.89477778},
       zoom: 6
   });
     // Initialize InfoWindow 
