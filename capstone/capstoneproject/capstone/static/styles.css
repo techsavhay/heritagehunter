@@ -148,7 +148,7 @@ body {
 /*container for publist, map and pint glass*/
 #parent-container {
   display: flex;
-  height: calc(100vh - 182px); /* Subtract the navbar's height from the viewport height */
+  height: calc(100vh - 152px); /* Subtract the navbar's height from the viewport height */
   overflow: auto;
 }
 
@@ -246,8 +246,6 @@ body {
 }
 
 #pint-container {
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -276,6 +274,7 @@ body {
   font-family: 'Cabin', sans-serif;
   font-weight: bold;
   z-index: 1; 
+  text-shadow: -1px 0 #cae6f4, 0 1px #cae6f4, 1px 0 #cae6f4, 0 -1px #cae6f4;
 }
 
 #animation-water {
