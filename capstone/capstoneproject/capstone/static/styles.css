@@ -11,6 +11,26 @@ body {
   padding: 0%;
 }
 
+.navbar>.container, 
+.navbar>.container-fluid, 
+.navbar>.container-lg, 
+.navbar>.container-md, 
+.navbar>.container-sm, 
+.navbar>.container-xl, 
+.navbar>.container-xxl {
+    display: flex;
+    flex-wrap: inherit;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+  max-width: 90%;
+}
+
+
+
+
 .page-title {
   display: flex;
   justify-content: center;
@@ -55,7 +75,7 @@ body {
   font-weight: 400;
 }
 
-.searchInput{
+#searchInput{
   width: min-content;
 }
 
@@ -110,7 +130,7 @@ body {
 /* styles for individual pub elements */
 .pub {
   border: 2px solid #000000;
-  margin-bottom: 8px;
+  margin: 0px 5px 8px 20px;
   background-color: #cae6f4 ;
   max-height: 200px;  /* ADJUST */
   transition: max-height 1.0s ease-in-out;
@@ -119,7 +139,12 @@ body {
 .pub-name {
   font-family: 'Cabin', sans-serif;
   font-size: 20px;
-  font-weight: 700; 
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.pub-address {
+  margin: 0px 0px 5px 10px;
 }
 
 .visited {
@@ -145,9 +170,7 @@ body {
   gap:5px;
 }
 
-.pub-address {
-  margin: 0px 0px 5px 0px;
-}
+
 
 .additional-content {
   position: relative;
