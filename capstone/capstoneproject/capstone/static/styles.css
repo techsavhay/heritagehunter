@@ -226,6 +226,9 @@ body {
   width:100%;
   transition: max-height 0.9s ease-in-out;
 }
+.post {
+  margin-left: 10px;
+}
 
 .additional-content input[type="submit"] {
   align-self: flex-end;
