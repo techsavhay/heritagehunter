@@ -10,36 +10,37 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
 <body>
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
-        <div class="container">
-            <div class="d-flex justify-content-start ml-1">
-                <form class="form-inline">
-                    <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" autofocus="on" oninput="dynamicSearch()" placeholder="Search pubs using the pub name or address..." aria-label="Search">
-                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
-                </form>
-            </div>
-            <div class="page-title">
-                <p>Heritage Hunter</p>
-            </div>
-            <div class="d-flex flex-column align-items-center">
-                {% if user.is_authenticated %}
-                <span class="navbar-text light-text">
-                    {% trans "Welcome, " %}{{ user.first_name }}!
-                </span>
-                <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
-                    {% trans "Logout" %}
-                </a>
-                {% else %}
-                <a class="nav-link light-text" href="{% url 'account_login' %}">
-                    {% trans "Login / Signup" %}
-                </a>
-                {% endif %}
-            </div>
+      <div class="container d-flex flex-column flex-md-row align-items-center">
+        <div class="d-flex justify-content-start ml-1 order-3 order-md-1" id="searchbox-button">
+          <form class="form-inline">
+            <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" autofocus="on" oninput="dynamicSearch()" placeholder="Search using the pub name or address..." aria-label="Search">
+            <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+          </form>
         </div>
+        <div class="page-title order-2">
+          <p>Heritage Hunter</p>
+        </div>
+        <div class="d-flex flex-column align-items-center order-1 order-md-3" id="login-text">
+          {% if user.is_authenticated %}
+          <span class="navbar-text light-text">
+            {% trans "Welcome, " %}{{ user.first_name }}!
+          </span>
+          <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
+            {% trans "Logout" %}
+          </a>
+          {% else %}
+          <a class="nav-link light-text" href="{% url 'account_login' %}">
+            {% trans "Login / Signup" %}
+          </a>
+          {% endif %}
+        </div>
+      </div>
     </nav>
     <div id="parent-container">
         <div id="pubs-container">
