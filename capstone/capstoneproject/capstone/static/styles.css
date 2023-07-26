@@ -35,7 +35,6 @@ body {
   display: flex;
   justify-content: center;
   color:#FB8517;
-  font-size: 80px;
   margin: 0px;
   
 }
@@ -78,6 +77,34 @@ body {
 #searchInput{
   width: min-content;
 }
+
+@media only screen and (min-width: 500px) {
+  #searchInput {
+      width: 100px;  
+  }
+  .page-title {
+    font-size: 30px;
+  }
+}
+
+@media only screen and (min-width: 700px) {
+  #searchInput {
+      width: 150px;  
+  }
+  .page-title {
+    font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  #searchInput {
+      width: 300px;  
+  }
+  .page-title {
+    font-size: 80px;
+  }
+}
+
 
 /* search button */
 .btn-outline-success {
@@ -179,6 +206,7 @@ body {
   justify-content: space-between; /* this will push the button to the bottom */
   align-items: start;
   border: black 2px;
+  margin: 0px 5px 0px 10px;
 }
 
 .additional-content textarea {
