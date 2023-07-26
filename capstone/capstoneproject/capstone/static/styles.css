@@ -148,7 +148,7 @@ body {
 /*container for publist, map and pint glass*/
 #parent-container {
   display: flex;
-  height: calc(100vh - 182px); /* Subtract the navbar's height from the viewport height */
+  height: calc(100vh - 152px); /* Subtract the navbar's height from the viewport height */
   overflow: auto;
 }
 
@@ -244,6 +244,7 @@ body {
   border: 2px #4a5454;
   padding: 10px; 
 }
+
 
 #pint-container {
   display: flex;

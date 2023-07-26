@@ -195,6 +195,7 @@ function displayPubs(data){
     const name = pub.name;
     const address = pub.address;
     const custom_pub_id = pub.custom_pub_id;
+    const url = pub.url;
 
     // Creates a div for each pub
     const pubElement = document.createElement('div');
@@ -370,6 +371,7 @@ pubData.forEach(item => {
   const  lat = pub.latitude;
   const lng = pub.longitude;
   const custom_pub_id = pub.custom_pub_id;
+  const url = pub.url; 
   // DEBUGGING STATEMENT WITH COORDS FOR EACH PUB console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
 
   let icon;
@@ -394,15 +396,23 @@ pubData.forEach(item => {
   // set custom pub id as a key and the marker as the value for use in panTo map
   markerMap.set(custom_pub_id, marker);
   
+  // join the pub name and url and other text in preparation for populating map marker info windows
+  const infoWindowContent = `
+  <div class="infoWindowHTML" style="text-align: center;">
+    <p><a class='urlHTML' href="${url}" target="_blank" style="font-size:18px;font-family: 'Cabin', sans-serif; ">
+     ${name}</a><br></p>
+    <p class='infoWindowmaintext' style="font-size:13px; font-family: 'Cabin', sans-serif;word-wrap: break-word;">(The link takes you to the pub's inventory listing at CAMRA where you can find out more.)</p>
+  </div>`;
+
 
   let InfoWindow = new google.maps.InfoWindow({
-    content: name,
+    content: infoWindowContent,
   })
 
   marker.addListener("click", function() {
     markerClicked = true;
     // Set content and open the InfoWindow
-    InfoWindow.setContent(name);
+    InfoWindow.setContent(infoWindowContent);
     InfoWindow.open(map, marker);
     scrollToPub(custom_pub_id);
     markerClicked = false;
