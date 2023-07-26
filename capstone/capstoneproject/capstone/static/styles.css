@@ -247,8 +247,6 @@ body {
 
 
 #pint-container {
-  display: flex;
-  flex-direction: column;
   justify-content: space-between;
 }
 
@@ -277,6 +275,7 @@ body {
   font-family: 'Cabin', sans-serif;
   font-weight: bold;
   z-index: 1; 
+  text-shadow: -1px 0 #cae6f4, 0 1px #cae6f4, 1px 0 #cae6f4, 0 -1px #cae6f4;
 }
 
 #animation-water {
