@@ -135,6 +135,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
     event.preventDefault();
 
     const dateVisitedInput = form.querySelector('#date_visited');
+
     const contentInput = form.querySelector('#content');
 
     let date_visited = dateVisitedInput.value;
@@ -245,7 +246,8 @@ function displayPubs(data){
         !clickedElement.classList.contains('delete-button') &&
         !clickedParent.classList.contains('additional-content') &&
         !clickedParent.classList.contains('edit-button') &&
-        !clickedParent.classList.contains('delete-button')
+        !clickedParent.classList.contains('delete-button') &&
+        !clickedParent.classList.contains('input-row')
       ) {
         if (expandedPub && expandedPub !== pubElement) {
           expandedPub.classList.remove('pub-expanded');

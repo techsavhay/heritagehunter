@@ -15,7 +15,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-<body data-user-logged-in="{{ user_is_logged_in }}">
+<body id="body-unique" data-user-logged-in="{{ user_is_logged_in }}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
       <div class="container d-flex flex-column flex-md-row align-items-center">

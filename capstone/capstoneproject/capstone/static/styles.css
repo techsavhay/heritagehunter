@@ -149,12 +149,30 @@ body {
 /*container for publist, map and pint glass*/
 #parent-container {
   display: flex;
-  height: calc(100vh - 152px); /* Subtract the navbar's height from the viewport height */
   overflow: auto;
 }
 
+#body-unique {
+  display: grid;
+  grid-template-rows: auto 1fr; /* auto for the navbar, 1fr for the remaining space */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#body-unique .navbar {
+  /* Your navbar styles */
+  grid-row: 1; /* This places the navbar in the first row */
+}
+
+#body-unique #parent-container {
+  grid-row: 2; /* This places the parent container in the second row */
+  overflow: auto;
+}
+
+
 #pubs-container, #map-container, #pint-container {
-  width: 33vw; /* sets width to 33% of the viewport width */
+  width: 33%; /* sets width to 33% of the viewport width */
   height: 100%; /* of the container its contained inside of */
   padding: 0px;
   box-sizing: border-box;
@@ -252,6 +270,7 @@ body {
 
 #pint-container {
   justify-content: space-between;
+  overflow: hidden;
 }
 
 /* Pint glass animation */
