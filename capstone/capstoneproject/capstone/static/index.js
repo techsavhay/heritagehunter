@@ -31,6 +31,19 @@ let pubsVisitedPercentage = 0;
 // global variable for map marker info window (will help to track only one being opened at a time)
 let InfoWindow;
 
+// gets variable from html for user_is_logged_in
+let bodyElement = document.querySelector('body');
+let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'True';
+
+
+// Get the modal (welcome screen)
+var modal = document.getElementById("welcomeScreen");
+
+// When the user is not logged in, open the modal welcome screen
+if (!user_is_logged_in) { // This variable is passed from  views to  template
+    modal.style.display = "block";
+}
+
 
 // A function to make the fetch calls (DRY principle)
 function fetchData(url, method, body) {
@@ -353,7 +366,6 @@ function displayPubs(data){
   });
 }
 
-
 // display the map with markers
 function displayMap(pubData) {
   //clear exisiting map markers
@@ -514,14 +526,23 @@ window.initMap = function() {
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
-  // Calls fetchPubData() to start the process of the whole app
-  fetchPubData();
+  console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
+
+  // Check if user is logged in before fetching pub data
+  if (user_is_logged_in) {
+      fetchPubData();
+      console.log("fetchPubData was called");
+  }
 });
 
-// Create the script tag, set the appropriate attributes
-var script = document.createElement('script');
-script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap';
-script.defer = true;
 
-// Append the 'script' element to 'head'
-document.head.appendChild(script);
+// only runs google maps script if user is logged in.
+if (user_is_logged_in) {
+  // Create the script tag, set the appropriate attributes
+  var script = document.createElement('script');
+  script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap';
+  script.defer = true;
+
+  // Append the 'script' element to 'head'
+  document.head.appendChild(script);
+}

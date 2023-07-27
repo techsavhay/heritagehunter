@@ -13,7 +13,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
 </head>
-<body>
+<body data-user-logged-in="{{ user_is_logged_in }}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
       <div class="container d-flex flex-column flex-md-row align-items-center">
@@ -43,6 +43,7 @@
       </div>
     </nav>
     <div id="parent-container">
+      {% if user_is_logged_in %}
         <div id="pubs-container">
               <!-- The pubs will be loaded here -->
         </div>
@@ -107,16 +108,36 @@
                   <!-- html for under pint glass will get populated here from index.js-->
                 </div>
         </div>
+        <!--else display a welcome splash screen for users who arent logged in-->
+        {% else %}
+        <div id="welcomeScreen" class="welcome-modal">
+          <div class="welcome-content">
+              <h2>Welcome to Heritage Hunter!</h2>
+              <p>This Web App is designed to guide users in discovering and visiting the UK's most pristine, historic pubs.
+
+                I have specifically featured those venues considered nationally important, or 'three-star', as determined by CAMRA's pub heritage group. Their invaluable work has been instrumental in the creation of this app, and I extend my utmost gratitude for their ongoing efforts. I strongly encourage all visitors to explore https://pubheritage.camra.org.uk/ to learn more about the pubs they plan to visit.
+                
+                In order to view the content you need to login or sign up.
+                </p>
+              <!-- Add a link to the login page -->
+              <a href="{% url 'account_login' %}">Login / Signup</a>
+          </div>
+      </div>
+        {% endif %}
 
           </div>
 
     
     {% block content %}
-    <!-- Default content for index.html will go here, currently profile page -->
+    <!-- place for another template to be rendered if needed-->
     {% endblock %}
+    
+
+    
     
     
     <script src="{% static 'index.js' %}"></script>
+    
 
 
 </body>

@@ -37,10 +37,11 @@ def encode_post(obj):
 
 def index(request):
     user = request.user
-    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') 
+    pubs = Pub.objects.filter(inventory_stars='3').filter(open='True') if user.is_authenticated else None
     context = {
         'user': user, 
         'pubs': pubs,
+        'user_is_logged_in': request.user.is_authenticated,
     }
     return render(request, "index.html", context)
 

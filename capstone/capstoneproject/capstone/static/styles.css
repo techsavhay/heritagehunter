@@ -302,3 +302,28 @@ svg {
   color: #ffffff;
   text-align: center;
 }
+
+
+/* The Welcome Screen Modal (background) */
+.welcome-modal {
+  display: none; 
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; 
+  background-color: rgba(30, 41, 40, 0.5); /* Black w/ opacity */
+}
+
+/* Modal Content */
+.welcome-content {
+  background-color: #cae6f4;
+  margin: 15% auto; /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%; /* adjust*/
+  color: #000000;
+  font-family: 'Cabin', sans-serif;
+}
