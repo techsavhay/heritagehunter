@@ -389,10 +389,10 @@ pubData.forEach(item => {
   let icon;
   let userhasvisited = pub.users_visited.includes(currentUserId);
   if (userhasvisited) {
-    icon = '/static/BEERmarker3.png';
+    icon = '/static/images/BEERmarker3.png';
   }
   else {
-    icon = '/static/LIGHTBLUEmarker3.png';
+    icon = '/static/images/LIGHTBLUEmarker3.png';
   }
   
   let marker = new google.maps.Marker({

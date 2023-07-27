@@ -1,0 +1,17 @@
+<!--changes google sign in url to a logo overides all auth-->
+
+<ul class="socialaccount_providers">
+    {% for provider in socialaccount_providers %}
+    <li>
+        {% if provider.id == "google" %}
+            <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+                <img src="{% static 'images/googlesignin.png' %}" alt="Sign in with Google">
+            </a>
+        {% else %}
+            <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+                {{ provider.name }}
+            </a>
+        {% endif %}
+    </li>
+    {% endfor %}
+</ul>
