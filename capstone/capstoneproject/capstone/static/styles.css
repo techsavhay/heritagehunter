@@ -327,3 +327,20 @@ svg {
   color: #000000;
   font-family: 'Cabin', sans-serif;
 }
+
+#welcomeTitle {
+  text-align: center;
+  font-family: 'Cabin', sans-serif;
+}
+
+#welcomeMessage {
+  text-align: justify;
+  font-family: 'Cabin', sans-serif;
+}
+
+#welcomeLoginURL {
+  display: block;
+  text-align: center;
+  font-size: 23px;
+
+}
