@@ -326,6 +326,7 @@ svg {
   width: 80%; /* adjust*/
   color: #000000;
   font-family: 'Cabin', sans-serif;
+  border-radius: 8px;
 }
 
 #welcomeTitle {
@@ -344,3 +345,5 @@ svg {
   font-size: 23px;
 
 }
+
+
