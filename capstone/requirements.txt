@@ -1,5 +1,0 @@
-Django==4.1.7
-Requests==2.31.0
-django-allauth==0.54.0
-django-widget-tweaks==1.4.12
-Pillow==9.4.0
