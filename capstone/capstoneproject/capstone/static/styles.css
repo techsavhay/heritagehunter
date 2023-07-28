@@ -6,24 +6,26 @@ body {
 
 /* toolbar logo */
 .logo-image {
-  width: 250px; 
-  height: auto; 
+  width: 250px;
+  height: auto;
   padding: 0%;
 }
 
-
-
-.container, .container-lg, .container-md, .container-sm, .container-xl, .container-xxl {
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
   max-width: 90%;
-  
 }
 
 .page-title {
   display: flex;
   justify-content: center;
-  color:#FB8517;
+  color: #FB8517;
   margin: 0px;
-  
+
 }
 
 /* navbar and search form styles */
@@ -47,11 +49,11 @@ body {
 }
 
 .navbar .form-inline .form-control {
-  margin-right: 10px; 
+  margin-right: 10px;
 }
 
 .navbar .form-inline .btn {
-  margin-left: 10px; 
+  margin-left: 10px;
   font-family: 'Cabin', sans-serif;
   font-weight: 400;
   font-size: 20px;
@@ -61,7 +63,7 @@ body {
   font-weight: 400;
 }
 
-#searchInput{
+#searchInput {
   width: min-content;
 }
 
@@ -80,42 +82,45 @@ body {
 
 @media only screen and (max-width: 500px) {
   #searchInput {
-      width: 150px;  
+      width: 150px;
   }
+
   .page-title {
-    font-size: 30px;
+      font-size: 30px;
   }
-  }
+}
 
 
 @media only screen and (min-width: 700px) {
   #searchInput {
-      width: 150px;  
+      width: 150px;
   }
+
   .page-title {
-    font-size: 50px;
+      font-size: 50px;
   }
 }
 
 @media only screen and (min-width: 1300px) {
   #searchInput {
-      width: 300px;  
+      width: 300px;
   }
+
   .page-title {
-    font-size: 80px;
+      font-size: 80px;
   }
 }
 
-.navbar>.container, 
-.navbar>.container-fluid, 
-.navbar>.container-lg, 
-.navbar>.container-md, 
-.navbar>.container-sm, 
-.navbar>.container-xl, 
+.navbar>.container,
+.navbar>.container-fluid,
+.navbar>.container-lg,
+.navbar>.container-md,
+.navbar>.container-sm,
+.navbar>.container-xl,
 .navbar>.container-xxl {
-    flex-wrap: inherit;
-    justify-content: space-between;
-    align-items: center;
+  flex-wrap: inherit;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* search button */
@@ -133,7 +138,7 @@ body {
 
 /* login logout welcome text */
 .light-text {
-  color: white 
+  color: white
 }
 
 .navbar-text li {
@@ -143,7 +148,7 @@ body {
 }
 
 .logout {
-  font-size:small
+  font-size: small
 }
 
 /*container for publist, map and pint glass*/
@@ -154,7 +159,8 @@ body {
 
 #body-unique {
   display: grid;
-  grid-template-rows: auto 1fr; /* auto for the navbar, 1fr for the remaining space */
+  grid-template-rows: auto 1fr;
+  /* auto for the navbar, 1fr for the remaining space */
   height: 100vh;
   margin: 0;
   padding: 0;
@@ -162,18 +168,23 @@ body {
 
 #body-unique .navbar {
   /* Your navbar styles */
-  grid-row: 1; /* This places the navbar in the first row */
+  grid-row: 1;
+  /* This places the navbar in the first row */
 }
 
 #body-unique #parent-container {
-  grid-row: 2; /* This places the parent container in the second row */
+  grid-row: 2;
+  /* This places the parent container in the second row */
   overflow: auto;
 }
 
-
-#pubs-container, #map-container, #pint-container {
-  width: 33%; /* sets width to 33% of the viewport width */
-  height: 100%; /* of the container its contained inside of */
+#pubs-container,
+#map-container,
+#pint-container {
+  width: 33%;
+  /* sets width to 33% of the viewport width */
+  height: 100%;
+  /* of the container its contained inside of */
   padding: 0px;
   box-sizing: border-box;
   overflow-y: auto;
@@ -188,8 +199,9 @@ body {
 .pub {
   border: 2px solid #000000;
   margin: 0px 5px 8px 20px;
-  background-color: #cae6f4 ;
-  max-height: 200px;  /* ADJUST */
+  background-color: #cae6f4;
+  max-height: 200px;
+  /* ADJUST */
   transition: max-height 1.0s ease-in-out;
 }
 
@@ -217,23 +229,24 @@ body {
   background-color: #f7f7ff;
   color: rgb(0, 0, 0);
   min-height: auto;
-  max-height: none;  /* TBC */
+  max-height: none;
+  /* TBC */
 }
 
 /* holds date label and date value */
 .input-row {
   display: flex;
   align-items: center;
-  gap:5px;
+  gap: 5px;
 }
-
 
 
 .additional-content {
   position: relative;
   display: flex;
   flex-direction: column;
-  justify-content: space-between; /* this will push the button to the bottom */
+  justify-content: space-between;
+  /* this will push the button to the bottom */
   align-items: start;
   border: black 2px;
   margin: 0px 5px 0px 10px;
@@ -241,10 +254,11 @@ body {
 
 .additional-content textarea {
   margin-top: 5px;
-  margin-bottom: 0%; 
-  width:100%;
+  margin-bottom: 0%;
+  width: 100%;
   transition: max-height 0.9s ease-in-out;
 }
+
 .post {
   margin-left: 10px;
 }
@@ -264,9 +278,8 @@ body {
 
 #map-container {
   border: 2px #4a5454;
-  padding: 10px; 
+  padding: 10px;
 }
-
 
 #pint-container {
   justify-content: space-between;
@@ -283,13 +296,13 @@ body {
   position: relative;
   height: 100%;
   width: 100%;
-  justify-content: center; 
+  justify-content: center;
   align-items: center;
   flex-grow: 1;
 }
 
 #animation-text {
-  position: absolute; 
+  position: absolute;
   left: 50%;
   top: 40%;
   transform: translate(-50%);
@@ -297,7 +310,7 @@ body {
   color: black;
   font-family: 'Cabin', sans-serif;
   font-weight: bold;
-  z-index: 1; 
+  z-index: 1;
   text-shadow: -1px 0 #cae6f4, 0 1px #cae6f4, 1px 0 #cae6f4, 0 -1px #cae6f4;
 }
 
@@ -308,14 +321,19 @@ body {
 }
 
 svg {
-  margin-left: 20%; /* to centre the pint glass (crops shadow) */
-  width: 75%; /* reduce width to 80% of its original size */
-  height: 75%; /* reduce height to 80% of its original size */
+  margin-left: 20%;
+  /* to centre the pint glass (crops shadow) */
+  width: 75%;
+  /* reduce width to 80% of its original size */
+  height: 75%;
+  /* reduce height to 80% of its original size */
 
 }
 
-.pinttitle, #pint-bottomcontainer {
-  max-height: 10%; /* adjust as needed */
+.pinttitle,
+#pint-bottomcontainer {
+  max-height: 10%;
+  /* adjust as needed */
 }
 
 #pint-bottomcontainer {
@@ -326,24 +344,31 @@ svg {
 
 /* The Welcome Screen Modal (background) */
 .welcome-modal {
-  display: none; 
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
+  display: none;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; 
-  background-color: rgba(30, 41, 40, 0.5); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  background-color: rgba(30, 41, 40, 0.5);
+  /* Black w/ opacity */
 }
 
 /* Modal Content */
 .welcome-content {
   background-color: #cae6f4;
-  margin: 15% auto; /* 15% from the top and centered */
+  margin: 15% auto;
+  /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%; /* adjust*/
+  width: 80%;
+  /* adjust*/
   color: #000000;
   font-family: 'Cabin', sans-serif;
   border-radius: 8px;
@@ -365,5 +390,3 @@ svg {
   font-size: 23px;
 
 }
-
-
