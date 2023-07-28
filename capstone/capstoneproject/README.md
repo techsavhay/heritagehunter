@@ -153,3 +153,7 @@ To run the application do the following:
 
 6. Click the link and view the web app in a modern web browser that supports html5 and the latest JavaScript.
 
+## Anything else
+
+I am unsure how other people could run the app without me shared my google api credentials/ login. therefore i have told google to accept requests from localhost which hopefully will help you to run the code.
+
