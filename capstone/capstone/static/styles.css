@@ -1,0 +1,392 @@
+/* main page background */
+body {
+  background-color: #000000;
+  font-family: 'Cabin', sans-serif;
+}
+
+/* toolbar logo */
+.logo-image {
+  width: 250px;
+  height: auto;
+  padding: 0%;
+}
+
+.container,
+.container-lg,
+.container-md,
+.container-sm,
+.container-xl,
+.container-xxl {
+  max-width: 90%;
+}
+
+.page-title {
+  display: flex;
+  justify-content: center;
+  color: #FB8517;
+  margin: 0px;
+
+}
+
+/* navbar and search form styles */
+.navbar-light .navbar-brand {
+  color: #ffffff;
+  font-family: 'Cabin', sans-serif;
+  font-size: 40px;
+}
+
+.nav {
+  background-color: #242928;
+}
+
+.navbar {
+  background-color: #242928;
+}
+
+.navbar-light .form-inline {
+  display: flex;
+  align-items: center;
+}
+
+.navbar .form-inline .form-control {
+  margin-right: 10px;
+}
+
+.navbar .form-inline .btn {
+  margin-left: 10px;
+  font-family: 'Cabin', sans-serif;
+  font-weight: 400;
+  font-size: 20px;
+}
+
+.navbar .form-inline .btn.btn-outline-success {
+  font-weight: 400;
+}
+
+#searchInput {
+  width: min-content;
+}
+
+.form-control:focus {
+  color: black;
+  background-color: white;
+  border-color: rgb(202, 230, 244);
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgb(36, 41, 40);
+}
+
+.btn:hover {
+  border-color: #FB8517;
+}
+
+
+@media only screen and (max-width: 500px) {
+  #searchInput {
+      width: 150px;
+  }
+
+  .page-title {
+      font-size: 30px;
+  }
+}
+
+
+@media only screen and (min-width: 700px) {
+  #searchInput {
+      width: 150px;
+  }
+
+  .page-title {
+      font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  #searchInput {
+      width: 300px;
+  }
+
+  .page-title {
+      font-size: 80px;
+  }
+}
+
+.navbar>.container,
+.navbar>.container-fluid,
+.navbar>.container-lg,
+.navbar>.container-md,
+.navbar>.container-sm,
+.navbar>.container-xl,
+.navbar>.container-xxl {
+  flex-wrap: inherit;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* search button */
+.btn-outline-success {
+  border-color: white;
+  border-width: 1px;
+  color: white;
+  padding: 0.05rem 0.5rem;
+}
+
+.btn-outline-success:hover {
+  background-color: #FB8517;
+  color: black;
+}
+
+/* login logout welcome text */
+.light-text {
+  color: white
+}
+
+.navbar-text li {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.logout {
+  font-size: small
+}
+
+/*container for publist, map and pint glass*/
+#parent-container {
+  display: flex;
+  overflow: auto;
+}
+
+#body-unique {
+  display: grid;
+  grid-template-rows: auto 1fr;
+  /* auto for the navbar, 1fr for the remaining space */
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+}
+
+#body-unique .navbar {
+  /* Your navbar styles */
+  grid-row: 1;
+  /* This places the navbar in the first row */
+}
+
+#body-unique #parent-container {
+  grid-row: 2;
+  /* This places the parent container in the second row */
+  overflow: auto;
+}
+
+#pubs-container,
+#map-container,
+#pint-container {
+  width: 33%;
+  /* sets width to 33% of the viewport width */
+  height: 100%;
+  /* of the container its contained inside of */
+  padding: 0px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  background-color: #242928;
+}
+
+#pubs-container {
+  transition: max-height 0.9s ease-in-out;
+}
+
+/* styles for individual pub elements */
+.pub {
+  border: 2px solid #000000;
+  margin: 0px 5px 8px 20px;
+  background-color: #cae6f4;
+  max-height: 200px;
+  /* ADJUST */
+  transition: max-height 1.0s ease-in-out;
+}
+
+.pub-name {
+  font-family: 'Cabin', sans-serif;
+  font-size: 20px;
+  font-weight: 700;
+  margin-left: 10px;
+}
+
+.pub-address {
+  margin: 0px 0px 5px 10px;
+}
+
+.visited {
+  background-color: #FB8517;
+}
+
+.pub .pub-expanded {
+  padding: 10px 30px 10px 30px;
+  position: relative;
+}
+
+.pub-expanded {
+  background-color: #f7f7ff;
+  color: rgb(0, 0, 0);
+  min-height: auto;
+  max-height: none;
+  /* TBC */
+}
+
+/* holds date label and date value */
+.input-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+
+.additional-content {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  /* this will push the button to the bottom */
+  align-items: start;
+  border: black 2px;
+  margin: 0px 5px 0px 10px;
+}
+
+.additional-content textarea {
+  margin-top: 5px;
+  margin-bottom: 0%;
+  width: 100%;
+  transition: max-height 0.9s ease-in-out;
+}
+
+.post {
+  margin-left: 10px;
+}
+
+.additional-content input[type="submit"] {
+  align-self: flex-end;
+}
+
+.delete-button {
+  margin: 8px;
+  float: right;
+}
+
+.edit-button {
+  margin: 8px;
+}
+
+#map-container {
+  border: 2px #4a5454;
+  padding: 10px;
+}
+
+#pint-container {
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+/* Pint glass animation */
+.pinttitle {
+  text-align: center;
+  color: #ffffff;
+}
+
+#animation-container {
+  position: relative;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  flex-grow: 1;
+}
+
+#animation-text {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  transform: translate(-50%);
+  font-size: xx-large;
+  color: black;
+  font-family: 'Cabin', sans-serif;
+  font-weight: bold;
+  z-index: 1;
+  text-shadow: -1px 0 #cae6f4, 0 1px #cae6f4, 1px 0 #cae6f4, 0 -1px #cae6f4;
+}
+
+#animation-water {
+  transition: all 0.5s ease;
+  transform-box: fill-box;
+  transform-origin: bottom;
+}
+
+svg {
+  margin-left: 20%;
+  /* to centre the pint glass (crops shadow) */
+  width: 75%;
+  /* reduce width to 80% of its original size */
+  height: 75%;
+  /* reduce height to 80% of its original size */
+
+}
+
+.pinttitle,
+#pint-bottomcontainer {
+  max-height: 10%;
+  /* adjust as needed */
+}
+
+#pint-bottomcontainer {
+  color: #ffffff;
+  text-align: center;
+}
+
+
+/* The Welcome Screen Modal (background) */
+.welcome-modal {
+  display: none;
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  background-color: rgba(30, 41, 40, 0.5);
+  /* Black w/ opacity */
+}
+
+/* Modal Content */
+.welcome-content {
+  background-color: #cae6f4;
+  margin: 15% auto;
+  /* 15% from the top and centered */
+  padding: 20px;
+  border: 1px solid #888;
+  width: 80%;
+  /* adjust*/
+  color: #000000;
+  font-family: 'Cabin', sans-serif;
+  border-radius: 8px;
+}
+
+#welcomeTitle {
+  text-align: center;
+  font-family: 'Cabin', sans-serif;
+}
+
+#welcomeMessage {
+  text-align: justify;
+  font-family: 'Cabin', sans-serif;
+}
+
+#welcomeLoginURL {
+  display: block;
+  text-align: center;
+  font-size: 23px;
+
+}

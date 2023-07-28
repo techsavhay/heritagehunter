@@ -1,0 +1,57 @@
+{% extends "account/base.html" %}
+
+{% load widget_tweaks i18n %}
+
+{% block head_title %}{% trans "Signup" %}{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center mt-5">
+        <div class="col-md-6">
+            <div class="card" style="background-color:#cae6f4; border: 3px solid #000; padding: 20px; max-width: 800px; border-radius: 8px; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); font-family: 'Cabin', sans-serif;margin-bottom: 50px;">
+                <div class="card-body">
+                    <h2 class="card-title text-center">{% trans "Create your account" %}</h2>
+                    <p class="card-text text-center">{% trans "Or" %}
+                        <a href="{% url 'account_login' %}" class="text-primary">{% trans "login if you have one already" %}</a>.
+                    </p>
+                    <form method="post" action="{% url 'account_signup' %}">
+                        {% csrf_token %}
+
+                        {{ form.non_field_errors | safe }}
+
+                        <div class="mb-3">
+                            {{ form.username.errors | safe }}
+                            <label for="username" class="form-label">{% trans "Username" %}</label>
+                            {% render_field form.username id="username" class="form-control" %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.email.errors | safe }}
+                            <label for="email" class="form-label">{% trans "Email" %}</label>
+                            {% render_field form.email id="email" class="form-control" %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password1.errors | safe }}
+                            <label for="password1" class="form-label">{% trans "Password" %}</label>
+                            {% render_field form.password1 id="password1" class="form-control" %}
+                        </div>
+                        <div class="mb-3">
+                            {{ form.password2.errors | safe }}
+                            <label for="password2" class="form-label">{% trans "Confirm Password" %}</label>
+                            {% render_field form.password2 id="password2" class="form-control" %}
+                        </div>
+
+                        {% if redirect_field_value %}
+                        <input type="hidden" name="{{ redirect_field_name }}" value="{{ redirect_field_value }}">
+                        {% endif %}
+
+                        <div class="text-center">
+                            <button type="submit" class="btn btn-primary">{% trans "Sign up" %}</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}

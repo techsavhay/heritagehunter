@@ -1,0 +1,119 @@
+{% load static %}
+{% load i18n %}
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Heritage Hunter</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9ndCyUaIbzAi2FUVXJi0CjmCapSmO7SnpJef0486qhLnuZ2cdeRhO02iuK6FUUVM" crossorigin="anonymous">
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+</head>
+
+<body id="body-unique" data-user-logged-in="{{ user_is_logged_in }}">
+    <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <nav class="navbar navbar-light justify-content-between">
+        <div class="container d-flex flex-column flex-md-row align-items-center">
+            <div class="d-flex justify-content-start ml-1 order-3 order-md-1" id="searchbox-button">
+                <form class="form-inline" onsubmit="return false;">
+                    <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" autofocus="on" oninput="dynamicSearch()" placeholder="Search using the pub name or address..." aria-label="Search">
+                    <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+                </form>
+            </div>
+            <div class="page-title order-2">
+                <p>Heritage Hunter</p>
+            </div>
+            <div class="d-flex flex-column align-items-center order-1 order-md-3" id="login-text">
+                {% if user.is_authenticated %}
+                <span class="navbar-text light-text">
+                    {% trans "Welcome, " %}{{ user.first_name }}!
+                </span>
+                <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
+                    {% trans "Logout" %}
+                </a>
+                {% else %}
+                <a class="nav-link light-text" href="{% url 'account_login' %}">
+                    {% trans "Login / Signup" %}
+                </a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div id="parent-container">
+        {% if user_is_logged_in %}
+        <div id="pubs-container">
+            <!-- The pubs will be loaded here -->
+        </div>
+        <div id="map-container">
+            <!-- The map will be loaded here -->
+        </div>
+
+        <div id="pint-container">
+            <!-- pint related content here -->
+            <h4 id="pinttitletop" class="pinttitle">Percentage of ⭐⭐⭐ heritage pubs visited</h4>
+            <div id="animation-container">
+                <p id="animation-text"></p>
+                <svg height="100%" width="100%" id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="155 103 270 321" preserveAspectRatio="xMidYMid meet">
+                    <defs>
+                        <clipPath id="clippath">
+                            <path d="M169.5,122.5l28.81,271.81s34.8,3.23,52.19,3.23,52.19-3.23,52.19-3.23l29.81-269.81s-35.46-4-82-4c-44,0-81,2-81,2Z" style="fill: none" />
+                        </clipPath>
+                    </defs>
+                    <path d="M324.43,409.02c0,6.34-33.1,11.48-73.93,11.48s-73.93-5.14-73.93-11.48,33.1-11.48,73.93-11.48,73.93,5.14,73.93,11.48Z" style="isolation: isolate; opacity: 0.15" />
+                    <path d="M157.71,110.69c10.05,95.41,20.16,196.03,30.33,299.5,41.38,6.58,83.54,6.58,124.92,0,10.17-103.47,20.28-204.09,30.33-299.5-66.91-6.19-118.8-8.05-185.57,0Z" style="
+                      fill: #7775;
+                      filter: blur(24px);
+                      transform-box: fill-box;
+                      transform-origin: bottom;
+                      transform: scaleY(0.1) rotate(15deg);
+                    " />
+                    <path d="M157.71,110.69c10.05,95.41,20.16,196.03,30.33,299.5,41.38,6.58,83.54,6.58,124.92,0,10.17-103.47,20.28-204.09,30.33-299.5-66.91-6.19-118.8-8.05-185.57,0Z" style="fill: #cae6f4; stroke: #4443" />
+                    <g style="clip-path: url(#clippath)">
+                        <path id="animation-water" d="M169.5,122.5l28.81,271.81s34.8,3.23,52.19,3.23,52.19-3.23,52.19-3.23l29.81-269.81s-35.46-4-82-4c-44,0-81,2-81,2Z" style="fill: #fb8517" />
+                    </g>
+                    <path d="M302.11,141.08c-8.52,81.72-17.09,166.97-25.7,254.37-.41,4.16,2.56,7.91,6.7,8.45,.05,0,.1,.01,.16,.02,4.34,.57,8.28-2.58,8.71-6.93,8.6-87.37,17.17-172.6,25.68-254.31,.48-4.58-3.13-8.54-7.73-8.52h-.16c-3.95,.02-7.26,2.99-7.67,6.92Z" style="fill: #f2f2f2; isolation: isolate; opacity: 0.3" />
+                </svg>
+                <div id="pint-bottomcontainer">
+                    <!-- html for under pint glass will get populated here from index.js-->
+                </div>
+            </div>
+
+        </div>
+        <!--else display a welcome splash screen for users who arent logged in-->
+        {% else %}
+        <div id="welcomeScreen" class="welcome-modal">
+            <div class="welcome-content">
+                <h2 id="welcomeTitle">Welcome to Heritage Hunter!</h2><br>
+                <p id="welcomeMessage">This Web App is designed to guide users in discovering and visiting the UK's most unspoilt, historic pubs.
+
+                    I have specifically featured those venues considered nationally important, or 'three-star', as determined by CAMRA's pub heritage group. Their invaluable work has been instrumental in the creation of this app, and I extend my utmost gratitude for their ongoing efforts. I strongly encourage all visitors to explore <a href="https://pubheritage.camra.org.uk/" target="_blank">https://pubheritage.camra.org.uk/ </a>to learn more about the pubs they plan to visit.<br><br>
+
+                    But in order to view the content here you need to login or sign up by clicking the link below.
+                    <br>
+                    <br>
+                    I hope you enjoy this app!
+                </p>
+                <!-- Add a link to the login page -->
+                <a id="welcomeLoginURL" href="{% url 'account_login' %}">Login / Signup</a>
+            </div>
+            {% endif %}
+
+        </div>
+
+
+        {% block content %}
+        <!-- place for another template to be rendered if needed-->
+        {% endblock %}
+
+
+        <script src="{% static 'index.js' %}"></script>
+
+
+</body>
+
+</html>
