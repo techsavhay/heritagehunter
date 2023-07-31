@@ -300,6 +300,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
+    console.log(pubData);
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -316,7 +317,13 @@ function displayMap(pubData) {
         const lng = pub.longitude;
         const custom_pub_id = pub.custom_pub_id;
         const url = pub.url;
-        // DEBUGGING STATEMENT WITH COORDS FOR EACH PUB console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
+        // DEBUG PRINT STATEMENT console.log("Pub:", name, "Longitude:", lng, "Lattitude:", lat);
+
+
+        if (lat === null || lng === null || isNaN(lat) || isNaN(lng)) {
+            console.log("Pub", name, "does not have valid latitude and longitude data.");
+            return; // Skip the rest of this iteration and continue with the next item.
+        }
 
         let icon;
         let userhasvisited = pub.users_visited.includes(currentUserId);
