@@ -61,11 +61,11 @@ class Command(BaseCommand):
                 is_open =  False if status else True
 
                 # Generate a unique ID for the pub based on the address
-                pub_id = generate_unique_id(address)
+                custom_pub_id = generate_unique_id(address)
                 #DUBUGGING STATEMENT print(f"pub_id is: {pub_id}")
 
                 # Check if a record with the same pub ID already exists
-                existing_pub = Pub.objects.filter(pub_id=pub_id).first()
+                existing_pub = Pub.objects.filter(custom_pub_id=custom_pub_id).first()
                 if existing_pub:
                     #overwrite the existing pub with the new data.
                      existing_pub.name = name
@@ -77,11 +77,11 @@ class Command(BaseCommand):
                      existing_pub.url = url
                     
                      existing_pub.save()
-                    #DUBUGGING STATEMENT print(f"Updated existing pub: {existing_pub.name}")
+                     print(f"Updated existing pub: {existing_pub.name}")
                 else:
                     # Create a new instance of the model
                     pub = Pub(
-                        pub_id = pub_id,
+                        custom_pub_id = custom_pub_id,
                         name=name,
                         address=address,
                         description=description,
