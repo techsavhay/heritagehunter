@@ -80,37 +80,6 @@ body {
 }
 
 
-@media only screen and (max-width: 500px) {
-  #searchInput {
-      width: 150px;
-  }
-
-  .page-title {
-      font-size: 30px;
-  }
-}
-
-
-@media only screen and (min-width: 700px) {
-  #searchInput {
-      width: 150px;
-  }
-
-  .page-title {
-      font-size: 50px;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  #searchInput {
-      width: 300px;
-  }
-
-  .page-title {
-      font-size: 80px;
-  }
-}
-
 .navbar>.container,
 .navbar>.container-fluid,
 .navbar>.container-lg,
@@ -389,4 +358,76 @@ svg {
   text-align: center;
   font-size: 23px;
 
+}
+
+
+
+@media only screen and (max-width: 500px) {
+  #searchInput {
+      width: 150px;
+  }
+
+  .page-title {
+      font-size: 30px;
+  }
+  #parent-container {
+    flex-direction: column;
+    width: 100%;
+    position: relative;
+}
+
+#pubs-container, #map-container, #pint-container {
+  width: 100%;
+}
+  #pint-container {
+    order: 1;
+    
+      position: absolute;
+      top: 50px; /* Adjust as necessary */
+      left: 10px; /* Adjust as necessary */
+      z-index: 10; /* Any value greater than its siblings will do */
+      width: 15%;
+      height: 15%;
+    
+}
+#map-container {
+    order: 2;
+}
+#pubs-container {
+    order: 3;
+}
+#animation-text {
+  position: absolute;
+  left: 50%;
+  top: 40%;
+  font-size: small;
+  color: black;
+  font-family: 'Cabin', sans-serif;
+  font-weight: bold;
+}
+#pinttitletop {
+  font-size: x-small;
+}
+
+}
+
+
+@media only screen and (min-width: 700px) {
+  #searchInput {
+      width: 150px;
+  }
+
+  .page-title {
+      font-size: 50px;
+  }
+}
+
+@media only screen and (min-width: 1300px) {
+  #searchInput {
+      width: 300px;
+  }
+
+  .page-title {
+      font-size: 80px;
+  }
 }
