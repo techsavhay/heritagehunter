@@ -255,8 +255,17 @@ body {
   overflow: hidden;
 }
 
+/* By default, only show the desktop title */
+.pinttitle-desktop {
+  display: block;
+}
+
+.pinttitle-mobile {
+  display: none;
+}
+
 /* Pint glass animation */
-.pinttitle {
+.pinttitle-desktop {
   text-align: center;
   color: #ffffff;
 }
@@ -299,7 +308,7 @@ svg {
 
 }
 
-.pinttitle,
+.pinttitle-desktop,
 #pint-bottomcontainer {
   max-height: 10%;
   /* adjust as needed */
@@ -386,8 +395,8 @@ svg {
       top: 50px; /* Adjust as necessary */
       left: 10px; /* Adjust as necessary */
       z-index: 10; /* Any value greater than its siblings will do */
-      width: 15%;
-      height: 15%;
+      width: 20%;
+      height: 20%;
     
 }
 #map-container {
@@ -405,9 +414,20 @@ svg {
   font-family: 'Cabin', sans-serif;
   font-weight: bold;
 }
-#pinttitletop {
-  font-size: x-small;
+.pinttitle-desktop {
+  display: none;
 }
+
+.pinttitle-mobile {
+  display: block;
+}
+
+#pinttitletop-mobile {
+  font-size: x-small;
+  color: #f7f7ff;
+  text-align: center;
+}
+
 
 }
 
