@@ -124,6 +124,7 @@ body {
 #parent-container {
   display: flex;
   overflow: auto;
+  flex-direction: row;
 }
 
 #body-unique {
@@ -370,84 +371,61 @@ svg {
 }
 
 
-
 @media only screen and (max-width: 500px) {
-  #searchInput {
-      width: 150px;
-  }
+        #searchInput {
+            width: 150px;
+        }
 
-  .page-title {
-      font-size: 30px;
-  }
-  #parent-container {
-    flex-direction: column;
-    width: 100%;
-    position: relative;
-}
+        .page-title {
+            font-size: 30px;
+        }
+        #parent-container {
+          flex-direction: column;
+          width: 100%;
+          position: relative;
+      }
 
-#pubs-container, #map-container, #pint-container {
-  width: 100%;
-}
-  #pint-container {
-    order: 1;
-    
-      position: absolute;
-      top: 50px; /* Adjust as necessary */
-      left: 10px; /* Adjust as necessary */
-      z-index: 10; /* Any value greater than its siblings will do */
-      width: 20%;
-      height: 20%;
-    
-}
-#map-container {
-    order: 2;
-}
-#pubs-container {
-    order: 3;
-}
-#animation-text {
-  position: absolute;
-  left: 50%;
-  top: 40%;
-  font-size: small;
-  color: black;
-  font-family: 'Cabin', sans-serif;
-  font-weight: bold;
-}
-.pinttitle-desktop {
-  display: none;
-}
+      #pubs-container, #map-container, #pint-container {
+        width: 100%;
+      }
+        #pint-container {
+          order: 1;
+          
+            position: absolute;
+            top: 50px; /* Adjust as necessary */
+            left: 10px; /* Adjust as necessary */
+            z-index: 10; /* Any value greater than its siblings will do */
+            width: 20%;
+            height: 20%;
+          
+      }
+      #map-container {
+          order: 2;
+      }
+      #pubs-container {
+          order: 3;
+      }
+      #animation-text {
+        position: absolute;
+        left: 50%;
+        top: 40%;
+        font-size: small;
+        color: black;
+        font-family: 'Cabin', sans-serif;
+        font-weight: bold;
+      }
+      .pinttitle-desktop {
+        display: none;
+      }
 
-.pinttitle-mobile {
-  display: block;
-}
+      .pinttitle-mobile {
+        display: block;
+      }
 
-#pinttitletop-mobile {
-  font-size: x-small;
-  color: #f7f7ff;
-  text-align: center;
-}
-
-
+      #pinttitletop-mobile {
+        font-size: x-small;
+        color: #f7f7ff;
+        text-align: center;
+      }
 }
 
-
-@media only screen and (min-width: 700px) {
-  #searchInput {
-      width: 150px;
-  }
-
-  .page-title {
-      font-size: 50px;
-  }
-}
-
-@media only screen and (min-width: 1300px) {
-  #searchInput {
-      width: 300px;
-  }
-
-  .page-title {
-      font-size: 80px;
-  }
-}
