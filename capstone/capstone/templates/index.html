@@ -100,7 +100,14 @@
                     I hope you enjoy this app!
                 </p>
                 <!-- Add a link to the login page -->
-                <a id="welcomeLoginURL" href="{% url 'account_login' %}">Login / Signup</a>
+                <a id="welcomeLoginURL" href="{% url 'account_login' %}">Login / Signup</a><br/>
+
+                <div class="mb-3 text-center">
+                    <small>
+                        {% trans "By signing up / logging in, you agree to our" %}
+                        <a href="{% url 'privacy_policy' %}">{% trans "Privacy Policy" %}</a>.
+                    </small>
+                </div>
             </div>
             {% endif %}
 

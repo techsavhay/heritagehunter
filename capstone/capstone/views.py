@@ -7,6 +7,8 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 
+def privacy_policy(request):
+    return render(request, 'account/privacypolicy.html')
 
 def encode_pub(obj):
     if isinstance(obj, Pub):
