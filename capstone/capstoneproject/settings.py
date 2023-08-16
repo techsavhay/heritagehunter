@@ -27,7 +27,7 @@ SECRET_KEY = 'django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'heritage-hunter-395913.appspot.com']
 
 
 # Application definition
@@ -106,7 +106,7 @@ WSGI_APPLICATION = 'capstoneproject.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'HOST': '34.105.137.164',
+        'HOST': '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
         'PORT': '5432',
         'NAME': 'pub-database-instance-1',
         'USER': 'postgres',
