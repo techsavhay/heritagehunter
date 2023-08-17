@@ -111,12 +111,6 @@ DATABASES = {
         'NAME': 'pub-database-instance-1',
         'USER': 'postgres',
         'PASSWORD': '***REMOVED***',
-        'OPTIONS': {
-            'sslmode': 'require',
-            'sslrootcert': '/path/to/server-ca.pem',
-            'sslcert': '/path/to/client-cert.pem',
-            'sslkey': '/path/to/client-key.pem',
-        },
     }
 }
 

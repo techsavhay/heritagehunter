@@ -6,7 +6,7 @@ entrypoint: gunicorn capstoneproject.wsgi:application --workers 3 --timeout 300
 
 
 env_variables:
-  DJANGO_SETTINGS_MODULE: "capstone.settings"
+  DJANGO_SETTINGS_MODULE: "capstoneproject.settings"
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
   DB_PORT: "5432"
   DB_USER: "postgres"
