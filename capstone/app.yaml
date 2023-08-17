@@ -2,6 +2,9 @@
 runtime: python39
 instance_class: F1
 
+entrypoint: gunicorn capstoneproject.wsgi:application --workers 3 --timeout 300
+
+
 env_variables:
   DJANGO_SETTINGS_MODULE: "capstone.settings"
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
