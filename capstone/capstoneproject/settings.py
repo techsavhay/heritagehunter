@@ -61,9 +61,14 @@ SOCIALACCOUNT_PROVIDERS = {
         'AUTH_PARAMS': {
             'access_type': 'online',
         },
+        'APP': {
+            'client_id': '849518037714-mfjhnn70o815ijs5anmqt191r0b6ughg.apps.googleusercontent.com',
+            'secret': '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'
+        },
         'OAUTH_PKCE_ENABLED': True,
     }
 }
+
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
