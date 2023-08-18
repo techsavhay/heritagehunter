@@ -108,7 +108,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
         'HOST': '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
         'PORT': '5432',
-        'NAME': 'pub-database-instance-1',
+        'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': '***REMOVED***',
     }
