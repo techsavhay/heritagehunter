@@ -20,4 +20,6 @@ capstone/static/json_file/VERIFIED_pub_info_2023-06-06_16-45-00.json
 capstone/static/json_file
 capstone/VERIFIED_pub_info_2023-06-06_16-45-00.json
 VERIFIED_pub_info_2023-06-06_16-45-00.json
-
+.env
+.gcloudignore
+capstone/.gcloudignore
