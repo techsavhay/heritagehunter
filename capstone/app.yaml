@@ -8,10 +8,9 @@ entrypoint: gunicorn capstoneproject.wsgi:application --workers 3 --timeout 300
 env_variables:
   DJANGO_SETTINGS_MODULE: "capstoneproject.settings"
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
-  DB_PORT: "5432"
   DB_USER: "postgres"
-  DB_PASSWORD: "***REMOVED***"
-  DB_NAME: "pub-database-instance-1"
+  DB_PASSWORD: "Zt}Ps53FxO?b&Q.a"
+  DB_NAME: "postgres"
   SECRET_KEY: "django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6"
 
 beta_settings:
