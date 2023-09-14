@@ -4,14 +4,19 @@ instance_class: F1
 
 entrypoint: gunicorn capstoneproject.wsgi:application --workers 3 --timeout 300
 
+automatic_scaling:
+  min_instances: 0
+  max_instances: 1  # limited to control costs
+  #target_cpu_utilization: 0.85  # Scale up when CPU reaches 65%
+
 
 env_variables:
   DJANGO_SETTINGS_MODULE: "capstoneproject.settings"
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
-  DB_USER: "postgres"
-  DB_PASSWORD: "Zt}Ps53FxO?b&Q.a"
+  #DB_USER: "postgres"
+  #DB_PASSWORD: "Zt}Ps53FxO?b&Q.a"
   DB_NAME: "postgres"
-  SECRET_KEY: "django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6"
+  #SECRET_KEY: "django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6"
 
 beta_settings:
   cloud_sql_instances: "heritage-hunter-395913:europe-west2:pub-database-instance-1"
