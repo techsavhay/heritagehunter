@@ -9,14 +9,18 @@ https://docs.djangoproject.com/en/4.1/topics/settings/
 For the full list of settings and their values, see
 https://docs.djangoproject.com/en/4.1/ref/settings/
 """
-
+from google.cloud import secretmanager
 from pathlib import Path
 import os
-#from decouple import Csv, config
 
-# Settings for python decouple
-#DEBUG = True
-#ALLOWED_HOSTS = 'localhost', '127.0.0.1', '86.3.108.114', 
+
+def get_secret(project_id, secret_id, version_id="latest"):
+    client = secretmanager.SecretManagerServiceClient()
+    name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
+    response = client.access_secret_version(request={"name": name})
+    return response.payload.data.decode("UTF-8")
+
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +30,11 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6'
+#SECRET_KEY = 'django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6'
+
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = get_secret("heritage-hunter-395913", "SECRET_KEY")
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -113,7 +121,8 @@ WSGI_APPLICATION = 'capstoneproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # Check if running in development mode
-IS_DEV = os.environ.get('IS_DEV', None)
+IS_DEV = os.environ.get('IS_DEV', '0') == '1'
+
 
 if IS_DEV:
     # Use SQLite for local development
@@ -128,9 +137,9 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': os.environ.get('DB_NAME', 'postgres'),
-            'USER': os.environ.get('DB_USER', 'postgres'),
-            'PASSWORD': os.environ.get('DB_PASSWORD', 'Zt}Ps53FxO?b&Q.a'),
+            'NAME': 'postgres',
+            'USER': get_secret("heritage-hunter-395913", "DB_USER"),
+            'PASSWORD': get_secret("heritage-hunter-395913", "DB_PASSWORD"),
             'HOST': os.environ.get('DB_HOST', '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1'),
             'PORT': os.environ.get('DB_PORT', '5432'),
         }
