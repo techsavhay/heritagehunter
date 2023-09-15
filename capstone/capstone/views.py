@@ -6,6 +6,11 @@ from django.contrib.auth.models import User
 from django.http import JsonResponse
 import json
 from django.db.models import Q
+from django_ratelimit.decorators import ratelimit
+
+#gets user ID in order to inform rate limiting
+def get_user_id(group, request):
+    return str(request.user.id) if request.user.is_authenticated else ''
 
 def privacy_policy(request):
     return render(request, 'account/privacypolicy.html')
@@ -63,12 +68,15 @@ def profile(request):
     context = {"user": user}
     return render(request, "profile.html", context)
 
-
+@ratelimit(key=get_user_id, rate='10/m', block=True)
+@ratelimit(key=get_user_id, rate='100/h', block=True)
+@ratelimit(key=get_user_id, rate='400/d', block=True)
 @login_required
 def pubs_api(request):
     current_user = request.user
 
-    pubs = Pub.objects.filter(inventory_stars="3").filter(open="True")
+    # Using prefetch_related to optimize database queries
+    pubs = Pub.objects.filter(inventory_stars="3", open="True").prefetch_related('pub_posts')
 
     pub_data = []
     for pub in pubs:
@@ -94,7 +102,9 @@ def pubs_api(request):
 
     return JsonResponse(response, safe=False, json_dumps_params={"default": encode_pub})
 
-
+@ratelimit(key=get_user_id, rate='10/m', block=True)
+@ratelimit(key=get_user_id, rate='100/h', block=True)
+@ratelimit(key=get_user_id, rate='400/d', block=True)
 @require_POST
 @login_required
 def save_visit(request):
@@ -119,7 +129,9 @@ def save_visit(request):
     pub.save()
     return JsonResponse({"success": True})
 
-
+@ratelimit(key=get_user_id, rate='10/m', block=True)
+@ratelimit(key=get_user_id, rate='100/h', block=True)
+@ratelimit(key=get_user_id, rate='400/d', block=True)
 @require_POST
 @login_required
 def delete_visit(request):
@@ -132,13 +144,9 @@ def delete_visit(request):
 
     if not posts:  # if no matching posts found, return an error
         return JsonResponse({"error": "No matching posts found"}, status=404)
-
-    # Find the Pub instance with the given pub_id
-    pub = Pub.objects.get(id=pub_id)
-
-    # Delete the user from the pub's users_visited
-    pub.users_visited.remove(user)
-    pub.save()
+    
+    #remove user from pubs users visited (in one line)
+    Pub.objects.get(id=pub_id).users_visited.remove(user)
 
     # Delete all matching posts
     posts.delete()
