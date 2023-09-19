@@ -142,7 +142,7 @@ DATABASES = {
         'NAME': 'postgres',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
-        'HOST': '127.0.0.1',
+        'HOST': '192.168.0.124',
         'PORT': '5432',
         'OPTIONS': {
             'sslmode': 'disable', 
