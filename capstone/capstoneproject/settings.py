@@ -121,7 +121,7 @@ WSGI_APPLICATION = 'capstoneproject.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 # Check if running in development mode
-IS_DEV = os.environ.get('IS_DEV', '0') == '1'
+"""IS_DEV = os.environ.get('IS_DEV', '0') == '1'
 
 
 if IS_DEV:
@@ -132,8 +132,25 @@ if IS_DEV:
             'NAME': BASE_DIR / 'db.sqlite3',
         }
     }
+elif
 
-else:
+os.environ.get('USE_LOCAL_PG', '0') == '1':  # new environment variable to trigger local PostgreSQL """
+# local postgreSQL database
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'postgres',
+        'USER': 'postgres',
+        'PASSWORD': 'postgres',
+        'HOST': '127.0.0.1',
+        'PORT': '5432',
+        'OPTIONS': {
+            'sslmode': 'disable', 
+        },
+    }
+}
+
+"""else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
@@ -143,7 +160,7 @@ else:
             'HOST': os.environ.get('DB_HOST', '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1'),
             'PORT': os.environ.get('DB_PORT', '5432'),
         }
-    }
+    }"""
 
 
 AUTHENTICATION_BACKENDS = [
