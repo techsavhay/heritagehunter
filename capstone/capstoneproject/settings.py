@@ -139,7 +139,7 @@ os.environ.get('USE_LOCAL_PG', '0') == '1':  # new environment variable to trigg
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'postgres',
+        'NAME': 'new_admin_db',
         'USER': 'postgres',
         'PASSWORD': 'postgres',
         'HOST': '192.168.0.124',
