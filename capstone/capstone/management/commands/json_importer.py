@@ -73,7 +73,9 @@ class Command(BaseCommand):
 
                     star_rating = next((value for key, value in star_mapping.items() if str(inventory_stars).startswith(key)), 0)
 
-                    is_open = False if status == "Closed" else True
+                    status = status.lower().strip()
+                    is_open = False if "closed" in status else True
+
                     custom_pub_id = generate_unique_id(address)
 
                     exact_match = Pub.objects.filter(address=address).first()
@@ -82,7 +84,7 @@ class Command(BaseCommand):
                         handle_exact_match(exact_match, name, address, description, star_rating, listed, is_open, url, log_file)
                     else:
                         # Inform the user about the pub that couldn't be exactly matched
-                        print(f"No exact match found for {name}, {address}. Inventory stars: {star_rating} Showing closest matches.")
+                        print(f"No exact match found for {name}, {address}. Inventory stars: {star_rating}.")
 
                         closest_name_and_address_match = process.extractOne(f"{name} {address}", all_pub_name_addresses)
                         
@@ -106,7 +108,7 @@ class Command(BaseCommand):
                             # Generate list of tuples for each pub where each tuple is (name, address)
                             all_pub_name_and_address_tuples = [(pub.name, pub.address) for pub in all_pubs]
 
-                            print("Closest matches by name:")
+                            print("Showing closest matches.\n Closest matches by name:")
                             closest_name_matches = process.extract(name, all_pub_name_and_address_tuples, limit=3)
                             for i, ((matched_name, matched_address), score) in enumerate(closest_name_matches):
                                 print(f"{i + 1}. Name: {matched_name} Address: {matched_address} (Score: {score})")
