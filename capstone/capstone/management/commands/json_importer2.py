@@ -81,9 +81,6 @@ class Command(BaseCommand):
                     if exact_match:
                         handle_exact_match(exact_match, name, address, description, star_rating, listed, is_open, url, log_file)
                     else:
-                        # Inform the user about the pub that couldn't be exactly matched
-                        print(f"No exact match found for {name}, {address}. Inventory stars: {star_rating} Showing closest matches.")
-
                         closest_name_and_address_match = process.extractOne(f"{name} {address}", all_pub_name_addresses)
                         
                         if closest_name_and_address_match[1] >= 95:
@@ -97,11 +94,11 @@ class Command(BaseCommand):
                             pub_to_update.open = is_open
                             pub_to_update.url = url
                             pub_to_update.save()
-                            print(f"Updated existing pub by high confidence match: {pub_to_update.name}, Address: {pub_to_update.address} Inventory Stars: {pub_to_update.inventory_stars}")
+                            print(f"Updated existing pub by high confidence match: {pub_to_update.name}, Inventory Stars: {pub_to_update.inventory_stars}")
 
                         else:
-                            closest_name_matches = process.extract(name, [pub.name for pub in all_pubs], limit=3)
-                            closest_address_matches = process.extract(address, [pub.address for pub in all_pubs], limit=3)
+                            closest_name_matches = process.extract(name, [pub.name for pub in all_pubs], limit=3, scorer=fuzz.partial_ratio)
+                            closest_address_matches = process.extract(address, [pub.address for pub in all_pubs], limit=3, scorer=fuzz.token_sort_ratio)
 
                             # Generate list of tuples for each pub where each tuple is (name, address)
                             all_pub_name_and_address_tuples = [(pub.name, pub.address) for pub in all_pubs]
