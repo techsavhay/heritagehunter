@@ -10,20 +10,20 @@ def generate_unique_id(address):
     unique_id = hash_object.hexdigest()
     return unique_id
 
-def log_changes(pub, inventory_stars, is_open, log_file):
+def log_changes(pub, inventory_stars, is_open, url, log_file):
     if pub.inventory_stars == 3:
         if inventory_stars != 3:
-            log_file.write(f"Demoted Three-Star Pub: {pub.name}\n")
+            log_file.write(f"Demoted Three-Star Pub: {pub.name}, URL: {url}\n")
         if pub.open != is_open:
             if is_open:
-                log_file.write(f"Opened Pub: {pub.name}\n")
+                log_file.write(f"Opened Pub: {pub.name}, URL: {url}\n")
             else:
-                log_file.write(f"Closed Pub: {pub.name}\n")
+                log_file.write(f"Closed Pub: {pub.name}, URL: {url}\n")
     elif inventory_stars == 3:
-        log_file.write(f"Promoted to Three-Star Pub: {pub.name}\n")
+        log_file.write(f"Promoted to Three-Star Pub: {pub.name}, URL: {url}\n")
 
 def handle_exact_match(exact_match, name, address, description, star_rating, listed, is_open, url, log_file):
-    log_changes(exact_match, star_rating, is_open, log_file)
+    log_changes(exact_match, star_rating, is_open, url, log_file)
     exact_match.name = name
     exact_match.address = address
     exact_match.description = description
@@ -71,6 +71,7 @@ class Command(BaseCommand):
                     status = pub_data["Status"]
                     url = pub_data["Url"]
 
+
                     star_rating = next((value for key, value in star_mapping.items() if str(inventory_stars).startswith(key)), 0)
 
                     status = status.lower().strip()
@@ -90,7 +91,7 @@ class Command(BaseCommand):
                         
                         if closest_name_and_address_match[1] >= 95:
                             pub_to_update = all_pubs[list(all_pub_name_addresses).index(closest_name_and_address_match[0])]
-                            log_changes(pub_to_update, star_rating, is_open, log_file)
+                            log_changes(pub_to_update, star_rating, is_open, url, log_file)
                             pub_to_update.name = name
                             pub_to_update.address = address
                             pub_to_update.description = description
@@ -102,40 +103,40 @@ class Command(BaseCommand):
                             print(f"Updated existing pub by high confidence match: {pub_to_update.name}, Address: {pub_to_update.address} Inventory Stars: {pub_to_update.inventory_stars}")
 
                         else:
-                            closest_name_matches = process.extract(name, [pub.name for pub in all_pubs], limit=3)
-                            closest_address_matches = process.extract(address, [pub.address for pub in all_pubs], limit=3)
+                            closest_name_matches = process.extract(name, [pub.name for pub in all_pubs], limit=10)
+                            closest_address_matches = process.extract(address, [pub.address for pub in all_pubs], limit=10)
 
                             # Generate list of tuples for each pub where each tuple is (name, address)
                             all_pub_name_and_address_tuples = [(pub.name, pub.address) for pub in all_pubs]
 
                             print("Showing closest matches.\n Closest matches by name:")
-                            closest_name_matches = process.extract(name, all_pub_name_and_address_tuples, limit=3)
+                            closest_name_matches = process.extract(name, all_pub_name_and_address_tuples, limit=10)
                             for i, ((matched_name, matched_address), score) in enumerate(closest_name_matches):
                                 print(f"{i + 1}. Name: {matched_name} Address: {matched_address} (Score: {score})")
 
                             print("Closest matches by address:")
-                            closest_address_matches = process.extract(address, all_pub_name_and_address_tuples, limit=3)
+                            closest_address_matches = process.extract(address, all_pub_name_and_address_tuples, limit=10)
                             for i, ((matched_name, matched_address), score) in enumerate(closest_address_matches):
-                                print(f"{i + 4}. Name: {matched_name} - Address: {matched_address} (Score: {score})")
+                                print(f"{i + 11}. Name: {matched_name} - Address: {matched_address} (Score: {score})")
 
 
                             
-                            user_input = input("Choose an option 1-6, 'n' for new, or 's' to skip: ")
+                            user_input = input("Choose an option 1-20, 'n' for new, or 's' to skip: ")
                             
                             if user_input.isdigit():
                                 index = int(user_input)
                                 target_unique_id = None
 
-                                if index <= 3:
+                                if index <= 10:
                                     target_unique_id = generate_unique_id(closest_name_matches[index - 1][0][1])
                                 else:
-                                    target_unique_id = generate_unique_id(closest_address_matches[index - 4][0][1])
+                                    target_unique_id = generate_unique_id(closest_address_matches[index - 11][0][1])
 
                                 
                                 pub_to_update = all_pubs_with_unique_ids.get(target_unique_id, None)
                                 
                                 if pub_to_update:
-                                    log_changes(pub_to_update, star_rating, is_open, log_file)
+                                    log_changes(pub_to_update, star_rating, is_open, url,log_file)
                                     pub_to_update.name = name
                                     pub_to_update.address = address
                                     pub_to_update.description = description
