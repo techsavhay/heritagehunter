@@ -37,7 +37,7 @@ SECRET_KEY = get_secret("heritage-hunter-395913", "SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'heritage-hunter-395913.appspot.com', 'heritage-hunter-395913.nw.r.appspot.com', ]
 
@@ -120,47 +120,39 @@ WSGI_APPLICATION = 'capstoneproject.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-# Check if running in development mode
-"""IS_DEV = os.environ.get('IS_DEV', '0') == '1'
+# Get the value of the environment variable 'USE_GOOGLE_CLOUD'
+use_google_cloud = os.environ.get('USE_GOOGLE_CLOUD', 'False') == 'True'
 
+# print statement
+print("Using Google Cloud:", use_google_cloud)
 
-if IS_DEV:
-    # Use SQLite for local development
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.sqlite3',
-            'NAME': BASE_DIR / 'db.sqlite3',
-        }
-    }
-elif
-
-os.environ.get('USE_LOCAL_PG', '0') == '1':  # new environment variable to trigger local PostgreSQL """
-# local postgreSQL database
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'new_admin_db',
-        'USER': 'postgres',
-        'PASSWORD': 'postgres',
-        'HOST': '192.168.0.124',
-        'PORT': '5432',
-        'OPTIONS': {
-            'sslmode': 'disable', 
-        },
-    }
-}
-
-"""else:
+if use_google_cloud:
+    # Google Cloud database settings
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
             'NAME': 'postgres',
             'USER': get_secret("heritage-hunter-395913", "DB_USER"),
             'PASSWORD': get_secret("heritage-hunter-395913", "DB_PASSWORD"),
-            'HOST': os.environ.get('DB_HOST', '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1'),
-            'PORT': os.environ.get('DB_PORT', '5432'),
+            'HOST': '127.0.0.1',  # Changed this line from '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
+            'PORT': '5432',
         }
-    }"""
+    }
+else:
+    # Local PostgreSQL database settings
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.postgresql',
+            'NAME': 'new_admin_db',
+            'USER': 'postgres',
+            'PASSWORD': 'postgres',
+            'HOST': '192.168.0.124',
+            'PORT': '5432',
+            'OPTIONS': {
+                'sslmode': 'disable',
+            },
+        }
+    }
 
 
 AUTHENTICATION_BACKENDS = [
