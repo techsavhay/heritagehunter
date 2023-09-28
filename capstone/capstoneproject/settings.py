@@ -37,9 +37,9 @@ SECRET_KEY = get_secret("heritage-hunter-395913", "SECRET_KEY")
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', 'heritage-hunter-395913.appspot.com', 'heritage-hunter-395913.nw.r.appspot.com', ]
+ALLOWED_HOSTS = ['localhost', '127.0.0.1','http://127.0.0.1:8000/', 'heritage-hunter-395913.appspot.com', 'heritage-hunter-395913.nw.r.appspot.com', ]
 
 
 # Application definition
@@ -134,7 +134,7 @@ if use_google_cloud:
             'NAME': 'postgres',
             'USER': get_secret("heritage-hunter-395913", "DB_USER"),
             'PASSWORD': get_secret("heritage-hunter-395913", "DB_PASSWORD"),
-            'HOST': '127.0.0.1',  # Changed this line from '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
+            'HOST': os.environ.get('DB_HOST'), # Changed this line from '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
             'PORT': '5432',
         }
     }
