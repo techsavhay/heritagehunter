@@ -67,8 +67,9 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.microsoft',
 ]
+# site 1 = localhost, site 2 = http://127.0.0.1:8000/
+SITE_ID = 3
 
-SITE_ID = 1
 
 GOOGLE_CLIENT_ID = get_secret("heritage-hunter-395913", "GOOGLE_CLIENT_ID")
 GOOGLE_CLIENT_SECRET = get_secret("heritage-hunter-395913", "GOOGLE_CLIENT_SECRET")
