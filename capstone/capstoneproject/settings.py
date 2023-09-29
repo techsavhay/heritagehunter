@@ -67,7 +67,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.google',
     'allauth.socialaccount.providers.microsoft',
 ]
-# site 1 = localhost, site 2 = http://127.0.0.1:8000/
+# site 1 = localhost, site 2 = http://127.0.0.1:8000/, site 3 = Heritage Hunter
 SITE_ID = 3
 
 
