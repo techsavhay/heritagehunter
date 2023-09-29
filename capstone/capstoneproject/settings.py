@@ -15,10 +15,15 @@ import os
 
 
 def get_secret(project_id, secret_id, version_id="latest"):
+    #print(f"get_secret function called for {secret_id}")  # Debugging line to indicate function call
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
     response = client.access_secret_version(request={"name": name})
-    return response.payload.data.decode("UTF-8")
+    secret_value = response.payload.data.decode("UTF-8")
+    #print(f"Retrieved secret {secret_id}: {secret_value}")  # Debugging line to print the retrieved secret
+    return secret_value
+
+
 
 
 
@@ -60,9 +65,18 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'allauth.socialaccount.providers.microsoft',
 ]
 
 SITE_ID = 1
+
+GOOGLE_CLIENT_ID = get_secret("heritage-hunter-395913", "GOOGLE_CLIENT_ID")
+GOOGLE_CLIENT_SECRET = get_secret("heritage-hunter-395913", "GOOGLE_CLIENT_SECRET")
+
+
+
+MICROSOFT_CLIENT_ID = get_secret("heritage-hunter-395913", "MICROSOFT_CLIENT_ID")
+MICROSOFT_SECRET = get_secret("heritage-hunter-395913", "MICROSOFT_SECRET")
 
 SOCIALACCOUNT_PROVIDERS = {
     'google': {
@@ -74,17 +88,34 @@ SOCIALACCOUNT_PROVIDERS = {
             'access_type': 'online',
         },
         'APP': {
-            'client_id': '849518037714-mfjhnn70o815ijs5anmqt191r0b6ughg.apps.googleusercontent.com',
-            'secret': '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'
+            'client_id': GOOGLE_CLIENT_ID,
+            'secret': GOOGLE_CLIENT_SECRET,
         },
         'OAUTH_PKCE_ENABLED': True,
-    }
+    },
+    'microsoft': {
+        'APP': {
+            'client_id': MICROSOFT_CLIENT_ID,
+            'secret': MICROSOFT_SECRET,
+        },
+        #'REDIRECT_URI': os.environ.get(
+            #'SOCIAL_AUTH_REDIRECT_URI',
+            #'http://localhost:8000/accounts/microsoft/login/callback/'
+        #),
+    },
 }
+
 
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGIN_REDIRECT_URL = 'index'
+
+
+
+# Use the environment variable if it exists, otherwise use a default URI
+
+
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
@@ -134,7 +165,7 @@ if use_google_cloud:
             'NAME': 'postgres',
             'USER': get_secret("heritage-hunter-395913", "DB_USER"),
             'PASSWORD': get_secret("heritage-hunter-395913", "DB_PASSWORD"),
-            'HOST': os.environ.get('DB_HOST'), # Changed this line from '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
+            'HOST': os.environ.get('DB_HOST', '127.0.0.1'), # Changed this line from '/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1',
             'PORT': '5432',
         }
     }
