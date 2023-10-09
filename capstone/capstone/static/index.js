@@ -91,7 +91,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       <label for="visit" style="white-space: nowrap;">Date of visit (optional):</label>
       <input type="date" id="date_visited" name="date_visited" ${dateValue}>
     </div>
-    <textarea id="content" name="content" maxlength="280" ${placeholderText}>${textValue}</textarea>
+    <textarea id="content" name="content" maxlength="1000" ${placeholderText}>${textValue}</textarea>
     <input type="submit" id="save-visit-button" value="Mark as visited / Save">
   `;
 

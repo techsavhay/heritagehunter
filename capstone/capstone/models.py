@@ -4,7 +4,7 @@ from django.conf import settings
 
 class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
-    content = models.CharField(max_length=280, blank=True)
+    content = models.CharField(max_length=1000, blank=True)
     date_visited = models.DateField(blank=True, null=True)
     owner = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     pub = models.ForeignKey('Pub', on_delete=models.CASCADE, related_name='pub_posts', null=True)
