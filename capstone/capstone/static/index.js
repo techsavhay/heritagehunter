@@ -50,16 +50,26 @@ function fetchPubData() {
         })
         .catch(console.error);
 }
-// Function to toggle the loading state of the mark visited / save button
-function toggleLoading(isLoading, buttonElement) {
+
+// Function to toggle the loading state of the button
+function toggleLoading(isLoading, buttonElement, originalText) {
     if (isLoading) {
         buttonElement.disabled = true;
-        buttonElement.value = "Saving...";
+        if (buttonElement.tagName === 'BUTTON') {
+            buttonElement.textContent = "Processing...";
+        } else if (buttonElement.tagName === 'INPUT') {
+            buttonElement.value = "Processing...";
+        }
     } else {
         buttonElement.disabled = false;
-        buttonElement.value = originalSaveButtonText;
+        if (buttonElement.tagName === 'BUTTON') {
+            buttonElement.textContent = originalText;
+        } else if (buttonElement.tagName === 'INPUT') {
+            buttonElement.value = originalText;
+        }
     }
 }
+
 
 
 // Function to create a form for editing a pub's details
@@ -267,10 +277,13 @@ function displayPubs(data) {
 
                             // Event listeners for 'edit' and 'delete' buttons.
                             editButton.addEventListener('click', function() {
+                                toggleLoading(true, editButton, "Edit Post");
                                 createForm(pubElement, pub.id, fetchPubData, date_visited, content);
+                                toggleLoading(false, editButton, "Edit Post");
                             });
 
                             deleteButton.addEventListener('click', function() {
+                                toggleLoading(true, deleteButton, "Delete post & visit");
                                 fetchData('/api/delete_visit/', 'POST', {
                                     pub_id: pub.id,
                                 }).then(data => {
@@ -279,7 +292,7 @@ function displayPubs(data) {
                                     pubData = data.pubs;
                                     updateDisplayedPubs();
                                     displayMap(pubData);
-
+                                    toggleLoading(false, deleteButton, "Delete post & visit");
                                     console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
                                     pubStats(currentUserId);
