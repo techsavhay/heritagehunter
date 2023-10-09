@@ -1,4 +1,5 @@
 // Global variables are defined at the start, as they will be reused throughout the script
+const originalSaveButtonText = "Mark as visited / Save";
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 let pubData, map, currentUserId, pubsVisitedPercentage;
 let markers = [],
@@ -49,6 +50,17 @@ function fetchPubData() {
         })
         .catch(console.error);
 }
+// Function to toggle the loading state of the mark visited / save button
+function toggleLoading(isLoading, buttonElement) {
+    if (isLoading) {
+        buttonElement.disabled = true;
+        buttonElement.value = "Saving...";
+    } else {
+        buttonElement.disabled = false;
+        buttonElement.value = originalSaveButtonText;
+    }
+}
+
 
 // Function to create a form for editing a pub's details
 function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
@@ -101,6 +113,9 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
 
         const dateVisitedInput = form.querySelector('#date_visited');
         const contentInput = form.querySelector('#content');
+        const saveButton = form.querySelector('#save-visit-button');
+
+        toggleLoading(true, saveButton);  // Show loading state
 
         let date_visited = dateVisitedInput.value;
         const content = contentInput.value;
@@ -126,11 +141,14 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
             updateDisplayedPubs();
             displayMap(pubData)
 
+            toggleLoading(false, saveButton);  // Hide loading state
+
             // Updating the pint glass animation
             pubStats(currentUserId);
 
         }).catch(error => {
             console.error('Error:', error);
+            toggleLoading(false, saveButton);  // Hide loading state in case of an error
         });
 
         dateVisitedInput.value = '';
