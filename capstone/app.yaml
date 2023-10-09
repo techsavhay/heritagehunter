@@ -13,10 +13,10 @@ automatic_scaling:
 env_variables:
   DJANGO_SETTINGS_MODULE: "capstoneproject.settings"
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
-  #DB_USER: "postgres"
-  #DB_PASSWORD: "Zt}Ps53FxO?b&Q.a"
   DB_NAME: "postgres"
-  #SECRET_KEY: "django-insecure-kfj1qe(bvmj&sw#r8jwgwz99p^2md13ejw(i&i3z^l44j1q%r6"
+  USE_GOOGLE_CLOUD: 'True'
+  #SOCIAL_AUTH_REDIRECT_URI: 'https://heritage-hunter-395913.nw.r.appspot.com/accounts/microsoft/login/callback/'
+
 
 beta_settings:
   cloud_sql_instances: "heritage-hunter-395913:europe-west2:pub-database-instance-1"
