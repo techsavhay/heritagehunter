@@ -1,4 +1,5 @@
 // Global variables are defined at the start, as they will be reused throughout the script
+const originalSaveButtonText = "Mark as visited / Save";
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 let pubData, map, currentUserId, pubsVisitedPercentage;
 let markers = [],
@@ -50,6 +51,27 @@ function fetchPubData() {
         .catch(console.error);
 }
 
+// Function to toggle the loading state of the button
+function toggleLoading(isLoading, buttonElement, originalText) {
+    if (isLoading) {
+        buttonElement.disabled = true;
+        if (buttonElement.tagName === 'BUTTON') {
+            buttonElement.textContent = "Processing...";
+        } else if (buttonElement.tagName === 'INPUT') {
+            buttonElement.value = "Processing...";
+        }
+    } else {
+        buttonElement.disabled = false;
+        if (buttonElement.tagName === 'BUTTON') {
+            buttonElement.textContent = originalText;
+        } else if (buttonElement.tagName === 'INPUT') {
+            buttonElement.value = originalText;
+        }
+    }
+}
+
+
+
 // Function to create a form for editing a pub's details
 function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
     let form = pubElement.querySelector('.additional-content');
@@ -91,8 +113,8 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
       <label for="visit" style="white-space: nowrap;">Date of visit (optional):</label>
       <input type="date" id="date_visited" name="date_visited" ${dateValue}>
     </div>
-    <textarea id="content" name="content" maxlength="280" ${placeholderText}>${textValue}</textarea>
-    <input type="submit" id="save-visit-button" value="Save visit">
+    <textarea id="content" name="content" maxlength="1000" ${placeholderText}>${textValue}</textarea>
+    <input type="submit" id="save-visit-button" value="Mark as visited / Save">
   `;
 
     // Event listener for Save visit button
@@ -101,6 +123,9 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
 
         const dateVisitedInput = form.querySelector('#date_visited');
         const contentInput = form.querySelector('#content');
+        const saveButton = form.querySelector('#save-visit-button');
+
+        toggleLoading(true, saveButton);  // Show loading state
 
         let date_visited = dateVisitedInput.value;
         const content = contentInput.value;
@@ -126,11 +151,14 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
             updateDisplayedPubs();
             displayMap(pubData)
 
+            toggleLoading(false, saveButton);  // Hide loading state
+
             // Updating the pint glass animation
             pubStats(currentUserId);
 
         }).catch(error => {
             console.error('Error:', error);
+            toggleLoading(false, saveButton);  // Hide loading state in case of an error
         });
 
         dateVisitedInput.value = '';
@@ -249,10 +277,13 @@ function displayPubs(data) {
 
                             // Event listeners for 'edit' and 'delete' buttons.
                             editButton.addEventListener('click', function() {
+                                toggleLoading(true, editButton, "Edit Post");
                                 createForm(pubElement, pub.id, fetchPubData, date_visited, content);
+                                toggleLoading(false, editButton, "Edit Post");
                             });
 
                             deleteButton.addEventListener('click', function() {
+                                toggleLoading(true, deleteButton, "Delete post & visit");
                                 fetchData('/api/delete_visit/', 'POST', {
                                     pub_id: pub.id,
                                 }).then(data => {
@@ -261,7 +292,7 @@ function displayPubs(data) {
                                     pubData = data.pubs;
                                     updateDisplayedPubs();
                                     displayMap(pubData);
-
+                                    toggleLoading(false, deleteButton, "Delete post & visit");
                                     console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
                                     pubStats(currentUserId);
@@ -400,23 +431,27 @@ function scrollToPub(custom_pub_id) {
     selectedPub.click()
 }
 
-// displays pubs whose name or address is a match or partial match to the search box value.
+// Utility function to remove spaces and punctuation
+function removeSpacesAndPunctuation(str) {
+    return str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g, '').toUpperCase();
+}
+
+// Displays pubs whose name or address is a match or partial match to the search box value.
 function updateDisplayedPubs() {
     // Get the current filter value from the search input
     var searchInput = document.getElementById('searchInput');
-    var filter = searchInput.value.toUpperCase();
+    var filter = removeSpacesAndPunctuation(searchInput.value);
 
     // Filter the pubs and display the ones that match the filter
-    const filteredpubData = pubData.filter(pub =>
-        pub.pub.name.toUpperCase().includes(filter) ||
-        pub.pub.address.toUpperCase().includes(filter)
+    const filteredpubData = pubData.filter(pub => 
+        removeSpacesAndPunctuation(pub.pub.name).includes(filter) ||
+        removeSpacesAndPunctuation(pub.pub.address).includes(filter)
     );
 
     displayPubs(filteredpubData);
 }
 
-
-// search box functionality, to search dynamically
+// Search box functionality, to search dynamically
 function dynamicSearch() {
     updateDisplayedPubs();
 }

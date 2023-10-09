@@ -428,5 +428,22 @@ svg {
         color: #f7f7ff;
         text-align: center;
       }
+
+      .flex-container {
+        display: flex;
+        flex-direction: row; /* Ensures that items are in a single row */
+        justify-content: space-evenly; /* sets space between welcome and login/logout */
+        align-items: center; /* Vertically centers the elements */
+        
+      }
+
+      .logout {
+        padding-left: 5px;
+      }
+
+      #websiteTitle {
+        margin-bottom: 0px;
+      }
+      
 }
 
