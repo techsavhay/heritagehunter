@@ -400,23 +400,27 @@ function scrollToPub(custom_pub_id) {
     selectedPub.click()
 }
 
-// displays pubs whose name or address is a match or partial match to the search box value.
+// Utility function to remove spaces and punctuation
+function removeSpacesAndPunctuation(str) {
+    return str.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()\s]/g, '').toUpperCase();
+}
+
+// Displays pubs whose name or address is a match or partial match to the search box value.
 function updateDisplayedPubs() {
     // Get the current filter value from the search input
     var searchInput = document.getElementById('searchInput');
-    var filter = searchInput.value.toUpperCase();
+    var filter = removeSpacesAndPunctuation(searchInput.value);
 
     // Filter the pubs and display the ones that match the filter
-    const filteredpubData = pubData.filter(pub =>
-        pub.pub.name.toUpperCase().includes(filter) ||
-        pub.pub.address.toUpperCase().includes(filter)
+    const filteredpubData = pubData.filter(pub => 
+        removeSpacesAndPunctuation(pub.pub.name).includes(filter) ||
+        removeSpacesAndPunctuation(pub.pub.address).includes(filter)
     );
 
     displayPubs(filteredpubData);
 }
 
-
-// search box functionality, to search dynamically
+// Search box functionality, to search dynamically
 function dynamicSearch() {
     updateDisplayedPubs();
 }
