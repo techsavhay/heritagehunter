@@ -1,4 +1,4 @@
-from django.shortcuts import get_object_or_404, render
+from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
 from .models import Post, Pub
@@ -7,6 +7,9 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
+from django.http import HttpResponseForbidden
+from django.conf import settings
+
 
 #gets user ID in order to inform rate limiting
 def get_user_id(group, request):
@@ -14,6 +17,12 @@ def get_user_id(group, request):
 
 def privacy_policy(request):
     return render(request, 'account/privacypolicy.html')
+
+def landing(request):
+    user = request.user
+    if user.is_authenticated and user.email in settings.APPROVED_USER_EMAILS:
+        return redirect('index') 
+    return render(request, 'landing.html')
 
 def encode_pub(obj):
     if isinstance(obj, Pub):
@@ -47,7 +56,10 @@ def encode_post(obj):
 
 
 def index(request):
+
     user = request.user
+    if not user.is_authenticated or user.email not in settings.APPROVED_USER_EMAILS:
+        return redirect('landing')  # Redirect users back to the landing page
     pubs = (
         Pub.objects.filter(inventory_stars="3").filter(open="True")
         if user.is_authenticated

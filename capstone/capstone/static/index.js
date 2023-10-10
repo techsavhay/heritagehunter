@@ -12,13 +12,6 @@ let InfoWindow; // Will be used for map marker info window
 let bodyElement = document.querySelector('body');
 let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'True';
 
-// Get the welcome screen modal
-var modal = document.getElementById("welcomeScreen");
-
-// Display the welcome screen modal when the user is not logged in
-if (!user_is_logged_in) {
-    modal.style.display = "block";
-}
 
 // Function to make fetch calls, adheres to DRY principle
 function fetchData(url, method, body) {

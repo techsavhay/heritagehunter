@@ -40,6 +40,13 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = get_secret("heritage-hunter-395913", "SECRET_KEY")
 
+#Calls get secret to get approved emails
+APPROVED_USER_EMAILS_CSV = get_secret("heritage-hunter-395913", "Approved_user_emails")
+
+# Convert the apporved user emails CSV string into a list
+APPROVED_USER_EMAILS = APPROVED_USER_EMAILS_CSV.split(',')
+
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True

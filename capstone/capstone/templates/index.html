@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body id="body-unique" data-user-logged-in="{{ user_is_logged_in }}">
+<body id="body-unique">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
         <div class="container d-flex flex-column flex-md-row align-items-center">
@@ -31,24 +31,20 @@
             </div>
             <div class="d-flex flex-column align-items-center order-1 order-md-3" id="login-text">
                 <div class="flex-container">
-                    {% if user.is_authenticated %}
                     <span class="navbar-text light-text">
                         {% trans "Welcome, " %}{{ user.first_name }}!
                     </span>
                     <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
                         {% trans "Logout" %}
                     </a>
-                    {% else %}
                     <a class="nav-link light-text" href="{% url 'account_login' %}">
                         {% trans "Login / Signup" %}
                     </a>
-                    {% endif %}
                     </div>
                 </div>
         </div>
     </nav>
     <div id="parent-container">
-        {% if user_is_logged_in %}
         <div id="pubs-container">
             <!-- The pubs will be loaded here -->
         </div>
@@ -88,33 +84,7 @@
             </div>
 
         </div>
-        <!--else display a welcome splash screen for users who arent logged in-->
-        {% else %}
-        <div id="welcomeScreen" class="welcome-modal">
-            <div class="welcome-content">
-                <h2 id="welcomeTitle">Welcome to Heritage Hunter!</h2><br>
-                <p id="welcomeMessage">This Web App is designed to guide users in discovering and visiting the UK's most unspoilt, historic pubs.
 
-                    I have specifically featured those venues considered nationally important, or 'three-star', as determined by CAMRA's pub heritage group. Their invaluable work has been instrumental in the creation of this app, and I extend my utmost gratitude for their ongoing efforts. I strongly encourage all visitors to explore <a href="https://pubheritage.camra.org.uk/" target="_blank">https://pubheritage.camra.org.uk/ </a>to learn more about the pubs they plan to visit.<br><br>
-
-                    But in order to view the content here you need to login or sign up by clicking the link below.
-                    <br>
-                    <br>
-                    I hope you enjoy this app!
-                </p>
-                <!-- Add a link to the login page -->
-                <a id="welcomeLoginURL" href="{% url 'account_login' %}">Login / Signup</a><br/>
-
-                <div class="mb-3 text-center">
-                    <small>
-                        {% trans "By signing up / logging in, you agree to our" %}
-                        <a href="{% url 'privacy_policy' %}">{% trans "Privacy Policy" %}</a>.
-                    </small>
-                </div>
-            </div>
-            {% endif %}
-
-        </div>
 
 
         {% block content %}
