@@ -9,6 +9,7 @@ from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
 from django.http import HttpResponseForbidden
 from django.conf import settings
+from django.contrib import messages 
 
 
 #gets user ID in order to inform rate limiting
@@ -58,19 +59,17 @@ def encode_post(obj):
 def index(request):
     user = request.user
     if not user.is_authenticated or user.email not in settings.APPROVED_USER_EMAILS:
-        return redirect('landing')  # Redirect users back to the landing page CHANGE TO HTTP RESPONSSE TELLING PEOPLE THEY DONT HAVE AN INVITE.
-    pubs = (
-        Pub.objects.filter(inventory_stars="3").filter(open="True")
-        if user.is_authenticated
-        else None
-    )
+        messages.warning(request, 'You are currently unable to use this site as your email address has not yet receieved an invitation. At the moment we are only sending out a limited amount of invitations whilst testing is completed')
+        return redirect('landing')
+    
+    pubs = Pub.objects.filter(inventory_stars="3").filter(open="True") if user.is_authenticated else None
+    
     context = {
         "user": user,
         "pubs": pubs,
         "user_is_logged_in": request.user.is_authenticated,
     }
     return render(request, "index.html", context)
-
 
 # Profile page
 @login_required

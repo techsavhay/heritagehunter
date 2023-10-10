@@ -15,6 +15,13 @@
     <link rel="stylesheet" href="{% static 'your-css-file.css' %}">
 </head>
 <body>
+    {% if messages %}
+      <div class="messages">
+        {% for message in messages %}
+          <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+        {% endfor %}
+      </div>
+    {% endif %}
 
     <div class="welcome-content">
         <h2 id="welcomeTitle">Welcome to Heritage Hunter!</h2><br>
@@ -22,7 +29,7 @@
             This Web App is designed to guide users in discovering and visiting the UK's most unspoilt, historic pubs.
             I have specifically featured those venues considered nationally important, or 'three-star', as determined by CAMRA's pub heritage group. Their invaluable work has been instrumental in the creation of this app, and I extend my utmost gratitude for their ongoing efforts. 
             I strongly encourage all visitors to explore <a href="https://pubheritage.camra.org.uk/" target="_blank">https://pubheritage.camra.org.uk/</a> to learn more about the pubs they plan to visit.<br><br>
-            But in order to view the content here you need to login or sign up by clicking the link below.
+            But in order to view the content you must have received and invite so your email address is registered, you then click the link below.
             <br>
             <br>
             I hope you enjoy this app!
@@ -31,6 +38,11 @@
         <a id="welcomeLoginURL" href="{% url 'account_login' %}">Login / Signup</a><br/>
         <div class="mb-3 text-center">
             <small>
+                {% if user.is_authenticated %}
+                <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
+                    {% trans "Logout" %}
+                </a>
+                {% endif %}
                 {% trans "By signing up / logging in, you agree to our" %}
                 <a href="{% url 'privacy_policy' %}">{% trans "Privacy Policy" %}</a>.
             </small>
