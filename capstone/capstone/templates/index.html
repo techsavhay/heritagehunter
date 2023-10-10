@@ -31,17 +31,20 @@
             </div>
             <div class="d-flex flex-column align-items-center order-1 order-md-3" id="login-text">
                 <div class="flex-container">
+                    {% if user.is_authenticated %}
                     <span class="navbar-text light-text">
                         {% trans "Welcome, " %}{{ user.first_name }}!
                     </span>
                     <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
                         {% trans "Logout" %}
                     </a>
+                    {% else %}
                     <a class="nav-link light-text" href="{% url 'account_login' %}">
                         {% trans "Login / Signup" %}
                     </a>
-                    </div>
+                    {% endif %}
                 </div>
+            </div>
         </div>
     </nav>
     <div id="parent-container">
