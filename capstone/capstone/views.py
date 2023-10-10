@@ -54,12 +54,11 @@ def encode_post(obj):
             else None,
         }
 
-
+@login_required
 def index(request):
-
     user = request.user
     if not user.is_authenticated or user.email not in settings.APPROVED_USER_EMAILS:
-        return redirect('landing')  # Redirect users back to the landing page
+        return redirect('landing')  # Redirect users back to the landing page CHANGE TO HTTP RESPONSSE TELLING PEOPLE THEY DONT HAVE AN INVITE.
     pubs = (
         Pub.objects.filter(inventory_stars="3").filter(open="True")
         if user.is_authenticated

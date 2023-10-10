@@ -16,7 +16,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
 </head>
 
-<body id="body-unique">
+<body id="body-unique" data-user-logged-in="{% if user_is_logged_in %}True{% else %}False{% endif %}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <nav class="navbar navbar-light justify-content-between">
         <div class="container d-flex flex-column flex-md-row align-items-center">
