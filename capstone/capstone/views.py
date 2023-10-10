@@ -7,9 +7,10 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
-from django.http import HttpResponseForbidden
+from django.http import HttpResponseForbidden, HttpResponse
 from django.conf import settings
-from django.contrib import messages 
+from django.contrib import messages
+from .email_utils import fetch_approved_emails
 
 
 #gets user ID in order to inform rate limiting
@@ -70,6 +71,18 @@ def index(request):
         "user_is_logged_in": request.user.is_authenticated,
     }
     return render(request, "index.html", context)
+
+@login_required
+def admin_refresh_emails(request):
+    if request.user.is_staff:
+        fetch_approved_emails("heritage-hunter-395913", "Approved_user_emails")
+        messages.success(request, 'Approved Email list refreshed successfully.')
+        return redirect('privacy_policy')
+    else:
+        messages.warning(request, 'You do not have permission to perform this action.')
+        return redirect('privacy_policy')
+
+
 
 # Profile page
 @login_required

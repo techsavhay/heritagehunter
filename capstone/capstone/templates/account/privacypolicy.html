@@ -1,3 +1,14 @@
+{% load static %}
+{% load i18n %}
+
+{% if messages %}
+<div class="messages">
+  {% for message in messages %}
+    <div{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>{{ message }}</div>
+  {% endfor %}
+</div>
+{% endif %}
+
 <h1>Privacy Policy for Heritage Hunter</h1>
 
 <p>At Heritage Hunter, one of our main priorities is the privacy of our visitors. This Privacy Policy document contains types of information that is collected and recorded by Heritage Hunter and how we use it.</p>

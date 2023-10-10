@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from google.cloud import secretmanager
 from pathlib import Path
 import os
+from django.core.cache import cache
 
 
 def get_secret(project_id, secret_id, version_id="latest"):
@@ -46,7 +47,8 @@ APPROVED_USER_EMAILS_CSV = get_secret("heritage-hunter-395913", "Approved_user_e
 # Convert the apporved user emails CSV string into a list
 APPROVED_USER_EMAILS = APPROVED_USER_EMAILS_CSV.split(',')
 
-
+# Initialize the cache
+cache.set('approved_emails', APPROVED_USER_EMAILS, None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
