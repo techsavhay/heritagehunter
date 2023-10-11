@@ -12,4 +12,5 @@ urlpatterns = [
     path('api/delete_visit/', views.delete_visit, name='delete_visit'),
     path('privacy-policy/', views.privacy_policy, name='privacy_policy'),
     path('refresh_emails/', views.admin_refresh_emails, name='admin_refresh_emails'),
+    path('about/', views.about, name="about"),
 ]

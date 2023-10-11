@@ -29,6 +29,9 @@ def landing(request):
         return redirect('index') 
     return render(request, 'landing.html')
 
+def about(request):
+    return render(request, 'about.html')
+
 def encode_pub(obj):
     if isinstance(obj, Pub):
         return {
