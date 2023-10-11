@@ -523,3 +523,13 @@ if (user_is_logged_in) {
     // Append the 'script' element to 'head'
     document.head.appendChild(script);
 }
+
+// animate sidebar
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+  

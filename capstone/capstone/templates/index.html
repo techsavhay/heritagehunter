@@ -18,8 +18,17 @@
 
 <body id="body-unique" data-user-logged-in="{% if user_is_logged_in %}True{% else %}False{% endif %}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+    <div id="mySidenav" class="sidenav">
+        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a href="#">FAQs</a>
+        <a href="#">Contact</a>
+      </div>
+      
+      
+      
     <nav class="navbar navbar-light justify-content-between">
         <div class="container d-flex flex-column flex-md-row align-items-center">
+            <span class="burger-icon" onclick="openNav()">&#9776; </span>
             <div class="d-flex justify-content-start ml-1 order-3 order-md-1" id="searchbox-button">
                 <form class="form-inline" onsubmit="return false;">
                     <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" oninput="dynamicSearch()" placeholder="Name/Address..." aria-label="Search">
