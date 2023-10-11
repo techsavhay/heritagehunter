@@ -16,12 +16,12 @@ from django.core.cache import cache
 
 
 def get_secret(project_id, secret_id, version_id="latest"):
-    #print(f"get_secret function called for {secret_id}")  # Debugging line to indicate function call
+    print(f"settings get_secret function called for {secret_id}")  # Debugging line to indicate function call
     client = secretmanager.SecretManagerServiceClient()
     name = f"projects/{project_id}/secrets/{secret_id}/versions/{version_id}"
     response = client.access_secret_version(request={"name": name})
     secret_value = response.payload.data.decode("UTF-8")
-    #print(f"Retrieved secret {secret_id}: {secret_value}")  # Debugging line to print the retrieved secret
+    print(f"settings.py etrieved secret {secret_id}: {secret_value}")  # Debugging line to print the retrieved secret
     return secret_value
 
 
@@ -44,8 +44,9 @@ SECRET_KEY = get_secret("heritage-hunter-395913", "SECRET_KEY")
 #Calls get secret to get approved emails
 APPROVED_USER_EMAILS_CSV = get_secret("heritage-hunter-395913", "Approved_user_emails")
 
-# Convert the apporved user emails CSV string into a list
-APPROVED_USER_EMAILS = APPROVED_USER_EMAILS_CSV.split(',')
+# Convert the approved user emails CSV string into a list and trim whitespaces
+APPROVED_USER_EMAILS = [email.strip() for email in APPROVED_USER_EMAILS_CSV.split(',')]
+
 
 # Initialize the cache
 cache.set('approved_emails', APPROVED_USER_EMAILS, None)

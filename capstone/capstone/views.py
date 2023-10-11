@@ -11,6 +11,9 @@ from django.http import HttpResponseForbidden, HttpResponse
 from django.conf import settings
 from django.contrib import messages
 from .email_utils import fetch_approved_emails
+from django.core.cache import cache
+from capstoneproject.settings import APPROVED_USER_EMAILS
+
 
 
 #gets user ID in order to inform rate limiting
@@ -59,8 +62,16 @@ def encode_post(obj):
 @login_required
 def index(request):
     user = request.user
-    if not user.is_authenticated or user.email not in settings.APPROVED_USER_EMAILS:
-        messages.warning(request, 'You are currently unable to use this site as your email address has not yet receieved an invitation. At the moment we are only sending out a limited amount of invitations whilst testing is completed')
+    
+    # Fetch approved emails from cache. If not available, fetch from settings.
+    approved_emails = cache.get('approved_emails', APPROVED_USER_EMAILS)
+    
+    # Debugging: Print the list of approved emails and the user's email
+    print("Approved emails when checking user:", approved_emails)
+    print("Checking for user email:", user.email)
+    
+    if not user.is_authenticated or user.email not in approved_emails:
+        messages.warning(request, 'You are currently unable to use this site as your email address has not yet received an invitation. At the moment we are only sending out a limited amount of invitations whilst testing is completed')
         return redirect('landing')
     
     pubs = Pub.objects.filter(inventory_stars="3").filter(open="True") if user.is_authenticated else None
