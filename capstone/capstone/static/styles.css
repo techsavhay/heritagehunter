@@ -32,6 +32,7 @@ body {
   color: #FB8517;
   margin: 0px;
   font-size:xx-large;
+  flex-grow: 1;
 
 }
 
