@@ -5,14 +5,50 @@
   <head>
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="{% static 'css/global.css' %}">
-
+    <link href="{% static 'styles.css' %}" rel="stylesheet">
+    <link rel="icon" type="image/png" href="{% static 'images/hhfavicon-32x32.png' %}">
     <title>{% block head_title %}{% endblock %}</title>
     {% block extra_head %}
     {% endblock %}
   </head>
   <body class="{% block body_class %}{% endblock %}">
+    <nav class="navbar navbar-light justify-content-between">
+      <div class="container d-flex flex-column flex-md-row align-items-center">
+          <span class="burger-icon" onclick="openNav()">&#9776; </span>
+          <div class="d-flex justify-content-start ml-1 order-3 order-md-1" id="searchbox-button">
+              <form class="form-inline" onsubmit="return false;">
+                  <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" oninput="dynamicSearch()" placeholder="Name/Address..." aria-label="Search">
+                  <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+              </form>
+          </div>
+          <div class="page-title order-2">
+              <p id="websiteTitle">Heritage Hunter</p>
+          </div>
+          <div class="d-flex flex-column align-items-center order-1 order-md-3" id="login-text">
+              <div class="flex-container">
+                  {% if user.is_authenticated %}
+                  <span class="navbar-text light-text">
+                      {% trans "Welcome, " %}{{ user.first_name }}!
+                  </span>
+                  <a class="nav-link light-text logout" href="{% url 'account_logout' %}">
+                      {% trans "Logout" %}
+                  </a>
+                  {% else %}
+                  <a class="nav-link light-text" href="{% url 'account_login' %}">
+                      {% trans "Login / Signup" %}
+                  </a>
+                  {% endif %}
+              </div>
+          </div>
+      </div>
+  </nav>
+  <div id="mySidenav" class="sidenav">
+    <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+    <a href="{% url 'about' %}">About</a>
+    <a href="#">Contact</a>
+  </div>
     {% block body %}
 
     {% if messages %}
@@ -26,7 +62,8 @@
     </div>
     {% endif %}
 
-    <div>
+    <!-- ORIGINAL BASE SIGN IN SIGN OUT FUNCTIONS
+      <div>
       <strong>{% trans "Menu:" %}</strong>
       <ul>
         {% if user.is_authenticated %}
@@ -38,11 +75,13 @@
         {% endif %}
       </ul>
     </div>
+    -->
     {% block content %}
     {% endblock %}
     {% endblock %}
     {% block extra_body %}
     {% endblock %}
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="{% static 'index.js' %}"></script>
   </body>
 </html>

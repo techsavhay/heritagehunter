@@ -422,15 +422,25 @@ svg {
 
 /* about page */
 .about-page {
-  font-family: 'Cabin', sans-serif;
-  line-height: 1.6;
-  color: #cae6f4;
-  margin: 20px;
-  padding: 20px;
-  background-color: #242928;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Cabin', sans-serif;  /* Preserving your original font */
+  line-height: 1.6;                   /* Preserving your original line height */
+  color: #cae6f4;                     /* Font color */
+  background-color: #242928;          /* Background color */
+  border: 1px solid #ccc;             /* Gray border */
+  border-radius: 8px;                 /* Rounded corners */
+  padding: 20px;                      /* Padding inside the box */
+  margin: 20px;                       /* Margin outside the box */
+  width: 80%;                         /* Set the width */
+  max-width: 800px;                   /* Maximum width */
+  margin-left: auto;                  /* Centering the box horizontally */
+  margin-right: auto;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Preserving your original box-shadow */
 }
+
+.about-page h1, .about-page h2 {
+  margin-top: 0;                      /* Remove the top margin to align neatly */
+}
+
 
 .about-page h1 {
   font-size: 2em;
