@@ -286,7 +286,7 @@ function displayPubs(data) {
                                     updateDisplayedPubs();
                                     displayMap(pubData);
                                     toggleLoading(false, deleteButton, "Delete post & visit");
-                                    console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+                                    //console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
                                     pubStats(currentUserId);
 
@@ -324,7 +324,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
-    console.log(pubData);
+    //console.log(pubData);
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -506,7 +506,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
     //console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
 
     attachNavListeners();
-    
+
     // Check if user is logged in before fetching pub data
     if (user_is_logged_in) {
         fetchPubData();
