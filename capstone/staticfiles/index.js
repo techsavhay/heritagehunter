@@ -12,13 +12,6 @@ let InfoWindow; // Will be used for map marker info window
 let bodyElement = document.querySelector('body');
 let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'True';
 
-// Get the welcome screen modal
-var modal = document.getElementById("welcomeScreen");
-
-// Display the welcome screen modal when the user is not logged in
-if (!user_is_logged_in) {
-    modal.style.display = "block";
-}
 
 // Function to make fetch calls, adheres to DRY principle
 function fetchData(url, method, body) {
@@ -293,7 +286,7 @@ function displayPubs(data) {
                                     updateDisplayedPubs();
                                     displayMap(pubData);
                                     toggleLoading(false, deleteButton, "Delete post & visit");
-                                    console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+                                    //console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
                                     pubStats(currentUserId);
 
@@ -331,7 +324,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
-    console.log(pubData);
+    //console.log(pubData);
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -459,13 +452,13 @@ function dynamicSearch() {
 //creates stats for how many pubs the user has visited, out of XXX many and others.
 function pubStats(userid) {
     total3starpubs = pubData.length;
-    console.log("total3starpubs:", total3starpubs)
+    //console.log("total3starpubs:", total3starpubs)
 
     userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
-    console.log("userVisitCount:", userVisitCount);
+    //console.log("userVisitCount:", userVisitCount);
 
     pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs) * 100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
-    console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+    //console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
     // update the pint glass animation now
     updatePintGlassAnimation();
@@ -510,12 +503,14 @@ window.initMap = function() {
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
-    console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
+    //console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
+
+    attachNavListeners();
 
     // Check if user is logged in before fetching pub data
     if (user_is_logged_in) {
         fetchPubData();
-        console.log("fetchPubData was called");
+        //console.log("fetchPubData was called");
     }
 });
 
@@ -530,3 +525,31 @@ if (user_is_logged_in) {
     // Append the 'script' element to 'head'
     document.head.appendChild(script);
 }
+
+
+function attachNavListeners() {
+    const burgerIcon = document.getElementById("burger-icon");
+    const closeButton = document.getElementById("close-button");
+
+    if (burgerIcon && closeButton) {
+        burgerIcon.addEventListener("click", function() {
+            openNav();  // Call openNav function
+        });
+
+        closeButton.addEventListener("click", function() {
+            closeNav();  // Call closeNav function
+        });
+    }
+}
+
+
+
+// animate sidebar
+function openNav() {
+    document.getElementById("mySidenav").style.width = "250px";
+  }
+  
+  function closeNav() {
+    document.getElementById("mySidenav").style.width = "0";
+  }
+  
