@@ -1,0 +1,29 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="faq-page">
+    <h1>FAQs</h1>
+  
+    <h2>How do I use Heritage Hunter?</h2>
+    <p>On the left-hand side is a list of pubs that are deemed 'Three Star' by CAMRA's Pub Heritage Group. By using the search box (search by pub name or address), or scrolling around the map in the centre and clicking the markers, you can then select the pub you have visited. Once it is selected, a small text area will appear allowing you to add the date you visited and some notes (although these aren't mandatory). When you are ready to save your visit, click the 'Mark as visited/ Save' button. You will notice that the pint glass on the right-hand side of the page will start to fill, showing you the percentage of the pubs you have visited.</p>
+  
+    <h2>Some of the pub data is incorrect, what should I do?</h2>
+    <p>If you think there is a three-star pub that is open but omitted or there are any other data errors, the first thing to do is check whether the data is the same at <a href="https://pubheritage.camra.org.uk/">https://pubheritage.camra.org.uk/</a> as this is the reference resource I use to inform this site. If it is correct on https://pubheritage.camra.org.uk/ but incorrect here, please <a href="#">Contact</a> me.</p>
+
+    <h2>How do I change my account details, or delete my account?</h2>
+    <p>You can manage your account from the following areas:</p>
+    <p>If you'd like to delete your account please contact me, else more account management links are below.</p>
+    <ul>
+      <li><a href="/accounts/password/change/">Change Password</a></li>
+      <li><a href="/accounts/password/reset/">Reset Password</a></li>
+      <li><a href="/accounts/email/">Email Management</a></li>
+      <!-- Uncomment the following line if you enable social accounts -->
+      <li><a href="/accounts/social/connections/">Manage Social Accounts</a></li> 
+    </ul>
+    
+
+    <h2>What is your privacy policy?</h2>
+    <p>The privacy policy of the site can be found <a href="/privacy-policy/">here</a>.</p>
+  </div>
+
+{% endblock %}

@@ -421,43 +421,83 @@ svg {
   margin-left: 50px;
 }
 
-/* about page */
-.about-page {
-  font-family: 'Cabin', sans-serif;  /* Preserving your original font */
-  line-height: 1.6;                   /* Preserving your original line height */
-  color: #cae6f4;                     /* Font color */
-  background-color: #242928;          /* Background color */
-  border: 1px solid #ccc;             /* Gray border */
-  border-radius: 8px;                 /* Rounded corners */
-  padding: 20px;                      /* Padding inside the box */
-  margin: 20px;                       /* Margin outside the box */
-  width: 80%;                         /* Set the width */
-  max-width: 800px;                   /* Maximum width */
-  margin-left: auto;                  /* Centering the box horizontally */
+.about-page, .faq-page {
+  font-family: 'Cabin', sans-serif;  
+  line-height: 1.6;
+  color: #cae6f4;
+  background-color: #242928;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 20px;
+  width: 80%;
+  max-width: 800px;
+  margin-left: auto;
   margin-right: auto;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);  /* Preserving your original box-shadow */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
-.about-page h1, .about-page h2 {
-  margin-top: 0;                      /* Remove the top margin to align neatly */
+.about-page h1, .faq-page h1, .about-page h2, .faq-page h2 {
+  margin-top: 0;
 }
 
-
-.about-page h1 {
+.about-page h1, .faq-page h1 {
   font-size: 2em;
   margin-bottom: 20px;
 }
 
-.about-page h2 {
+.about-page h2, .faq-page h2 {
   font-size: 1.5em;
   margin-top: 20px;
   margin-bottom: 10px;
 }
 
-.about-page p {
+.about-page p, .faq-page p {
   font-size: 1em;
   margin-bottom: 10px;
 }
+
+
+/* Contact Form Styles */
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.form-group {
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-group label {
+  display: inline-block;
+  margin-bottom: 8px;
+  font-weight: bold;
+}
+
+.form-group input,
+.form-group textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.form-group button {
+  padding: 10px 20px;
+  background-color: #242928;
+  color: #cae6f4;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.form-group button:hover {
+  background-color: #1d2426;
+}
+
+
 
 
 @media only screen and (max-width: 500px) {

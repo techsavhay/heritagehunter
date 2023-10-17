@@ -23,6 +23,9 @@ def get_user_id(group, request):
 def privacy_policy(request):
     return render(request, 'account/privacypolicy.html')
 
+def contact(request):
+    return render(request, 'contact.html')
+
 def landing(request):
     user = request.user
     if user.is_authenticated and user.email in settings.APPROVED_USER_EMAILS:
@@ -96,7 +99,8 @@ def admin_refresh_emails(request):
         messages.warning(request, 'You do not have permission to perform this action.')
         return redirect('privacy_policy')
 
-
+def faq(request):
+    return render(request, 'faq.html')
 
 # Profile page
 @login_required
