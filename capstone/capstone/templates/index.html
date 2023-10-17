@@ -14,12 +14,13 @@
     <link href="https://fonts.googleapis.com/css2?family=Cabin:wght@400;500;600;700&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="{% static 'images/hhfavicon-32x32.png' %}">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script defer src="{% static 'index.js' %}"></script>
 </head>
 
 <body id="body-unique" data-user-logged-in="{% if user_is_logged_in %}True{% else %}False{% endif %}">
     <input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
     <div id="mySidenav" class="sidenav">
-        <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a>
+        <a id="close-button" href="javascript:void(0)" class="closebtn">&times;</a>
         <a href="{% url 'index' %}">Home</a>
         <a href="{% url 'about' %}">About</a>
         <a href="{% url 'faq' %}">FAQs</a>
@@ -31,7 +32,7 @@
       
     <nav class="navbar navbar-light justify-content-between">
         <div class="container d-flex flex-column flex-md-row align-items-center">
-            <span class="burger-icon" onclick="openNav()">&#9776; </span>
+            <span id="burger-icon" class="burger-icon">&#9776; </span>
             <div class="d-flex justify-content-start ml-1 order-3 order-md-1" id="searchbox-button">
                 <form class="form-inline" onsubmit="return false;">
                     <input id="searchInput" class="form-control mr-sm-2" type="search" autocomplete="off" oninput="dynamicSearch()" placeholder="Name/Address..." aria-label="Search">
@@ -107,9 +108,7 @@
         {% endblock %}
 
 
-        <script src="{% static 'index.js' %}"></script>
-
-
+        
 </body>
 
 </html>

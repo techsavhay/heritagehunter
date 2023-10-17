@@ -505,6 +505,8 @@ window.initMap = function() {
 document.addEventListener('DOMContentLoaded', (event) => {
     //console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
 
+    attachNavListeners();
+    
     // Check if user is logged in before fetching pub data
     if (user_is_logged_in) {
         fetchPubData();
@@ -523,6 +525,24 @@ if (user_is_logged_in) {
     // Append the 'script' element to 'head'
     document.head.appendChild(script);
 }
+
+
+function attachNavListeners() {
+    const burgerIcon = document.getElementById("burger-icon");
+    const closeButton = document.getElementById("close-button");
+
+    if (burgerIcon && closeButton) {
+        burgerIcon.addEventListener("click", function() {
+            openNav();  // Call openNav function
+        });
+
+        closeButton.addEventListener("click", function() {
+            closeNav();  // Call closeNav function
+        });
+    }
+}
+
+
 
 // animate sidebar
 function openNav() {
