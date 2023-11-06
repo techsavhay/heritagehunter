@@ -3,7 +3,7 @@
     {% for provider in socialaccount_providers %}
     <li style="display: flex; justify-content: center;">
         {% if provider.id == "google" %}
-            <a href="{% provider_login_url provider.id process=process scope=scope auth_params=auth_params %}">
+        <a href="{% provider_login_url provider.id %}">
                 <img src="{% static 'images/googlesignin.png' %}" alt="Sign in with Google" style="width: 250px; height: auto;">
             </a>
             {% elif provider.id == "microsoft" %}

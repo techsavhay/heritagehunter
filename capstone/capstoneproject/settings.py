@@ -78,7 +78,7 @@ INSTALLED_APPS = [
     'allauth.socialaccount.providers.microsoft',
 ]
 # site 1 = localhost, site 2 = http://127.0.0.1:8000/, site 3 = Heritage Hunter
-SITE_ID = 3
+SITE_ID = 2
 
 
 GOOGLE_CLIENT_ID = get_secret("heritage-hunter-395913", "GOOGLE_CLIENT_ID")
@@ -117,8 +117,16 @@ SOCIALACCOUNT_PROVIDERS = {
 }
 
 
+#EMAIL VERIFICATION
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.sendgrid.net'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_HOST_USER = 'apikey'  # This is literally the string 'apikey'
+EMAIL_HOST_PASSWORD = get_secret("heritage-hunter-395913", "heritage_hunter_sendgrid_email_api")
+#DEFAULT_FROM_EMAIL = 'webmaster@yourdomain.com'  # Use your own email address
 
-EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
+
 
 LOGIN_REDIRECT_URL = 'index'
 
@@ -136,6 +144,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'allauth.account.middleware.AccountMiddleware',
 ]
 
 ROOT_URLCONF = 'capstoneproject.urls'
@@ -185,7 +194,7 @@ else:
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': 'new_admin_db',
+            'NAME': '31_10_23_local_Database',
             'USER': 'postgres',
             'PASSWORD': 'postgres',
             'HOST': '192.168.0.124',
@@ -205,6 +214,13 @@ AUTHENTICATION_BACKENDS = [
     # `allauth` specific authentication methods, such as login by e-mail
     'allauth.account.auth_backends.AuthenticationBackend',
 ]
+
+#email validation
+ACCOUNT_EMAIL_VERIFICATION = 'mandatory'
+ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
+ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
+ACCOUNT_EMAIL_REQUIRED = True
+
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
