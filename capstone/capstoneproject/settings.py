@@ -124,7 +124,7 @@ EMAIL_PORT = 587
 EMAIL_USE_TLS = True
 EMAIL_HOST_USER = 'apikey'  # This is literally the string 'apikey'
 EMAIL_HOST_PASSWORD = get_secret("heritage-hunter-395913", "heritage_hunter_sendgrid_email_api")
-#DEFAULT_FROM_EMAIL = 'webmaster@yourdomain.com'  # Use your own email address
+DEFAULT_FROM_EMAIL = 'techsavhay@gmail.com'  # Use your own email address
 
 
 
