@@ -1,5 +1,8 @@
 // Global variables are defined at the start, as they will be reused throughout the script
 const originalSaveButtonText = "Mark as visited / Save";
+//DEBUG STATEMENT
+console.log(document.querySelector('[name=csrfmiddlewaretoken]'));
+
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 let pubData, map, currentUserId, pubsVisitedPercentage;
 let markers = [],

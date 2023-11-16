@@ -7,12 +7,15 @@ from django.http import JsonResponse
 import json
 from django.db.models import Q
 from django_ratelimit.decorators import ratelimit
-from django.http import HttpResponseForbidden, HttpResponse
+from django.http import HttpResponseForbidden, HttpResponse, HttpResponseRedirect
 from django.conf import settings
 from django.contrib import messages
 from .email_utils import fetch_approved_emails
 from django.core.cache import cache
 from capstoneproject.settings import APPROVED_USER_EMAILS
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth import login
+from django.urls import reverse
 
 
 
@@ -65,7 +68,7 @@ def encode_post(obj):
             else None,
         }
 
-@login_required
+#@login_required
 def index(request):
     user = request.user
     
@@ -193,3 +196,19 @@ def delete_visit(request):
     posts.delete()
 
     return JsonResponse({"Posts deleted": True})
+
+
+def custom_login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            user = form.get_user()
+            login(request, user)
+            # Redirect to a success page.
+            return HttpResponseRedirect(reverse('index'))
+        else:
+            print(form.errors)  # Log form errors
+    else:
+        form = AuthenticationForm()
+
+    return render(request, 'login.html', {'form': form})
