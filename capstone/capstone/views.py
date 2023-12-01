@@ -16,6 +16,7 @@ from capstoneproject.settings import APPROVED_USER_EMAILS
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth import login
 from django.urls import reverse
+from allauth.account.views import LoginView
 
 
 
