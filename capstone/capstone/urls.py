@@ -15,4 +15,5 @@ urlpatterns = [
     path('refresh_emails/', views.admin_refresh_emails, name='admin_refresh_emails'),
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name='contact'),
+    path('accounts/login', Login.as_view(), name="login")
 ]

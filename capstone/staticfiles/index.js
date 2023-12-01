@@ -1,5 +1,8 @@
 // Global variables are defined at the start, as they will be reused throughout the script
 const originalSaveButtonText = "Mark as visited / Save";
+//DEBUG STATEMENT
+console.log(document.querySelector('[name=csrfmiddlewaretoken]'));
+
 const csrfToken = document.querySelector('[name=csrfmiddlewaretoken]').value;
 let pubData, map, currentUserId, pubsVisitedPercentage;
 let markers = [],
@@ -286,7 +289,7 @@ function displayPubs(data) {
                                     updateDisplayedPubs();
                                     displayMap(pubData);
                                     toggleLoading(false, deleteButton, "Delete post & visit");
-                                    //console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+                                    console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
                                     pubStats(currentUserId);
 
@@ -324,7 +327,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
-    //console.log(pubData);
+    console.log(pubData);
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -452,13 +455,13 @@ function dynamicSearch() {
 //creates stats for how many pubs the user has visited, out of XXX many and others.
 function pubStats(userid) {
     total3starpubs = pubData.length;
-    //console.log("total3starpubs:", total3starpubs)
+    console.log("total3starpubs:", total3starpubs)
 
     userVisitCount = pubData.filter(pub => pub.pub.users_visited.includes(userid)).length;
-    //console.log("userVisitCount:", userVisitCount);
+    console.log("userVisitCount:", userVisitCount);
 
     pubsVisitedPercentage = Math.round(((userVisitCount / total3starpubs) * 100) * 10) / 10; //working out percentage and rounding it to nearest whole number.
-    //console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
+    console.log("pubsVisitedPercentage:", pubsVisitedPercentage);
 
     // update the pint glass animation now
     updatePintGlassAnimation();
@@ -503,14 +506,14 @@ window.initMap = function() {
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
-    //console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
+    console.log("user_is_logged_in = ", user_is_logged_in, " Type: ", typeof user_is_logged_in);
 
     attachNavListeners();
 
     // Check if user is logged in before fetching pub data
     if (user_is_logged_in) {
         fetchPubData();
-        //console.log("fetchPubData was called");
+        console.log("fetchPubData was called");
     }
 });
 

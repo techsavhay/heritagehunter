@@ -198,7 +198,9 @@ def delete_visit(request):
     return JsonResponse({"Posts deleted": True})
 
 
-def custom_login_view(request):
+class Login(LoginView): pass
+
+"""def custom_login_view(request):
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
@@ -211,4 +213,4 @@ def custom_login_view(request):
     else:
         form = AuthenticationForm()
 
-    return render(request, 'login.html', {'form': form})
+    return render(request, 'login.html', {'form': form})"""

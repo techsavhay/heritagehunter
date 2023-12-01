@@ -221,6 +221,8 @@ ACCOUNT_LOGIN_ATTEMPTS_LIMIT = 5
 ACCOUNT_LOGIN_ATTEMPTS_TIMEOUT = 86400  # 1 day in seconds
 ACCOUNT_EMAIL_REQUIRED = True
 
+# fix 2
+ACCOUNT_AUTHENTICATION_METHOD="username_email"
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
