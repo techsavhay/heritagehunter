@@ -1,0 +1,15 @@
+Attempted URL Ranges: [(1, 100), (1235, 1400)]
+
+URLs 2 - 3 successful.
+URLs 5 - 8 successful.
+URLs 10 - 19 successful.
+URLs 21 - 25 successful.
+URLs 29 - 33 successful.
+URLs 35 - 35 successful.
+URLs 37 - 45 successful.
+URLs 47 - 57 successful.
+URLs 59 - 72 successful.
+URLs 75 - 88 successful.
+URLs 90 - 91 successful.
+URLs 93 - 96 successful.
+URLs 98 - 100 successful.

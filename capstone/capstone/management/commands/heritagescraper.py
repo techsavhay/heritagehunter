@@ -12,6 +12,25 @@ import requests
 # pylint: disable=W0621
 # pylint: disable=W0105
 
+# Get the current date and time
+current_time = datetime.datetime.now()
+
+# Format the timestamp in a desired way
+timestamp = current_time.strftime("%Y-%m-%d_%H-%M-%S")
+
+# set the names for the files that outputs the urls that worked and the json
+url_list_file_path = f'pub_urls_{timestamp}.txt'
+FILE_PATH = f'pub_info_{timestamp}.json'
+
+current_range_start = None
+current_range_end = None
+
+# Define multiple ranges to scrape. Usual range =  (1, 13620) ?
+ranges_to_scrape = [
+    (1, 13620),
+]
+
+
 def extract_pub_info(url):
     """
     Extracts information about a pub from the given URL.
@@ -22,14 +41,21 @@ def extract_pub_info(url):
     Returns:
     - dict: A dictionary containing the extracted pub information.
     """
+    print(f"Attempting URL: {url}") #prints url being attempted
+
     try:
-        response = requests.get(url, timeout=10)
+        response = requests.get(url, timeout=5)
+        response.raise_for_status()  # Raises HTTPError for bad responses
+    except requests.exceptions.HTTPError as e:
+        if e.response.status_code == 404:
+            print(f"404 Not Found: {url}")
+        else:
+            print(f"HTTP Error: {e}. (At {url})")
+        return None, None
     except requests.exceptions.Timeout:
         print(f"Timeout error: {url}")
-        return None
-    if response.status_code == 404:
-        #print(f"404 Error: {url}") COMMENTED OUT AS NOT NEEDED?
-        return None
+        return None, None
+
     soup = BeautifulSoup(response.content, 'html.parser')
 
     # Extract pub name
@@ -75,16 +101,10 @@ def extract_pub_info(url):
         'Url': url
     }
 
-    return pub_info
+    return pub_info, url
 
 
-# Get the current date and time
-current_time = datetime.datetime.now()
 
-# Format the timestamp in a desired way
-timestamp = current_time.strftime("%Y-%m-%d_%H-%M-%S")
-
-FILE_PATH = f'pub_info_{timestamp}.json'
 
 
 def save_pub_info(data, file_path):
@@ -95,62 +115,49 @@ def save_pub_info(data, file_path):
     - data (list): The list of pub dictionaries to be saved.
     - file_path (str): The path to the JSON file.
     """
-    # Check if file exists
     file_exists = os.path.isfile(file_path)
-
     with open(file_path, 'a', encoding='utf-8') as file:
         if not file_exists:
-            # Write the opening bracket for the array
             file.write('[')
             file.write('\n')
         else:
-            # Move the file pointer to the second last character
             file.seek(file.tell() - 1, os.SEEK_SET)
-
-            # Remove the last character (closing bracket)
             file.truncate()
-
-            # Write a comma and line break before appending the next object
             file.write(',')
             file.write('\n')
 
-        # Write each pub object to the file
         for i, pub in enumerate(data):
-            # Write the current pub object to the file
             json.dump(pub, file, indent=4, ensure_ascii=True)
-
-            # Write a comma and a line break before appending the next object
             if i < len(data) - 1:
                 file.write(',')
                 file.write('\n')
 
-        # Write the closing bracket for the array
         file.write('\n')
         file.write(']')
 
 
-# Test URLs
-test_urls = [
-    'https://pubheritage.camra.org.uk/pubs/10199',
-    'https://pubheritage.camra.org.uk/pubs/10200',
-    'https://pubheritage.camra.org.uk/pubs/10201',
-    'https://pubheritage.camra.org.uk/pubs/1',
-    'https://pubheritage.camra.org.uk/pubs/2',
-    'https://pubheritage.camra.org.uk/pubs/3',
-    'https://pubheritage.camra.org.uk/pubs/4'
-]
+def log_successful_urls(url_list_file, start, end):
+    if start is not None:
+        url_list_file.write(f"https://pubheritage.camra.org.uk/pubs/ {start} - {end} successful.\n")
 
-# Loop through pub detail pages and extract information FOR TEST PURPOSES ONLY UNCOMMENT TO USE
-"""for pub_url in test_urls:
-    pub_data = extract_pub_info(pub_url)
-    if pub_data is not None:
-        save_pub_info([pub_data], FILE_PATH)"""
 
-# Loop through pub detail pages and extract information
-# pylint: disable=W0621 disable=C0304
-#UNCOMMENT OUT AND CHANGE RANGE TO RUN THE PROGRAMME. REMEMBER TO OUTPUT FILE TO .TXT
-for pub_url in range(1, 13620):
-    url = f'https://pubheritage.camra.org.uk/pubs/{pub_url}'
-    pub_data = extract_pub_info(url)
-    if pub_data is not None:
-        save_pub_info([pub_data], FILE_PATH)
+    
+# Loop through pub detail pages and extract information, also log the ranges that were successful
+with open(url_list_file_path, 'w', encoding='utf-8') as url_list_file:
+    url_list_file.write(f"Attempted URL Ranges: {ranges_to_scrape}\n\n")
+    for range_start, range_end in ranges_to_scrape:
+        current_range_start = None
+        current_range_end = None
+        for pub_url in range(range_start, range_end + 1):
+            url = f'https://pubheritage.camra.org.uk/pubs/{pub_url}'
+            pub_data, success_url = extract_pub_info(url)
+            if pub_data is not None:
+                save_pub_info([pub_data], FILE_PATH)
+                if current_range_start is None:
+                    current_range_start = pub_url
+                current_range_end = pub_url
+            elif current_range_start is not None:
+                log_successful_urls(url_list_file, current_range_start, current_range_end)
+                current_range_start = None
+
+        log_successful_urls(url_list_file, current_range_start, current_range_end)

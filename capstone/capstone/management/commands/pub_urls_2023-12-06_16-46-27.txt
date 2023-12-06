@@ -1,0 +1,15 @@
+Attempted URL Ranges: [(1, 100), (1235, 1400)]
+
+https://pubheritage.camra.org.uk/pubs/ 2 - 3 successful.
+https://pubheritage.camra.org.uk/pubs/ 5 - 8 successful.
+https://pubheritage.camra.org.uk/pubs/ 10 - 19 successful.
+https://pubheritage.camra.org.uk/pubs/ 21 - 25 successful.
+https://pubheritage.camra.org.uk/pubs/ 29 - 33 successful.
+https://pubheritage.camra.org.uk/pubs/ 35 - 35 successful.
+https://pubheritage.camra.org.uk/pubs/ 37 - 45 successful.
+https://pubheritage.camra.org.uk/pubs/ 47 - 57 successful.
+https://pubheritage.camra.org.uk/pubs/ 59 - 72 successful.
+https://pubheritage.camra.org.uk/pubs/ 75 - 88 successful.
+https://pubheritage.camra.org.uk/pubs/ 90 - 91 successful.
+https://pubheritage.camra.org.uk/pubs/ 93 - 96 successful.
+https://pubheritage.camra.org.uk/pubs/ 98 - 100 successful.
