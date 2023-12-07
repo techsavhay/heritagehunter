@@ -1,0 +1,7 @@
+JSON file stats: {'total': 1319, 'stars': {0: {'total': 1319, 'open': 1319}, 1: {'total': 0, 'open': 0}, 2: {'total': 0, 'open': 0}, 3: {'total': 0, 'open': 0}}}
+Initial DB stats: {'total': 2524, 'stars': {0: {'total': 1219, 'open': 1219}, 1: {'total': 744, 'open': 744}, 2: {'total': 261, 'open': 261}, 3: {'total': 300, 'open': 300}}}
+Demoted Three-Star Pub: Case Is Altered
+Promoted to Three-Star Pub: Cresselly Arms
+Final DB stats: {'total': 2525, 'stars': {0: {'total': 1204, 'open': 1204}, 1: {'total': 750, 'open': 750}, 2: {'total': 270, 'open': 270}, 3: {'total': 301, 'open': 301}}}
+Stats comparison: {0: {'total_change': -15, 'open_change': -15}, 1: {'total_change': 6, 'open_change': 6}, 2: {'total_change': 9, 'open_change': 9}, 3: {'total_change': 1, 'open_change': 1}}
+Data imported successfully

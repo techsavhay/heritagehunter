@@ -1,0 +1,2 @@
+JSON file stats: {'total': 1319, 'stars': {0: {'total': 1319, 'open': 1319}, 1: {'total': 0, 'open': 0}, 2: {'total': 0, 'open': 0}, 3: {'total': 0, 'open': 0}}}
+Initial DB stats: {'total': 2524, 'stars': {0: {'total': 1219, 'open': 1219}, 1: {'total': 744, 'open': 744}, 2: {'total': 261, 'open': 261}, 3: {'total': 300, 'open': 300}}}
