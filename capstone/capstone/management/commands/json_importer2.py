@@ -4,6 +4,7 @@ import json
 from fuzzywuzzy import fuzz, process
 import hashlib
 import datetime
+import os
 
 star_mapping = {
     "Three star": 3,
@@ -95,9 +96,15 @@ class Command(BaseCommand):
     def handle(self, *args, **kwargs):
         file_path = kwargs['file']
 
+        # Create the "log files" directory if it does not exist
+        log_directory = os.path.join(os.getcwd(), 'log_files')
+        if not os.path.exists(log_directory):
+            os.makedirs(log_directory)
+
          # Create a timestamp for filenames etc
         timestamp = datetime.datetime.now().strftime("%Y-%m-%d_%H-%M-%S")
-        log_file_path = f"json_import_log_{timestamp}.txt"  # Updated log file name
+
+        log_file_path = os.path.join(log_directory, f"json_import_log_{timestamp}.txt")
 
         with open(log_file_path, "w") as log_file:
 
@@ -113,12 +120,14 @@ class Command(BaseCommand):
             initial_db_stats = calculate_db_stats()
 
              # Writing formatted statistics for JSON file and initial DB
-            log_file.write("JSON file stats:\n")
+            log_file.write("Source JSON file statistics:\n")
             for star, data in json_stats['stars'].items():
-                log_file.write(f"  {star} star - Total: {data['total']}, Open: {data['open']}\n")
-            log_file.write("\nInitial DB stats:\n")
+                if star != 0:
+                    log_file.write(f"  {star} star - Total: {data['total']}, Open: {data['open']}\n")
+            log_file.write("\nExisting database statistics:\n")
             for star, data in initial_db_stats['stars'].items():
-                log_file.write(f"  {star} star - Total: {data['total']}, Open: {data['open']}\n")
+                if star != 0:
+                    log_file.write(f"  {star} star - Total: {data['total']}, Open: {data['open']}\n")
 
             # Retrieve the mode from the arguments
             mode = kwargs['mode']
@@ -270,12 +279,12 @@ class Command(BaseCommand):
             stats_comparison = compare_stats(initial_db_stats, final_db_stats)
 
             # Writing formatted final DB stats and comparison
-            log_file.write("\nFinal DB stats:\n")
+            log_file.write("\nFinal database statistics:\n")
             for star, data in final_db_stats['stars'].items():
                 if star != 0:
                     log_file.write(f"  {star} star - Total: {data['total']}, Open: {data['open']}\n")
 
-            log_file.write("\nStats comparison:\n")
+            log_file.write("\nComparison between old and updated database:\n")
             for star, data in stats_comparison.items():
                 if star != 0:
                     log_file.write(f"  {star} star - Total change: {data['total_change']}, Open change: {data['open_change']}\n")

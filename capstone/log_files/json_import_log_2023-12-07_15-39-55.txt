@@ -1,0 +1,21 @@
+Source JSON file statistics:
+  1 star - Total: 749, Open: 666
+  2 star - Total: 270, Open: 253
+  3 star - Total: 300, Open: 278
+
+Existing database statistics:
+  1 star - Total: 754, Open: 671
+  2 star - Total: 271, Open: 254
+  3 star - Total: 301, Open: 279
+
+Final database statistics:
+  1 star - Total: 754, Open: 671
+  2 star - Total: 271, Open: 254
+  3 star - Total: 301, Open: 279
+
+Comparison between old and updated database:
+  1 star - Total change: 0, Open change: 0
+  2 star - Total change: 0, Open change: 0
+  3 star - Total change: 0, Open change: 0
+
+Data imported successfully
