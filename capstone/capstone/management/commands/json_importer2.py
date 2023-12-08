@@ -14,20 +14,19 @@ star_mapping = {
     "": 0
 }
 
-promotion_demotion_messages = []
+
 
 def log_changes(pub, inventory_stars, is_open, log_file):
-    global promotion_demotion_messages
     if pub.inventory_stars == 3:
         if inventory_stars != 3:
-            promotion_demotion_messages.append(f"Demoted Three-Star Pub: {pub.name}")
+            log_file.write(f"Demoted from Three-Star: {pub.name}, Address: {pub.address}\n")
         if pub.open != is_open:
-            if is_open:
-                promotion_demotion_messages.append(f"Opened Pub: {pub.name}")
-            else:
-                promotion_demotion_messages.append(f"Closed Pub: {pub.name}")
+            change_status = "opened" if is_open else "closed"
+            log_file.write(f"Three star {change_status}: {pub.name}, Address: {pub.address}\n")
     elif inventory_stars == 3:
-        promotion_demotion_messages.append(f"Promoted to Three-Star Pub: {pub.name}")
+        log_file.write(f"Promoted to Three-Star: {pub.name}, Address: {pub.address}\n")
+
+
 
 def generate_unique_id(address):
     hash_object = hashlib.md5()
@@ -108,9 +107,6 @@ class Command(BaseCommand):
 
         with open(log_file_path, "w") as log_file:
 
-            # Write promotion and demotion messages first
-            for message in promotion_demotion_messages:
-                log_file.write(message + "\n")
 
             # Load JSON data from the file
             with open(file_path, 'r') as f:
