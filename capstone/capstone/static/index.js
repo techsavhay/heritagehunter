@@ -246,19 +246,21 @@ function displayPubs(data) {
 
                 pubElement.classList.toggle('pub-expanded', !isExpanded);
 
-                // Map interactions: zoom and pan to clicked marker when pub name on the list is clicked.
                 if (!isExpanded && !markerClicked) {
                     const clickedMarker = markerMap.get(custom_pub_id);
                     if (clickedMarker) {
                         map.setZoom(7);
                         setTimeout(function() {
-                            map.panTo(clickedMarker.getPosition());
+                            // Directly use the .position property
+                            // Ensure the position is used correctly, considering it could be LatLngLiteral
+                            map.panTo(new google.maps.LatLng(clickedMarker.position.lat, clickedMarker.position.lng));
                             setTimeout(function() {
                                 map.setZoom(11);
                             }, 500);
                         }, 500);
                     }
                 }
+                
 
                 // If pub is expanded and visited, show review and add edit & delete buttons.
                 if (pubElement.classList.contains('pub-expanded')) {
