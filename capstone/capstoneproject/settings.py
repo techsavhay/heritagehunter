@@ -126,9 +126,11 @@ EMAIL_HOST_USER = 'apikey'  # This is literally the string 'apikey'
 EMAIL_HOST_PASSWORD = get_secret("heritage-hunter-395913", "heritage_hunter_sendgrid_email_api")
 DEFAULT_FROM_EMAIL = 'techsavhay@gmail.com'  # Use your own email address
 
-
-
 LOGIN_REDIRECT_URL = 'index'
+
+# Override EMAIL_BACKEND for development
+if DEBUG:
+    EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 
 

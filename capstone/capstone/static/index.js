@@ -232,7 +232,7 @@ function displayPubs(data) {
 
                 pubElement.classList.toggle('pub-expanded', !isExpanded);
 
-                // Map interactions: zoom and pan to clicked marker.
+                // Map interactions: zoom and pan to clicked marker when pub name on the list is clicked.
                 if (!isExpanded && !markerClicked) {
                     const clickedMarker = markerMap.get(custom_pub_id);
                     if (clickedMarker) {
@@ -336,6 +336,11 @@ function displayMap(pubData) {
     // Clear the markers array.
     markers = [];
 
+    // Ensure only one InfoWindow is used for all markers.
+    if (!InfoWindow) {
+        InfoWindow = new google.maps.InfoWindow();
+    }
+
     // Add a marker for each pub
     pubData.forEach(item => {
         const pub = item.pub;
@@ -385,9 +390,6 @@ function displayMap(pubData) {
   </div>`;
 
 
-        let InfoWindow = new google.maps.InfoWindow({
-            content: infoWindowContent,
-        })
 
         marker.addListener("click", function() {
             markerClicked = true;
@@ -502,6 +504,15 @@ window.initMap = function() {
     });
     // Initialize InfoWindow 
     InfoWindow = new google.maps.InfoWindow();
+
+    // Add a dblclick event listener to the map ABANDONED FOR NOW AS ZOOM IS WORKING OKAY AND FIX DIDNT WORK
+    /*map.addListener('dblclick', function(event) {
+        console.log("Map double-clicked"); // To confirm the event listener works
+        // Get the current zoom level
+        var currentZoom = map.getZoom();
+        // Increase the zoom level by x
+        map.setZoom(currentZoom + 4);
+    });*/
 }
 
 // calls main function
