@@ -506,28 +506,33 @@ function updatePintGlassAnimation() {
     pintBottomContainer.innerHTML = `<br /><h5>(That's ${userVisitCount} out of ${total3starpubs} pubs.)</h5>`
 }
 
-// initilise the map
 window.initMap = function() {
     map = new google.maps.Map(document.getElementById('map-container'), {
-        center: {
-            lat: 54.09341667,
-            lng: -2.89477778
-        },
+        center: {lat: 54.09341667, lng: -2.89477778},
         zoom: 6,
-        mapId: "5d9e03b671899eb4"
+        mapId: "5d9e03b671899eb4",
+        disableDoubleClickZoom: true // Disable default double-click zoom
     });
-    // Initialize InfoWindow 
+
+    // Initialize InfoWindow
     InfoWindow = new google.maps.InfoWindow();
 
-    // Add a dblclick event listener to the map ABANDONED FOR NOW AS ZOOM IS WORKING OKAY AND FIX DIDNT WORK
-    /*map.addListener('dblclick', function(event) {
-        console.log("Map double-clicked"); // To confirm the event listener works
-        // Get the current zoom level
-        var currentZoom = map.getZoom();
-        // Increase the zoom level by x
-        map.setZoom(currentZoom + 4);
-    });*/
+    // Custom double-click event listener
+    map.addListener('dblclick', function(e) {
+        // Temporarily disable the UI to prevent interference
+        map.setOptions({disableDoubleClickZoom: true});
+        
+        setTimeout(() => {
+            var currentZoom = map.getZoom();
+            map.setZoom(currentZoom + 3); // Example: Increase the zoom level by 2
+            map.panTo(e.latLng);
+
+            // Re-enable the default double-click zoom after a short delay
+            map.setOptions({disableDoubleClickZoom: false});
+        }, 200); // Adjust delay as needed
+    });
 }
+
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
