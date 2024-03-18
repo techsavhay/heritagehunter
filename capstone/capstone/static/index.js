@@ -1,4 +1,4 @@
-// Global variables are defined at the start, as they will be reused throughout the script
+// Global variables are defined at the start, as they will be reused throughoutscript the script
 const originalSaveButtonText = "Mark as visited / Save";
 //DEBUG STATEMENT
 console.log(document.querySelector('[name=csrfmiddlewaretoken]'));
@@ -15,6 +15,17 @@ let InfoWindow; // Will be used for map marker info window
 let bodyElement = document.querySelector('body');
 let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'True';
 
+// Function to generate an SVG marker element with a user-defined color
+function getSvgMarker(color) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "40");
+    svg.setAttribute("height", "40");
+    svg.setAttribute("viewBox", "0 0 40 40");
+    svg.innerHTML = `<path fill="${color}" d="m20,1c-10.493,0 -19,8.507 -19,19c0,10.493 19,19 19,19c0,0 19,-8.507 19,-19c0,-10.493 -8.507,-19 -19,-19zm0,28c-4.971,0 -9,-4.029 -9,-9s4.029,-9 9,-9c4.971,0 9,4.029 9,9s-4.029,9 -9,9z"/>` +
+                  `<circle cx="20" cy="20" r="5" fill="white" />`;
+    return svg;
+}
+  
 
 // Function to make fetch calls, adheres to DRY principle
 function fetchData(url, method, body) {
@@ -357,22 +368,20 @@ function displayMap(pubData) {
             return; // Skip the rest of this iteration and continue with the next item.
         }
 
-        let icon;
-        let userhasvisited = pub.users_visited.includes(currentUserId);
-        if (userhasvisited) {
-            icon = '/static/images/BEERmarker3.png';
-        } else {
-            icon = '/static/images/LIGHTBLUEmarker3.png';
-        }
+        // Determine the color based on whether the pub has been visited.
+        let color = pub.users_visited.includes(currentUserId) ? "#FFA500" : "#0000FF"; // Example: Orange for visited, Blue for not visited.
 
-        let marker = new google.maps.Marker({
+
+
+
+        const marker = new google.maps.marker.AdvancedMarkerElement({
             position: {
                 lat: lat,
                 lng: lng
             },
             map,
             title: name,
-            icon: icon,
+            content: getSvgMarker(color),
         });
 
         // add custom_id_property to the map marker
@@ -395,7 +404,7 @@ function displayMap(pubData) {
             markerClicked = true;
             // Set content and open the InfoWindow
             InfoWindow.setContent(infoWindowContent);
-            InfoWindow.open(map, marker);
+            InfoWindow.open({ map, anchor: marker });
             scrollToPub(custom_pub_id);
             markerClicked = false;
         });
@@ -495,12 +504,12 @@ function updatePintGlassAnimation() {
 // initilise the map
 window.initMap = function() {
     map = new google.maps.Map(document.getElementById('map-container'), {
-        mapId: '5d9e03b671899eb4',
         center: {
             lat: 54.09341667,
             lng: -2.89477778
         },
-        zoom: 6
+        zoom: 6,
+        mapId: "5d9e03b671899eb4"
     });
     // Initialize InfoWindow 
     InfoWindow = new google.maps.InfoWindow();
@@ -533,7 +542,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 if (user_is_logged_in) {
     // Create the script tag, set the appropriate attributes
     var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap&libraries=marker';
     script.defer = true;
 
     // Append the 'script' element to 'head'
