@@ -18,13 +18,16 @@ let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'Tru
 // Function to generate an SVG marker element with a user-defined color
 function getSvgMarker(color) {
     const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
-    svg.setAttribute("width", "40");
-    svg.setAttribute("height", "40");
-    svg.setAttribute("viewBox", "0 0 40 40");
-    svg.innerHTML = `<path fill="${color}" d="m20,1c-10.493,0 -19,8.507 -19,19c0,10.493 19,19 19,19c0,0 19,-8.507 19,-19c0,-10.493 -8.507,-19 -19,-19zm0,28c-4.971,0 -9,-4.029 -9,-9s4.029,-9 9,-9c4.971,0 9,4.029 9,9s-4.029,9 -9,9z"/>` +
-                  `<circle cx="20" cy="20" r="5" fill="white" />`;
+    svg.setAttribute("width", "24");
+    svg.setAttribute("height", "34"); // Adjusted height
+    svg.setAttribute("viewBox", "0 0 24 34"); // Adjusted viewBox
+    svg.innerHTML = `<path fill="${color}" stroke="black" stroke-width="1" d="M12 0c-6.627 0-12 5.373-12 12 0 4.982 12 22 12 22s12-17.018 12-22c0-6.627-5.373-12-12-12zm0 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>` +
+                    `<circle cx="12" cy="12" r="3" fill="black" />`;
     return svg;
 }
+
+
+
   
 
 // Function to make fetch calls, adheres to DRY principle
@@ -369,7 +372,7 @@ function displayMap(pubData) {
         }
 
         // Determine the color based on whether the pub has been visited.
-        let color = pub.users_visited.includes(currentUserId) ? "#FFA500" : "#0000FF"; // Example: Orange for visited, Blue for not visited.
+        let color = pub.users_visited.includes(currentUserId) ? "#FB8517" : "#cae6f4" ; // Example: Orange for visited, Blue for not visited.
 
 
 
