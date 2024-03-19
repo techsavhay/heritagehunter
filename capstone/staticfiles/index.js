@@ -1,4 +1,4 @@
-// Global variables are defined at the start, as they will be reused throughout the script
+// Global variables are defined at the start, as they will be reused throughoutscript the script
 const originalSaveButtonText = "Mark as visited / Save";
 //DEBUG STATEMENT
 console.log(document.querySelector('[name=csrfmiddlewaretoken]'));
@@ -15,6 +15,20 @@ let InfoWindow; // Will be used for map marker info window
 let bodyElement = document.querySelector('body');
 let user_is_logged_in = bodyElement.getAttribute('data-user-logged-in') === 'True';
 
+// Function to generate an SVG marker element with a user-defined color
+function getSvgMarker(color) {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("width", "24");
+    svg.setAttribute("height", "34"); // Adjusted height
+    svg.setAttribute("viewBox", "0 0 24 34"); // Adjusted viewBox
+    svg.innerHTML = `<path fill="${color}" stroke="black" stroke-width="1" d="M12 0c-6.627 0-12 5.373-12 12 0 4.982 12 22 12 22s12-17.018 12-22c0-6.627-5.373-12-12-12zm0 15a3 3 0 1 1 0-6 3 3 0 0 1 0 6z"/>` +
+                    `<circle cx="12" cy="12" r="3" fill="black" />`;
+    return svg;
+}
+
+
+
+  
 
 // Function to make fetch calls, adheres to DRY principle
 function fetchData(url, method, body) {
@@ -232,19 +246,21 @@ function displayPubs(data) {
 
                 pubElement.classList.toggle('pub-expanded', !isExpanded);
 
-                // Map interactions: zoom and pan to clicked marker.
                 if (!isExpanded && !markerClicked) {
                     const clickedMarker = markerMap.get(custom_pub_id);
                     if (clickedMarker) {
                         map.setZoom(7);
                         setTimeout(function() {
-                            map.panTo(clickedMarker.getPosition());
+                            // Directly use the .position property
+                            // Ensure the position is used correctly, considering it could be LatLngLiteral
+                            map.panTo(new google.maps.LatLng(clickedMarker.position.lat, clickedMarker.position.lng));
                             setTimeout(function() {
                                 map.setZoom(11);
                             }, 500);
                         }, 500);
                     }
                 }
+                
 
                 // If pub is expanded and visited, show review and add edit & delete buttons.
                 if (pubElement.classList.contains('pub-expanded')) {
@@ -336,6 +352,11 @@ function displayMap(pubData) {
     // Clear the markers array.
     markers = [];
 
+    // Ensure only one InfoWindow is used for all markers.
+    if (!InfoWindow) {
+        InfoWindow = new google.maps.InfoWindow();
+    }
+
     // Add a marker for each pub
     pubData.forEach(item => {
         const pub = item.pub;
@@ -352,22 +373,20 @@ function displayMap(pubData) {
             return; // Skip the rest of this iteration and continue with the next item.
         }
 
-        let icon;
-        let userhasvisited = pub.users_visited.includes(currentUserId);
-        if (userhasvisited) {
-            icon = '/static/images/BEERmarker3.png';
-        } else {
-            icon = '/static/images/LIGHTBLUEmarker3.png';
-        }
+        // Determine the color based on whether the pub has been visited.
+        let color = pub.users_visited.includes(currentUserId) ? "#FB8517" : "#cae6f4" ; // Example: Orange for visited, Blue for not visited.
 
-        let marker = new google.maps.Marker({
+
+
+
+        const marker = new google.maps.marker.AdvancedMarkerElement({
             position: {
                 lat: lat,
                 lng: lng
             },
             map,
             title: name,
-            icon: icon,
+            content: getSvgMarker(color),
         });
 
         // add custom_id_property to the map marker
@@ -385,15 +404,12 @@ function displayMap(pubData) {
   </div>`;
 
 
-        let InfoWindow = new google.maps.InfoWindow({
-            content: infoWindowContent,
-        })
 
         marker.addListener("click", function() {
             markerClicked = true;
             // Set content and open the InfoWindow
             InfoWindow.setContent(infoWindowContent);
-            InfoWindow.open(map, marker);
+            InfoWindow.open({ map, anchor: marker });
             scrollToPub(custom_pub_id);
             markerClicked = false;
         });
@@ -490,19 +506,33 @@ function updatePintGlassAnimation() {
     pintBottomContainer.innerHTML = `<br /><h5>(That's ${userVisitCount} out of ${total3starpubs} pubs.)</h5>`
 }
 
-// initilise the map
 window.initMap = function() {
     map = new google.maps.Map(document.getElementById('map-container'), {
-        mapId: '5d9e03b671899eb4',
-        center: {
-            lat: 54.09341667,
-            lng: -2.89477778
-        },
-        zoom: 6
+        center: {lat: 54.09341667, lng: -2.89477778},
+        zoom: 6,
+        mapId: "5d9e03b671899eb4",
+        disableDoubleClickZoom: true // Disable default double-click zoom
     });
-    // Initialize InfoWindow 
+
+    // Initialize InfoWindow
     InfoWindow = new google.maps.InfoWindow();
+
+    // Custom double-click event listener
+    map.addListener('dblclick', function(e) {
+        // Temporarily disable the UI to prevent interference
+        map.setOptions({disableDoubleClickZoom: true});
+        
+        setTimeout(() => {
+            var currentZoom = map.getZoom();
+            map.setZoom(currentZoom + 3); // Example: Increase the zoom level by 2
+            map.panTo(e.latLng);
+
+            // Re-enable the default double-click zoom after a short delay
+            map.setOptions({disableDoubleClickZoom: false});
+        }, 200); // Adjust delay as needed
+    });
 }
+
 
 // calls main function
 document.addEventListener('DOMContentLoaded', (event) => {
@@ -522,7 +552,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 if (user_is_logged_in) {
     // Create the script tag, set the appropriate attributes
     var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap';
+    script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap&libraries=marker';
     script.defer = true;
 
     // Append the 'script' element to 'head'
