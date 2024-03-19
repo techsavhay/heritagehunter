@@ -15,6 +15,7 @@ env_variables:
   DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
   DB_NAME: "postgres"
   USE_GOOGLE_CLOUD: 'True'
+  DJANGO_DEBUG: 'False'
   #SOCIAL_AUTH_REDIRECT_URI: 'https://heritage-hunter-395913.nw.r.appspot.com/accounts/microsoft/login/callback/'
 
 

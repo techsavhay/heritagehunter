@@ -52,7 +52,7 @@ APPROVED_USER_EMAILS = [email.strip() for email in APPROVED_USER_EMAILS_CSV.spli
 cache.set('approved_emails', APPROVED_USER_EMAILS, None)
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = os.environ.get('DJANGO_DEBUG', 'True') == 'True'
 
 ALLOWED_HOSTS = ['localhost', '127.0.0.1','http://127.0.0.1:8000/', 'heritage-hunter-395913.appspot.com', 'heritage-hunter-395913.nw.r.appspot.com', ]
 
