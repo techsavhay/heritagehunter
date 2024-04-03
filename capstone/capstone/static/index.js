@@ -343,7 +343,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
-    /*(pubData); DEBUG STATEMENT SHOWS FULL PUB ARRAY IN CONSOLE */
+   /* console.log(pubData);*/
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
@@ -554,6 +554,7 @@ if (user_is_logged_in) {
     var script = document.createElement('script');
     script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap&libraries=marker';
     script.defer = true;
+    script.async = true; 
 
     // Append the 'script' element to 'head'
     document.head.appendChild(script);
