@@ -343,7 +343,7 @@ function displayPubs(data) {
 
 // Function to display the map with markers.
 function displayMap(pubData) {
-    console.log(pubData);
+    /*(pubData); DEBUG STATEMENT SHOWS FULL PUB ARRAY IN CONSOLE */
     // Clear existing map markers.
     for (let i = 0; i < markers.length; i++) {
         markers[i].setMap(null);
