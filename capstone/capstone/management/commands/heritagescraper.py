@@ -7,6 +7,7 @@ import os
 import datetime
 from bs4 import BeautifulSoup
 import requests
+import time
 
 # Disable pylint warnings
 # pylint: disable=W0621
@@ -31,30 +32,47 @@ ranges_to_scrape = [
 ]
 
 
-def extract_pub_info(url):
+def extract_pub_info(url, max_retries=3, backoff_factor=5):
     """
-    Extracts information about a pub from the given URL.
+    Extracts information about a pub from the given URL with retry mechanism.
 
     Parameters:
     - url (str): The URL of the pub detail page.
+    - max_retries (int): The maximum number of retry attempts.
+    - backoff_factor (int): The time (in seconds) to wait before retrying.
 
     Returns:
-    - dict: A dictionary containing the extracted pub information.
+    - dict: A dictionary containing the extracted pub information or None if failed.
     """
     print(f"Attempting URL: {url}") #prints url being attempted
 
-    try:
-        response = requests.get(url, timeout=5)
-        response.raise_for_status()  # Raises HTTPError for bad responses
-    except requests.exceptions.HTTPError as e:
-        if e.response.status_code == 404:
-            print(f"404 Not Found: {url}")
-        else:
-            print(f"HTTP Error: {e}. (At {url})")
-        return None, None
-    except requests.exceptions.Timeout:
-        print(f"Timeout error: {url}")
-        return None, None
+    attempt = 0
+    while attempt < max_retries:
+        try:
+            response = requests.get(url, timeout=5)
+            response.raise_for_status()  # Raises HTTPError for bad responses
+            break  # If the request is successful, break out of the loop
+        except requests.exceptions.HTTPError as e:
+            if e.response.status_code == 404:
+                print(f"404 Not Found: {url}")
+                return None, None
+            else:
+                print(f"HTTP Error: {e}. (At {url})")
+                return None, None
+        except requests.exceptions.Timeout:
+            print(f"Timeout error: {url}")
+            return None, None
+        except requests.exceptions.ConnectionError as e:
+            attempt += 1
+            print(f"Connection error on attempt {attempt}/{max_retries}: {e}")
+            if attempt < max_retries:
+                time.sleep(backoff_factor * attempt)  # Exponential backoff
+            else:
+                print(f"Failed after {max_retries} attempts. Skipping URL: {url}")
+                return None, None
+        except Exception as e:
+            print(f"An unexpected error occurred: {e}.")
+            return None, None
 
     soup = BeautifulSoup(response.content, 'html.parser')
 
@@ -102,7 +120,6 @@ def extract_pub_info(url):
     }
 
     return pub_info, url
-
 
 
 
