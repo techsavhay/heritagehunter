@@ -90,6 +90,7 @@ def index(request):
         "user": user,
         "pubs": pubs,
         "user_is_logged_in": request.user.is_authenticated,
+        "GOOGLE_MAPS_API_KEY": settings.GOOGLE_MAPS_API_KEY,
     }
     return render(request, "index.html", context)
 
@@ -201,17 +202,3 @@ def delete_visit(request):
 
 class Login(LoginView): pass
 
-"""def custom_login_view(request):
-    if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
-        if form.is_valid():
-            user = form.get_user()
-            login(request, user)
-            # Redirect to a success page.
-            return HttpResponseRedirect(reverse('index'))
-        else:
-            print(form.errors)  # Log form errors
-    else:
-        form = AuthenticationForm()
-
-    return render(request, 'login.html', {'form': form})"""
