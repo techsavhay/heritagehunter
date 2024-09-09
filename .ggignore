@@ -1,0 +1,25 @@
+# Exclude common directories and files
+node_modules/
+venv/
+__pycache__/
+HH/
+capstone/log_files/
+capstone/database_backups/
+capstone/staticfiles/
+.capstoneproject/staticfiles/
+.cache_ggshield
+
+# Exclude specific file types and large files
+*.woff
+*.so
+*.json
+*.png
+*.jpg
+*.jpeg
+
+# Exclude Python packages and binary files
+HH/lib/python3.8/
+HH/lib64/
+
+# Exclude specific large files
+pub_info_*.json
