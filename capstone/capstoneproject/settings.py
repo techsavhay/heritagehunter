@@ -47,6 +47,8 @@ APPROVED_USER_EMAILS_CSV = get_secret("heritage-hunter-395913", "Approved_user_e
 # Convert the approved user emails CSV string into a list and trim whitespaces
 APPROVED_USER_EMAILS = [email.strip() for email in APPROVED_USER_EMAILS_CSV.split(',')]
 
+#get google maps api key
+GOOGLE_MAPS_API_KEY = get_secret("heritage-hunter-395913", "GOOGLE_MAPS_API_KEY")
 
 # Initialize the cache
 cache.set('approved_emails', APPROVED_USER_EMAILS, None)
