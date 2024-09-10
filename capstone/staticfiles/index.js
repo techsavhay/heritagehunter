@@ -550,14 +550,26 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
 // only runs google maps script if user is logged in.
 if (user_is_logged_in) {
-    // Create the script tag, set the appropriate attributes
-    var script = document.createElement('script');
-    script.src = 'https://maps.googleapis.com/maps/api/js?key=***REMOVED***&callback=initMap&libraries=marker';
-    script.defer = true;
+    // Fetch the Google Maps API key from the backend
+    fetch('/api/get_google_maps_key/')
+        .then(response => response.json())
+        .then(data => {
+            const GOOGLE_MAPS_API_KEY = data.GOOGLE_MAPS_API_KEY;
 
-    // Append the 'script' element to 'head'
-    document.head.appendChild(script);
+            // Dynamically create and insert the script tag with the fetched API key
+            var script = document.createElement('script');
+            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&libraries=marker`;
+            script.defer = true;
+            script.async = true;
+
+            // Append the 'script' element to 'head'
+            document.head.appendChild(script);
+        })
+        .catch(error => {
+            console.error('Error fetching the Google Maps API key:', error);
+        });
 }
+
 
 
 function attachNavListeners() {
