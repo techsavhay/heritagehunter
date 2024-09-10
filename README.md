@@ -53,7 +53,7 @@ This custom API has allowed me to tailor the functionality of my web app to its 
 ## What’s contained in each file.
 #### geocode_addresses.py
 This file contain code which takes an address (from more pub database) and using the google maps geocode API generates a latitude and longitude value for it. This can then be used later on to add markers to the map. This file is set up to be able to run as a command.
-#### json_importer.py
+#### json_importer2.py
 This file deals with converting the pub data from a json format and importing it into my Django ‘pub’ model. 
 It opens the json file and loads its contents, it then iterates over each pub doing the following:
 Extracts relevant fields from the data, such as the pub name, address, description, inventory stars, status, and URL.
