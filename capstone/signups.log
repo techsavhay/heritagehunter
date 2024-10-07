@@ -1,0 +1,142 @@
+Watching for file changes with StatReloader
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 200 2209
+"GET /static/styles.css HTTP/1.1" 200 9722
+"GET /static/index.js HTTP/1.1" 200 22526
+"GET /static/images/hhfavicon-32x32.png HTTP/1.1" 200 489
+"GET /accounts/login/ HTTP/1.1" 200 4184
+"GET /static/images/googlesignin.png HTTP/1.1" 200 3504
+"GET /static/images/sign_in_with_microsoft.png HTTP/1.1" 200 28473
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+"GET /accounts/signup/ HTTP/1.1" 200 3408
+"POST /accounts/signup/ HTTP/1.1" 302 0
+"GET /accounts/confirm-email/ HTTP/1.1" 200 989
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+"GET /accounts/confirm-email/MTQ:1sxkHa:jE4Davk-4-OXQIPIMuARMuYbWOE9AMujEqmrQUAT9ZE/ HTTP/1.1" 200 953
+"POST /accounts/confirm-email/MTQ:1sxkOI:3bGWl432L61B-5f6X20aSSzBtBDivueazDDZXBdionA/ HTTP/1.1" 302 0
+"GET /accounts/login/ HTTP/1.1" 200 4344
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 302 0
+Watching for file changes with StatReloader
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
+"GET /accounts/logout/ HTTP/1.1" 200 8215
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
+"GET /accounts/logout/ HTTP/1.1" 200 1338
+"POST /accounts/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 2344
+"GET /accounts/login/ HTTP/1.1" 200 4184
+"GET /accounts/signup/ HTTP/1.1" 200 3408
+"POST /accounts/signup/ HTTP/1.1" 302 0
+"GET /accounts/confirm-email/ HTTP/1.1" 200 986
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+"GET /accounts/confirm-email/MTU:1sxkfq:TCzjyeRAXbqWEDTfyD0KPUpYUdEdANr0lHJI38tatpc/ HTTP/1.1" 200 947
+"POST /accounts/confirm-email/MTU:1sxkfy:Csc3G0Tm6zS7IBmKGFlS2PmkUZITvLdblzMFDD4zhKQ/ HTTP/1.1" 302 0
+"GET /accounts/login/ HTTP/1.1" 200 4341
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
+Watching for file changes with StatReloader
+"GET / HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
+"GET /accounts/logout/ HTTP/1.1" 200 1495
+"POST /accounts/logout/ HTTP/1.1" 302 0
+"GET / HTTP/1.1" 200 2344
+"GET /accounts/login/ HTTP/1.1" 200 4184
+"GET /accounts/signup/ HTTP/1.1" 200 3408
+"POST /accounts/signup/ HTTP/1.1" 302 0
+"GET /accounts/confirm-email/ HTTP/1.1" 200 986
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+Not Found: /favicon.ico
+"GET /favicon.ico HTTP/1.1" 404 4366
+"GET /accounts/confirm-email/MTY:1sxlDK:ofNBDTZAxf3TH_yYPz_PQDDHi3UXRJgX4bX5wZxCeHg/ HTTP/1.1" 200 947
+"POST /accounts/confirm-email/MTY:1sxlDQ:CdIg3ZSuZK11a18-o5MHW1Lww18y7hOXtI3qKhJnoec/ HTTP/1.1" 302 0
+"GET /accounts/login/ HTTP/1.1" 200 4341
+"POST /accounts/login/ HTTP/1.1" 302 0
+"GET /home/ HTTP/1.1" 200 5824
+Not Found: /api/get_google_maps_key/
+"GET /api/get_google_maps_key/ HTTP/1.1" 404 4405
+"POST /api/pubs/ HTTP/1.1" 200 886896
