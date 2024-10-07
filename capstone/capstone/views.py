@@ -32,7 +32,7 @@ def contact(request):
 
 def landing(request):
     user = request.user
-    if user.is_authenticated and user.email in settings.APPROVED_USER_EMAILS:
+    if user.is_authenticated: # and user.email in settings.APPROVED_USER_EMAILS:
         return redirect('index') 
     return render(request, 'landing.html')
 
@@ -74,15 +74,15 @@ def index(request):
     user = request.user
     
     # Fetch approved emails from cache. If not available, fetch from settings.
-    approved_emails = cache.get('approved_emails', APPROVED_USER_EMAILS)
+    #approved_emails = cache.get('approved_emails', APPROVED_USER_EMAILS)
     
     # Debugging: Print the list of approved emails and the user's email
-    print("Approved emails when checking user:", approved_emails)
-    print("Checking for user email:", user.email)
+    #print("Approved emails when checking user:", approved_emails)
+    #print("Checking for user email:", user.email)
     
-    if not user.is_authenticated or user.email not in approved_emails:
-        messages.warning(request, 'You are currently unable to use this site as your email address has not yet received an invitation. At the moment we are only sending out a limited amount of invitations whilst testing is completed')
-        return redirect('landing')
+    # if not user.is_authenticated or user.email not in approved_emails:
+    #     messages.warning(request, 'You are currently unable to use this site as your email address has not yet received an invitation. At the moment we are only sending out a limited amount of invitations whilst testing is completed')
+    #     return redirect('landing')
     
     pubs = Pub.objects.filter(inventory_stars="3").filter(open="True") if user.is_authenticated else None
     
