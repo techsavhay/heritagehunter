@@ -276,16 +276,29 @@ LOGGING = {
     'disable_existing_loggers': False,
     'handlers': {
         'console': {
-            'level': 'DEBUG',
+            'level': 'DEBUG',  # This will capture logs from DEBUG level and higher
             'class': 'logging.StreamHandler',
         },
     },
     'loggers': {
         'django': {
             'handlers': ['console'],
-            'level': 'DEBUG',
+            'level': 'DEBUG',  # This allows both DEBUG and INFO level logs to be captured
+            'propagate': True,
+        },
+        # Ensure allauth and other custom loggers are also captured at INFO level
+        'allauth': {
+            'handlers': ['console'],
+            'level': 'INFO',
+            'propagate': True,
+        },
+        'your_project': {  # Assuming your project's logs are in this logger
+            'handlers': ['console'],
+            'level': 'INFO',
             'propagate': True,
         },
     },
 }
+
+
 
