@@ -154,8 +154,12 @@ def pubs_api(request):
 @require_POST
 @login_required
 def save_visit(request):
+    # Attempt to decode the JSON data from the request body, returning an error if the data is invalid
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON data"}, status=400)
 
-    data = json.loads(request.body)
     current_user = request.user
     pub_id = data.get("pub_id")  # This is Django's internal ID field
     content = data.get("content", "").strip()
@@ -181,7 +185,12 @@ def save_visit(request):
 @require_POST
 @login_required
 def delete_visit(request):
-    data = json.loads(request.body)
+    # Attempt to decode the JSON data from the request body, returning an error if the data is invalid
+    try:
+        data = json.loads(request.body)
+    except json.JSONDecodeError:
+        return JsonResponse({"error": "Invalid JSON data"}, status=400)
+    
     pub_id = data.get("pub_id")
     user = request.user
 
