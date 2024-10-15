@@ -4,7 +4,7 @@ import os
 import sys
 import requests  # Make sure to import requests
 
-# Adding the path for heritagescraper manually to ensure it can be imported for testing
+# Adding the path for heritagescraper manually to ensure it can be imported for testing.
 sys.path.append(os.path.join(os.path.dirname(__file__), '../management/commands'))
 
 from heritagescraper import extract_pub_info  # Adjusted to import directly from the heritagescraper file
