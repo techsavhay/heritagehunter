@@ -26,9 +26,9 @@ FILE_PATH = f'pub_info_{timestamp}.json'
 current_range_start = None
 current_range_end = None
 
-# Define multiple ranges to scrape. Usual range =  (1, 13620) ?
+# Define multiple ranges to scrape. Usual range =  (1, 6000) See logs to refine?
 ranges_to_scrape = [
-    (1, 13620),
+    (1, 20),
 ]
 
 
