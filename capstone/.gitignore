@@ -23,7 +23,5 @@ VERIFIED_pub_info_2023-06-06_16-45-00.json
 .env
 .gcloudignore
 capstone/.gcloudignore
-test_secret.py
-
-/log_files
-/pub_info_2024-04-12_11-17-54.json
+treasurebum/heritagehunter/.env
+capstone/.env
