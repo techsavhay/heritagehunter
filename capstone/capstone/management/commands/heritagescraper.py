@@ -28,7 +28,7 @@ current_range_end = None
 
 # Define multiple ranges to scrape. Usual range =  (1, 6000) See logs to refine?
 ranges_to_scrape = [
-    (1, 20),
+    (1, 13620),
 ]
 
 
