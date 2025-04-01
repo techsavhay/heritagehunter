@@ -25,3 +25,4 @@ VERIFIED_pub_info_2023-06-06_16-45-00.json
 capstone/.gcloudignore
 treasurebum/heritagehunter/.env
 capstone/.env
+/home/ianandrewhay/CS50W/web50-projects-2020-x/capstone/capstone/management/commands/scraped_data
