@@ -1,3 +1,56 @@
+"""
+CAMRA Pub Heritage Scraper (New Site - camra.org.uk)
+
+Purpose:
+- Scrapes detailed information for specific pubs from the main CAMRA website (camra.org.uk).
+- Intended for migrating data for the 'Heritage Hunter' Django project, replacing
+  the old scraper that targeted pubheritage.camra.org.uk.
+- Collects: Pub Name, Address, Description (historical), Inventory Stars,
+            Listed Status (with prefix), Status (Closed/Empty), Latitude,
+            Longitude, and the scraped URL.
+
+Input Data Source:
+- Reads a list of target URLs from a JSON file specified by the 'redirect_json_path'
+  variable within the script's main execution block.
+- This JSON file should be the output of the 'url_redirect_collector.py' script,
+  containing a dictionary under the key 'redirects', where the *values* are the
+  new CAMRA URLs to be scraped. Example format within JSON:
+  {
+      "redirects": {
+          "https://pubheritage.camra.org.uk/pubs/OLD_ID": "https://camra.org.uk/pubs/NEW_URL_SLUG-NEW_ID",
+          ...
+      },
+      "failures": { ... }
+  }
+
+New URL Format Scraped:
+- https://camra.org.uk/pubs/{slug}-{NEW_ID}
+  (e.g., https://camra.org.uk/pubs/cock-broom-117195)
+
+Output:
+- Saves the scraped data as a list of dictionaries to a timestamped JSON file.
+- Output file is placed in the 'scraped_data' subdirectory relative to this script.
+- Filename pattern: 'camra_heritage_data_YYYYMMDD_HHMMSS.json' (for full run) or
+                   'camra_heritage_SAMPLE_YYYYMMDD_HHMMSS.json' (if sampling enabled).
+- Includes checkpoint saving every 'CHECKPOINT_INTERVAL' pubs (overwrites file).
+
+How to Run:
+1. Ensure you have Python 3 installed.
+2. Activate the correct virtual environment (e.g., 'source HH/bin/activate').
+3. Install required libraries: pip install requests beautifulsoup4
+4. Verify the 'redirect_json_path' variable in the '__main__' block points to your
+   correct redirect JSON file.
+5. To run on a sample (e.g., 50 pubs), ensure the sampling code in the '__main__'
+   block is active (specifically the line `urls_to_scrape = urls_to_scrape[:sample_size]`).
+6. To run on the full list, ensure the sampling code (the line mentioned above)
+   is commented out or removed.
+7. Navigate to the script's directory in your terminal:
+   cd /home/ianandrewhay/CS50W/web50-projects-2020-x/capstone/capstone/management/commands/
+8. Execute the script:
+   python new_site_heritage_scraper.py
+
+"""
+
 import requests
 from bs4 import BeautifulSoup
 import json
