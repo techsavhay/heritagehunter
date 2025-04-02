@@ -1,0 +1,29 @@
+Source JSON file statistics:
+  1 star - Total: 746, Open: 664
+  2 star - Total: 274, Open: 260
+  3 star - Total: 303, Open: 279
+
+Existing database statistics:
+  1 star - Total: 755, Open: 669
+  2 star - Total: 276, Open: 260
+  3 star - Total: 300, Open: 277
+Demoted from Three-Star: Vale Hotel, Address: Mansfield Road, Nottingham, Daybrook, NG5 3GG
+Promoted to Three-Star: Central, Address: Half Moon Lane, Gateshead, Town Centre, NE8 2AN
+Three star opened: Bartons Arms, Address: 144 High Street, Birmingham, Newtown, B6 4UP
+Promoted to Three-Star: Belvedere, Address: 8 Sugnall Street, Liverpool, City Centre, L7 7EB
+Promoted to Three-Star: Stags Head, Address: 45 Fowler Street, South Shields, NE33 1NS
+Three star closed: Springfield Hotel, Address: 47 Springfield Road, Wigan, WN6 7BB
+Three star closed: Cheshire Cheese, Address: 5 Little Essex Street, London, Temple, WC2R 3LD
+Promoted to Three-Star: Dew Drop Inn, Address: 24 Station Street, Ilkeston, DE7 5TE
+
+Final database statistics:
+  1 star - Total: 762, Open: 679
+  2 star - Total: 276, Open: 262
+  3 star - Total: 303, Open: 279
+
+Comparison between old and updated database:
+  1 star - Total change: 7, Open change: 10
+  2 star - Total change: 0, Open change: 2
+  3 star - Total change: 3, Open change: 2
+
+Data imported successfully

@@ -1,0 +1,32 @@
+Source JSON file statistics:
+  1 star - Total: 745, Open: 659
+  2 star - Total: 275, Open: 259
+  3 star - Total: 300, Open: 277
+
+Existing database statistics:
+  1 star - Total: 754, Open: 671
+  2 star - Total: 271, Open: 254
+  3 star - Total: 300, Open: 278
+Three star closed: White Lion, Address: Audley Road, Barthomley, CW2 5PG
+Three star opened: Drewe Arms, Address: The Square, Drewsteignton, EX6 6QN
+Three star closed: Railway, Address: 153 Manchester Road, Broadheath, WA14 5NT
+Promoted to Three-Star: Duke of York, Address: Leysters, HR6 0HW
+Three star closed: Star Inn, Address: Netherton, Netherton, NE65 7HD
+Three star closed: Bartons Arms, Address: 144 High Street, Birmingham, Newtown, B6 4UP
+Three star opened: Garden Gate, Address: 3 Whitfield Place, Leeds, Hunslet, LS10 2QB
+Three star closed: Royal Oak Hotel, Address: 178 Union Street, Oldham, OL1 1EN
+Three star opened: Tipperary, Address: 66 Fleet Street, London, Temple, EC4Y 1HT
+Three star opened: Washington, Address: 50 Englands Lane, Belsize Park, NW3 4UE
+Demoted from Three-Star: Cresselly Arms, Address: Cresswell Quay, SA68 0TE
+
+Final database statistics:
+  1 star - Total: 755, Open: 669
+  2 star - Total: 276, Open: 260
+  3 star - Total: 300, Open: 277
+
+Comparison between old and updated database:
+  1 star - Total change: 1, Open change: -2
+  2 star - Total change: 5, Open change: 6
+  3 star - Total change: 0, Open change: -1
+
+Data imported successfully

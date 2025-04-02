@@ -1,0 +1,47 @@
+Source JSON file statistics:
+  1 star - Total: 0, Open: 0
+  2 star - Total: 0, Open: 0
+  3 star - Total: 305, Open: 279
+
+Existing database statistics:
+  1 star - Total: 765, Open: 764
+  2 star - Total: 277, Open: 276
+  3 star - Total: 305, Open: 305
+Three star closed: White Lion, Address: Audley Road, Barthomley, CW2 5PG
+Three star closed: Hope & Anchor, Address: 20 Macbeth Street, Hammersmith, W6 9JJ
+Three star closed: Railway, Address: 153 Manchester Road, Broadheath, WA14 5NT
+Three star closed: Shakespeare, Address: 1 Glynne Street, Farnworth, BL4 7DN
+Three star closed: Coach & Horses, Address: 350 Eccles New Road, Weaste, M5 5NN
+Three star closed: Star Inn, Address: Netherton, Netherton, NE65 7HD
+Three star closed: Vine, Address: 13 Naylor Street, Pittshill, Stoke-on-Trent, ST6 6LS
+Three star closed: Mountain Daisy, Address: 150 Hylton Road, Millfield, Sunderland, SR4 7XT
+Three star closed: Red Lion, Address: 270 Soho Road, Handsworth, Birmingham, B21 9LX
+Three star closed: Turf Tavern, Address: 13 Wolverhampton Road, Bloxwich, Bloxwich, WS3 2EZ
+Three star closed: Waterloo, Address: 3 Waterloo Road, Smethwick, B66 4RQ
+Three star closed: Station Buffet, Address: Station Approach, Bridlington, YO15 3EP
+Three star closed: New Beehive Inn, Address: 171 Westgate, Bradford, BD1 3AA
+Three star closed: Fort Bar, Address: 25-27 Springfield Road, Belfast, BT12 7AB
+Three star closed: Auld Hoose, Address: 203 High Street, Leslie, KY6 3AZ
+Three star closed: Commercial, Address: 13 Lochnell Street, Lochgilphead, PA31 8JL
+Three star closed: Central Bar, Address: 123 Main Street, Renton, G82 4NL
+Three star closed: Prestoungrange Gothenburg, Address: 227 High St., Prestonpans, EH32 9BE
+Three star closed: Crown & Anchor, Address: 41 Long Bridge Street, Llanidloes, SY18 6EF
+Three star closed: Douglas Arms Hotel, Address: Ogwen Terrace, High Street (A5), Bethesda, LL57 3AY
+Three star closed: Red Lion, Address: 2 Market Square, Llandovery, SA20 0AA
+Three star closed: Royal Oak Hotel, Address: 178 Union Street, Oldham, OL1 1EN
+Three star closed: Tipperary, Address: 66 Fleet Street, Temple, London, EC4Y 1HT
+Three star closed: Angel, Address: 697 Uxbridge Rd, Hayes End, UB4 8HX
+Three star closed: Brown Jug, Address: 204 Ramsgate Road, Dumpton, Broadstairs, CT10 2EW
+Three star closed: Duke William, Address: 2 St. John's Square, Burslem, Stoke-on-Trent, ST6 3AJ
+
+Final database statistics:
+  1 star - Total: 765, Open: 764
+  2 star - Total: 277, Open: 276
+  3 star - Total: 305, Open: 279
+
+Comparison between old and updated database:
+  1 star - Total change: 0, Open change: 0
+  2 star - Total change: 0, Open change: 0
+  3 star - Total change: 0, Open change: -26
+
+Data imported successfully

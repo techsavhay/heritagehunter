@@ -1,0 +1,47 @@
+Source JSON file statistics:
+  1 star - Total: 744, Open: 744
+  2 star - Total: 273, Open: 273
+  3 star - Total: 305, Open: 305
+
+Existing database statistics:
+  1 star - Total: 762, Open: 679
+  2 star - Total: 276, Open: 262
+  3 star - Total: 303, Open: 279
+Three star opened: White Lion, Address: Audley Road, Barthomley, CW2 5PG
+Three star opened: Luppitt Inn, Address: Luppitt, EX14 4RT
+Three star opened: Hope & Anchor, Address: 20 Macbeth Street, Hammersmith, W6 9JJ
+Three star opened: Railway, Address: 153 Manchester Road, Broadheath, WA14 5NT
+Three star opened: Shakespeare, Address: 1 Glynne Street, Farnworth, BL4 7DN
+Three star opened: Coach & Horses, Address: 350 Eccles New Road, Weaste, M5 5NN
+Three star opened: Star Inn, Address: Netherton, Netherton, NE65 7HD
+Three star opened: Vine, Address: 13 Naylor Street, Stoke-on-Trent, Pittshill, ST6 6LS
+Three star opened: Woodman, Address: New Canal Street, Birmingham, Digbeth, B5 5LG
+Three star opened: Red Lion, Address: 270 Soho Road, Birmingham, Handsworth, B21 9LX
+Three star opened: Turf Tavern, Address: 13 Wolverhampton Road, Bloxwich, Bloxwich, WS3 2EZ
+Three star opened: Waterloo, Address: Waterloo Road, Smethwick, B66 4RQ
+Three star opened: Station Buffet, Address: Station Approach, Bridlington, YO15 3EP
+Three star opened: New Beehive Inn, Address: 171 Westgate, Bradford, BD1 3AA
+Promoted to Three-Star: Auld Hoose, Address: 203 High Street, Leslie, KY6 3AZ
+Three star opened: Commercial, Address: 13 Lochnell Street, Lochgilphead, PA31 8JL
+Three star opened: Central Bar, Address: 123 Main Street, Renton, G82 4NL
+Three star opened: Crown & Anchor, Address: 41 Long Bridge Street, Llanidloes, SY18 6EF
+Three star opened: Douglas Arms Hotel, Address: Ogwen Terrace, High Street (A5), Bethesda, LL57 3AY
+Promoted to Three-Star: Red Lion, Address: 2 Market Square, Llandovery, SA20 0AA
+Three star opened: Springfield Hotel, Address: 47 Springfield Road, Wigan, WN6 7BB
+Three star opened: Royal Oak Hotel, Address: 178 Union Street, Oldham, OL1 1EN
+Three star opened: Angel, Address: 697 Uxbridge Rd, Hayes End, UB4 8HX
+Three star opened: Cheshire Cheese, Address: 5 Little Essex Street, London, Temple, WC2R 3LD
+Three star opened: Brown Jug, Address: 204 Ramsgate Road, Broadstairs, Dumpton, CT10 2EW
+Three star opened: Eyre Arms, Address: Hassop Road, Hassop, DE45 1NS
+
+Final database statistics:
+  1 star - Total: 765, Open: 764
+  2 star - Total: 277, Open: 276
+  3 star - Total: 305, Open: 305
+
+Comparison between old and updated database:
+  1 star - Total change: 3, Open change: 85
+  2 star - Total change: 1, Open change: 14
+  3 star - Total change: 2, Open change: 26
+
+Data imported successfully
