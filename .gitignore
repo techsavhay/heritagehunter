@@ -1,34 +1,47 @@
-# Python Virtual Environment
-HH/
-
 # Environment Variables
-.env
+.env # Ignore .env if it's at the root
+capstone/.env # Ignore .env if it's inside the first capstone dir
+capstone/capstone/.env # Ignore .env if inside the inner capstone dir
 
-# Python cache files
-__pycache__/
+# Python Virtual Environment (relative to root)
+capstone/HH/
+
+# Python cache files (recursive)
+**/__pycache__/
 *.py[cod]
 
-# Log files (created relative to manage.py)
-capstone/log_files/
+# Databases (if local only, relative to root)
+capstone/db.sqlite3*
+capstone/test_db.sqlite3
 
-# Scraper output data (created relative to scraper script)
-capstone/management/commands/scraped_data/
-
-# Database Backups
-capstone/database_backups/
-
-#json files in commands dir
-capstone/management/commands/*.json
-
-# Google Cloud specific
+# Google Cloud & GitGuardian specific ignores (assuming at root)
 .gcloudignore
+.ggignore
+.cache_ggshield
+# Also ignore the one found inside capstone, if it exists
+capstone/.gcloudignore
 
-# OS generated files (optional but recommended)
-.DS_Store
-Thumbs.db
+# Log files (relative to root -> inner capstone dir)
+capstone/capstone/log_files/
 
-# VS Code specific (optional but recommended)
+# Scraper output data (relative to root -> commands dir)
+capstone/capstone/management/commands/scraped_data/
+
+# Other JSON files in commands dir (relative to root -> commands dir)
+capstone/capstone/management/commands/*.json
+
+# Database Backups (relative to root -> inner capstone dir)
+capstone/capstone/database_backups/
+
+# Collected Static Files (relative to root -> inner capstone dir)
+capstone/capstone/staticfiles/
+
+# Other specific files (relative to root)
+capstone/maze.py # Assuming maze.py is inside the first capstone dir
+
+# VS Code specific
 .vscode/
 
-# Other specific files you want to ignore
-maze.py
+# OS specific
+.DS_Store
+Thumbs.db
