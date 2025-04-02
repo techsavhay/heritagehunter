@@ -1,7 +1,8 @@
 # Environment Variables
-.env # Ignore .env if it's at the root
-capstone/.env # Ignore .env if it's inside the first capstone dir
-capstone/capstone/.env # Ignore .env if inside the inner capstone dir
+# Ignore .env if it's at the root or inside the capstone dirs
+.env
+capstone/.env
+capstone/capstone/.env
 
 # Python Virtual Environment (relative to root)
 capstone/HH/
@@ -12,7 +13,6 @@ capstone/HH/
 
 # Databases (if local only, relative to root)
 capstone/db.sqlite3*
-capstone/test_db.sqlite3
 
 # Google Cloud & GitGuardian specific ignores (assuming at root)
 .gcloudignore
@@ -21,7 +21,7 @@ capstone/test_db.sqlite3
 # Also ignore the one found inside capstone, if it exists
 capstone/.gcloudignore
 
-# Log files (relative to root -> inner capstone dir)
+# Logs (relative to root -> inner capstone dir)
 capstone/capstone/log_files/
 
 # Scraper output data (relative to root -> commands dir)
@@ -30,14 +30,17 @@ capstone/capstone/management/commands/scraped_data/
 # Other JSON files in commands dir (relative to root -> commands dir)
 capstone/capstone/management/commands/*.json
 
-# Database Backups (relative to root -> inner capstone dir)
-capstone/capstone/database_backups/
+# Database Backups (relative to root)
+capstone/database_backups/
 
-# Collected Static Files (relative to root -> inner capstone dir)
-capstone/capstone/staticfiles/
+# Collected Static Files (relative to root) - Adjust if needed
+staticfiles/
+capstone/staticfiles/
 
 # Other specific files (relative to root)
+# maze.py # Uncomment if you have this file at the root
 capstone/maze.py # Assuming maze.py is inside the first capstone dir
+passwords.txt # IMPORTANT: Ignore password files if at root
 
 # VS Code specific
 .vscode/
