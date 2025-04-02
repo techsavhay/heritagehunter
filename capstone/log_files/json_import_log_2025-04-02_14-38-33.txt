@@ -1,0 +1,33 @@
+Source JSON file statistics:
+  1 star - Total: 0, Open: 0
+  2 star - Total: 0, Open: 0
+  3 star - Total: 305, Open: 279
+
+Existing database statistics:
+  1 star - Total: 762, Open: 679
+  2 star - Total: 276, Open: 262
+  3 star - Total: 303, Open: 279
+Three star opened: Luppitt Inn, Address: Luppitt, EX14 4RT
+Three star closed: Mountain Daisy, Address: 150 Hylton Road, Sunderland, Millfield, SR4 7XT
+Three star opened: Woodman, Address: New Canal Street, Birmingham, Digbeth, B5 5LG
+Three star closed: Fort Bar, Address: 25-27 Springfield Road, Belfast, BT12 7AB
+Promoted to Three-Star: Auld Hoose, Address: 203 High Street, Leslie, KY6 3AZ
+Three star closed: Prestoungrange Gothenburg, Address: 227 High St., Prestonpans, EH32 9BE
+Promoted to Three-Star: Red Lion, Address: 2 Market Square, Llandovery, SA20 0AA
+Three star opened: Springfield Hotel, Address: 47 Springfield Road, Wigan, WN6 7BB
+Three star closed: Tipperary, Address: 66 Fleet Street, London, Temple, EC4Y 1HT
+Three star opened: Cheshire Cheese, Address: 5 Little Essex Street, London, Temple, WC2R 3LD
+Three star closed: Duke William, Address: 2 St. John's Square, Stoke-on-Trent, Burslem, ST6 3AJ
+Three star opened: Eyre Arms, Address: Hassop Road, Hassop, DE45 1NS
+
+Final database statistics:
+  1 star - Total: 762, Open: 679
+  2 star - Total: 276, Open: 262
+  3 star - Total: 305, Open: 279
+
+Comparison between old and updated database:
+  1 star - Total change: 0, Open change: 0
+  2 star - Total change: 0, Open change: 0
+  3 star - Total change: 2, Open change: 0
+
+Data imported successfully
