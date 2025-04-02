@@ -1,0 +1,34 @@
+# Python Virtual Environment
+HH/
+
+# Environment Variables
+.env
+
+# Python cache files
+__pycache__/
+*.py[cod]
+
+# Log files (created relative to manage.py)
+capstone/log_files/
+
+# Scraper output data (created relative to scraper script)
+capstone/management/commands/scraped_data/
+
+# Database Backups
+capstone/database_backups/
+
+#json files in commands dir
+capstone/management/commands/*.json
+
+# Google Cloud specific
+.gcloudignore
+
+# OS generated files (optional but recommended)
+.DS_Store
+Thumbs.db
+
+# VS Code specific (optional but recommended)
+.vscode/
+
+# Other specific files you want to ignore
+maze.py
