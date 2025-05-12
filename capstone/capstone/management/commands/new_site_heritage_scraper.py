@@ -291,28 +291,48 @@ if __name__ == "__main__":
         # relevant base data that needs to be merged or used.
         # For now, we are overriding it completely as per previous logic.
         snapshot_data = {
-            "paginators": [{"page":1},{"s":"arr"}], "selected_date":None, "mapLoaded": False,
-            "venue_id":None, "selected_venue":None, "selected_trip_id":0,
-            "bounds": [{"south": 49.0, "west": -11.0, "north": 61.0, "east": 2.0}, {"s":"arr"}],
+            "paginators": [{"page":1},{"s":"arr"}],
+            "selected_date":None,
+            "mapLoaded": False, # Matches browser
+            "venue_id":None,
+            "selected_venue":None,
+            "selected_trip_id":0,
+            "bounds": [ [], {"s":"arr"} ],  # << CHANGE 1: Empty bounds, like browser
             "venueTotal":0,
             "trip":[[],{"class":"App\\Models\\Trip","relations":["trip_items"],"s":"elmdl"}],
-            "location":"Pen-y-lan", "distance":35, "lat": 51.4973323, "lng": -3.1613687,
-            "location_type":"place", "location_id":13558,
-            "user_favourite_venues":[[],{"s":"arr"}], # Simplified, was populated in example
-            "want_to_visit_venues":[[],{"s":"arr"}], "show_trip_items_only":False,
-            "active_description_tab":0, "landing_style":"",
-            "listing_types":[["venues"],{"s":"arr"}],
-            "features":[["RealHeritagePub"],{"s":"arr"}], # Your specific filter
-            "heritage_statuses":[["3"],{"s":"arr"}],     # Your specific filter
-            "ocr_categories":[[],{"s":"arr"}], "community_categories":[[],{"s":"arr"}],
-            "hide_closed":True,                         # Your specific filter
-            "benefits":[[],{"s":"arr"}], "discount_offers":[[],{"s":"arr"}],
+            "location":"Pen-y-lan", # Keep your script's values for now unless they are problematic
+            "distance":35,
+            "lat": 51.4973323,
+            "lng": -3.1613687,
+            "location_type":"place",
+            "location_id":13558,
+            "user_favourite_venues": [ [], {"s":"arr"} ], # Your script is likely fine with empty if not logged in / no faves
+            "want_to_visit_venues":[[],{"s":"arr"}],
+            "show_trip_items_only":False,
+            "active_description_tab":0,
+            "landing_style":"", # Matches browser
+            "listing_types":[["venues"],{"s":"arr"}], # Matches browser
+            "features": [ [], {"s":"arr"} ],  # << CHANGE 2: Empty features, like browser
+            "heritage_statuses":[["3"],{"s":"arr"}], # Matches browser (This is one of your key filters)
+            "ocr_categories":[[],{"s":"arr"}],
+            "community_categories":[[],{"s":"arr"}],
+            "hide_closed":True, # Matches browser (This is another of your key filters)
+            "benefits":[[],{"s":"arr"}],
+            "discount_offers":[[],{"s":"arr"}],
             "serves":[[],{"s":"arr"}],
-            "venue_types":[["P"],{"s":"arr"}],           # Your specific filter for Pubs
-            "facilities":[[],{"s":"arr"}], "beer_score":-1, "current_gbg":False,
-            "search":"", "lockedFilters":[[],{"s":"arr"}], "serves_favourite_beers":False,
-            "favourites":False, "want_to_visit":False, "visited":False,
-            "cask_marque":[[],{"s":"arr"}], "filter_count":3, "sort":"nearest"
+            "venue_types": [ [], {"s":"arr"} ],  # << CHANGE 3: Empty venue_types, like browser
+            "facilities":[[],{"s":"arr"}],
+            "beer_score":-1,
+            "current_gbg":False,
+            "search":"",
+            "lockedFilters":[[],{"s":"arr"}],
+            "serves_favourite_beers":False,
+            "favourites":False,
+            "want_to_visit":False,
+            "visited":False,
+            "cask_marque":[[],{"s":"arr"}],
+            "filter_count": 3,  # << CHANGE 4: Match browser's filter count
+            "sort":"nearest" # Matches browser
         }
 
         livewire_component_snapshot_json = {
