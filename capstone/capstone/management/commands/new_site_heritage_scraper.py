@@ -272,9 +272,9 @@ if __name__ == "__main__":
        traceback.print_exc()
        exit()
 
-    # 5. Process Pub Data directly from Livewire response
+  # 5. Process Pub Data directly from Livewire response - MODIFIED FOR CLEANER JSON OUTPUT
     all_pub_data = []
-    print("\nProcessing Pub Data directly from Livewire response...")
+    print("\nProcessing Pub Data directly from Livewire response for cleaner JSON output...")
 
     venues_list = []
     if response_data and isinstance(response_data.get('components'), list) and response_data['components']:
@@ -291,7 +291,7 @@ if __name__ == "__main__":
         print(f"Found {len(venues_list)} venue items in Livewire response to process.")
         
         venues_to_process = venues_list
-        if MAX_VENUES_TO_PROCESS is not None and len(venues_list) > MAX_VENUES_TO_PROCESS:
+        if MAX_VENUES_TO_PROCESS is not None and len(venues_list) > MAX_VENUES_TO_PROCESS: # MAX_VENUES_TO_PROCESS was used in V7
             print(f"Limiting processing to first {MAX_VENUES_TO_PROCESS} venue items for testing.")
             venues_to_process = venues_list[:MAX_VENUES_TO_PROCESS]
 
@@ -299,7 +299,7 @@ if __name__ == "__main__":
             current_pub_name_for_log = venue_item.get("Name", f"Unknown Venue Item {i+1}")
             print(f"\nProcessing venue item {i+1}/{len(venues_to_process)}: {current_pub_name_for_log}")
             
-            pub_data_entry = {} # Changed variable name to avoid conflict with outer scope 'snapshot_data'
+            pub_data_entry = {}
 
             try:
                 pub_data_entry["Pub Name"] = venue_item.get("Name", "")
@@ -319,60 +319,63 @@ if __name__ == "__main__":
                             description_text = str(desc_list[0])
                     except json.JSONDecodeError:
                         print(f"  Warning: Could not parse Description JSON for {current_pub_name_for_log}: {description_str_array}")
-                if not description_text and venue_item.get("heritage_pub"): # Fallback
-                    desc_html = venue_item["heritage_pub"].get("pub_description_brief", "") # Or pub_description_full
+                if not description_text and venue_item.get("heritage_pub"):
+                    desc_html = venue_item["heritage_pub"].get("pub_description_brief", "")
                     if desc_html:
                         description_text = BeautifulSoup(desc_html, "html.parser").get_text(separator=' ', strip=True)
                 pub_data_entry["Description"] = description_text
 
-                inventory_stars_full_string = ""
-                venue_card_html = venue_item.get("venue_card_view", "")
-                if venue_card_html:
-                    card_soup = BeautifulSoup(venue_card_html, "html.parser")
-                    star_element = card_soup.find("div", attrs={"data-tip": lambda x: x and "star" in x.lower() and ("importance" in x.lower() or "heritage status" in x.lower())})
-                    if star_element and star_element.has_attr("data-tip"):
-                        inventory_stars_full_string = star_element["data-tip"].strip()
-                
-                if not inventory_stars_full_string and venue_item.get("heritage_pub"): # Fallback
-                    star_num_str = str(venue_item["heritage_pub"].get("ni_status_current", ""))
-                    if star_num_str == "3": inventory_stars_full_string = "Three star - A pub interior of outstanding national historic importance"
-                    elif star_num_str == "2": inventory_stars_full_string = "Two star - An interior of some regional importance"
-                    elif star_num_str == "1": inventory_stars_full_string = "One star - An interior of regional importance"
-                pub_data_entry["Inventory Stars"] = inventory_stars_full_string
-                if not inventory_stars_full_string:
-                     print(f"  Info: 'Inventory Stars' string is empty for {current_pub_name_for_log}. Importer will treat as 0 stars.")
+                # MODIFIED: Output "Inventory Stars" as an Integer
+                inventory_stars_int = 0 
+                heritage_pub_info = venue_item.get("heritage_pub", {})
+                if heritage_pub_info:
+                    star_num_str = str(heritage_pub_info.get("ni_status_current", "0"))
+                    if star_num_str.isdigit():
+                        inventory_stars_int = int(star_num_str)
+                    else:
+                        # If not a digit, try to get it from venue_card_view as a fallback (less ideal now)
+                        venue_card_html = venue_item.get("venue_card_view", "")
+                        if venue_card_html:
+                            card_soup = BeautifulSoup(venue_card_html, "html.parser")
+                            star_element = card_soup.find("div", attrs={"data-tip": lambda x: x and "star" in x.lower() and ("importance" in x.lower() or "heritage status" in x.lower())})
+                            if star_element and star_element.has_attr("data-tip"):
+                                tip_text = star_element["data-tip"].lower()
+                                if "three star" in tip_text: inventory_stars_int = 3
+                                elif "two star" in tip_text: inventory_stars_int = 2
+                                elif "one star" in tip_text: inventory_stars_int = 1
+                        if inventory_stars_int == 0 and star_num_str: # Log if parsing from string failed
+                             print(f"  Warning: Non-digit ni_status_current '{star_num_str}' and failed to parse from card for {current_pub_name_for_log}. Defaulting stars to 0.")
+                pub_data_entry["Inventory Stars"] = inventory_stars_int # Key name as expected by importer, now an INT
 
-                listed_grade = venue_item.get("heritage_pub", {}).get("listed_status")
-                pub_data_entry["Listed"] = f"Listed Status: {listed_grade}" if listed_grade and str(listed_grade).strip() else ""
+                # MODIFIED: Output "Listed" as just the Grade String
+                listed_grade = heritage_pub_info.get("listed_status", "")
+                pub_data_entry["Listed"] = str(listed_grade).strip() if listed_grade else "" # Key name as expected by importer, now just GRADE
 
+
+                # MODIFIED: Output "Open" as Boolean, replacing "Status"
                 premises_status_code = venue_item.get("PremisesStatus")
-                pub_data_entry["Status"] = "" if premises_status_code == "O" else "Closed"
-                if premises_status_code not in ["O", "C", None] and premises_status_code is not None: # Log if not O, C, or None
-                     print(f"  Warning: Unknown PremisesStatus '{premises_status_code}' for {current_pub_name_for_log}. Defaulting to 'Status: Closed' as it's not 'O'.")
-
+                pub_data_entry["Open"] = True if premises_status_code == "O" else False # New key "Open", boolean
+                if premises_status_code not in ["O", "C", None] and premises_status_code is not None:
+                     print(f"  Warning: Unknown PremisesStatus '{premises_status_code}' for {current_pub_name_for_log}. Treated as Closed if not 'O'.")
+                
                 pub_data_entry["Latitude"] = str(venue_item.get("Latitude", ""))
                 pub_data_entry["Longitude"] = str(venue_item.get("Longitude", ""))
                 
                 inc_id = venue_item.get("IncID")
                 detail_url = f"https://camra.org.uk/pubs/{inc_id}" if inc_id else ""
-                if not detail_url and venue_card_html: # Fallback for URL from venue_card_view
-                    card_soup = BeautifulSoup(venue_card_html, "html.parser")
-                    # A common pattern for the main link in venue cards
+                if not detail_url and venue_item.get("venue_card_view", ""): 
+                    card_soup = BeautifulSoup(venue_item.get("venue_card_view", ""), "html.parser")
                     link_tag = card_soup.find('a', class_='text-xl', href=True) 
-                    if not link_tag: # More generic fallback
-                         link_tag = card_soup.find('a', href=lambda x: x and ('/pubs/' in x or '/whatpub/' in x))
+                    if not link_tag: link_tag = card_soup.find('a', href=lambda x: x and ('/pubs/' in x or '/whatpub/' in x))
                     if link_tag:
                         href = link_tag['href']
-                        if not href.startswith('http'):
-                            detail_url = f"https://camra.org.uk{href}" if href.startswith('/') else f"https://camra.org.uk/{href}"
-                        else:
-                            detail_url = href
+                        if not href.startswith('http'): detail_url = f"https://camra.org.uk{href}" if href.startswith('/') else f"https://camra.org.uk/{href}"
+                        else: detail_url = href
                 pub_data_entry["Url"] = detail_url
                 if not pub_data_entry.get("Url"):
                      print(f"  Warning: Could not determine URL for {current_pub_name_for_log}.")
 
                 all_pub_data.append(pub_data_entry)
-                # print(f"  Successfully processed data for: {pub_data_entry.get('Pub Name', 'Unknown Pub')}")
 
             except Exception as e:
                 print(f"  ERROR processing venue_item: {current_pub_name_for_log}. Error: {e}")
@@ -380,12 +383,12 @@ if __name__ == "__main__":
     
     print("\n--- Livewire data processing finished ---")
     if all_pub_data:
-        # Ensure OUTPUT_DIR exists
         os.makedirs(OUTPUT_DIR, exist_ok=True)
         timestamp = datetime.datetime.now().strftime(FILENAME_TIMESTAMP_FORMAT)
-        output_filename = os.path.join(OUTPUT_DIR, f'camra_heritage_3STAR_OPEN_{timestamp}.json')
+        # Filename can remain the same, the content structure changes
+        output_filename = os.path.join(OUTPUT_DIR, f'camra_heritage_3STAR_OPEN_{timestamp}.json') 
         
         print(f"Attempting to save {len(all_pub_data)} processed pubs to {output_filename}...")
-        save_data_to_json(all_pub_data, output_filename) # save_data_to_json now prints its own success/failure
+        save_data_to_json(all_pub_data, output_filename)
     else:
         print("\nNo data was successfully processed from Livewire response (or no venue items found to process).")
