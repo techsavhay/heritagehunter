@@ -11,6 +11,7 @@ class Post(models.Model):
 
 class Pub(models.Model):
     custom_pub_id = models.CharField(max_length=32, unique=True)
+    camra_id = models.CharField(max_length=32,unique=True,null=True,blank=True,help_text="Official CAMRA IncID for this pub, if known")
     name = models.CharField(max_length=100, blank=False)
     address = models.CharField(max_length=200, blank=False)
     latitude = models.FloatField(null=True, blank=True)
