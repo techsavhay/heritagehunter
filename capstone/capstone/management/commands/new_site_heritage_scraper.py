@@ -47,6 +47,7 @@ def save_json(data, path):
 
 def process_venue(v):
     out = {
+        "Camra ID": v.get("IncID"),
         "Pub Name": v.get("Name",""),
         "Address":  ", ".join(filter(None, [v.get("Street",""),v.get("Town",""),v.get("Postcode","")])),
         "Description": "",
