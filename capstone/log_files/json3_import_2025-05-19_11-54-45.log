@@ -1,0 +1,15 @@
+JSON stats:
+  1★ total=0 open=0
+  2★ total=0 open=0
+  3★ total=304 open=278
+
+DB stats before:
+  1★ total=762 open=679
+  2★ total=276 open=262
+  3★ total=305 open=279
+
+
+DB stats after:
+  1★ total: 762 → 762 (+0), open: 679 → 679 (+0)
+  2★ total: 276 → 276 (+0), open: 262 → 262 (+0)
+  3★ total: 305 → 305 (+0), open: 279 → 279 (+0)

@@ -39,11 +39,9 @@ def generate_unique_id(address):
     return h.hexdigest()
 
 def extract_camra_id(url):
-    """ Pull the numeric or slug ID off the end of a CAMRA URL. """
-    try:
-        return url.rstrip("/").rsplit("/",1)[-1]
-    except:
-        return None
+    slug = url.rstrip("/").rsplit("/",1)[-1]   # e.g. "flask-london-125262"
+    return slug.split("-")[-1]                # => "125262"
+
 
 def calculate_json_stats(fp):
     """ Count how many pubs at each star level, and how many of those are open. """
