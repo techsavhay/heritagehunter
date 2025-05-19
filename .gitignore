@@ -48,3 +48,4 @@ passwords.txt # IMPORTANT: Ignore password files if at root
 # OS specific
 .DS_Store
 Thumbs.db
+
