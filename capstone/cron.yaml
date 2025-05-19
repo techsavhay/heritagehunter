@@ -1,9 +1,6 @@
 cron:
-- description: "Daily 3★ CAMRA import"
-  url: /tasks/run-camra-update/
-  schedule: every tuesday 06:00
+# every week, Tuesday at 6 am London time
+- description: "Weekly 3★ Pub Data Update"
+  url: /tasks/cron/update-pubs
+  schedule: every Tuesday 06:00
   timezone: Europe/London
-  retry_parameters:
-    retry_count: 3
-    min_backoff_seconds: 60
-    max_backoff_seconds: 3600

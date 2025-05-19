@@ -18,6 +18,10 @@ from django.contrib.auth import login
 from django.urls import reverse
 from allauth.account.views import LoginView
 
+# management.call_command for cron
+from django.core import management
+from django.views.decorators.csrf import csrf_exempt
+
 
 
 #gets user ID in order to inform rate limiting
@@ -211,3 +215,39 @@ def delete_visit(request):
 
 class Login(LoginView): pass
 
+@csrf_exempt
+@require_POST
+def run_weekly_update(request):
+    """
+    Triggered by App Engine Cron every Tuesday at 06:00.
+    """
+    # Only allow App Engine’s Cron service to call this
+    if request.META.get("HTTP_X_APPENGINE_CRON") != "true":
+        return HttpResponseForbidden("Forbidden")
+
+    # 1) Run the scraper. Adjust args if yours differ.
+    #    It will write out the JSON into scraped_data/.
+    management.call_command(
+        "new_site_heritage_scraper",
+        stdout=None  # suppress extra print; cron logs will capture
+    )
+
+    # 2) Find the most recent scraper output file
+    import glob, os
+    files = glob.glob(os.path.join(
+        settings.BASE_DIR,
+        "capstone/management/commands/scraped_data/camra_heritage_3STAR_MULTI_*.json"
+    ))
+    if not files:
+        return HttpResponse("❌ No scraper output found.", status=500)
+    latest = sorted(files)[-1]
+
+    # 3) Run the importer in “update” mode
+    management.call_command(
+        "json_importer3",
+        latest,
+        mode="update",
+        stdout=None
+    )
+
+    return HttpResponse("✅ Weekly heritage‐pub update completed.")

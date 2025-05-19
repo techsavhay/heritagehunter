@@ -25,5 +25,15 @@ beta_settings:
 
 # [START handlers]
 handlers:
+  # 1) Serve static files
 - url: /static
   static_dir: staticfiles/
+
+  # 2) Cron endpoint (only accessible by App Engine itself / admins)
+- url: /tasks/cron/.*
+  script: auto
+  login: admin
+
+  # 3) All other URLs go to Django
+- url: /.*
+  script: auto

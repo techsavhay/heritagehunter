@@ -1,7 +1,6 @@
 from django.urls import path, include
 from . import views
 from .views import LoginView
-from .tasks import run_camra_update
 
 urlpatterns = [
     path("", views.landing, name="landing"),
@@ -16,6 +15,6 @@ urlpatterns = [
     path('refresh_emails/', views.admin_refresh_emails, name='admin_refresh_emails'),
     path('about/', views.about, name="about"),
     path('contact/', views.contact, name='contact'),
-    path("tasks/run-camra-update/", run_camra_update, name="run_camra_update"),
+    path("tasks/cron/weekly-update/", views.run_weekly_update, name="cron-weekly-update"),
     path('accounts/login', LoginView.as_view() , name="login")
 ]
