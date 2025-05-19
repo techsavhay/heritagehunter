@@ -134,7 +134,11 @@ LOGIN_REDIRECT_URL = 'index'
 if DEBUG:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
+SERVER_EMAIL = DEFAULT_FROM_EMAIL
 
+ADMINS = [
+    ('Ian Hay', 'techsavhay@gmail.com'),   # 
+]
 
 # Use the environment variable if it exists, otherwise use a default URI
 
