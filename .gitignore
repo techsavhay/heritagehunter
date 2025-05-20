@@ -49,3 +49,6 @@ passwords.txt # IMPORTANT: Ignore password files if at root
 .DS_Store
 Thumbs.db
 
+# ignore local Python virtualenv
+/HHenv/
+HHenv/pyvenv.cfg
