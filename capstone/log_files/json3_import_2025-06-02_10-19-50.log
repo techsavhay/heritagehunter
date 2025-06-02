@@ -1,0 +1,28 @@
+Import started at: 2025-06-02_10-19-50
+Processing file: capstone/management/commands/scraped_data/camra_heritage_3STAR_MULTI_20250602_105717.json
+Mode: update
+
+JSON stats (from file, reflects direct values from scraper output):
+  0★ total=0 open=0
+  1★ total=0 open=0
+  2★ total=0 open=0
+  3★ total=305 open=279
+
+DB stats before import:
+  0★ total=1191 open=1191
+  1★ total=765 open=764
+  2★ total=277 open=276
+  3★ total=305 open=279
+
+Import Log:
+Update mode starting...
+
+Update mode complete. Pubs created: 0, Pubs skipped by user: 0.
+
+DB stats after import:
+  0★ total: 1191 → 1191 (+0), open: 1191 → 1191 (+0)
+  1★ total: 765 → 765 (+0), open: 764 → 764 (+0)
+  2★ total: 277 → 277 (+0), open: 276 → 276 (+0)
+  3★ total: 305 → 305 (+0), open: 279 → 279 (+0)
+
+Import process finished.
