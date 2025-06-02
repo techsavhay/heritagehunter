@@ -14,26 +14,19 @@ Regions covered:
  - Manchester
 
 Output: one JSON of all unique pubs with cleaner data types.
-To run: python manage.py new_site_heritage_scraper [--max_venues X]
+To run: python manage.py new_site_heritage_scraper [--max_venues X] [--output_dir_name Y]
 """
 
 import requests, json, os, datetime, time, traceback, html, copy
 from bs4 import BeautifulSoup
 from django.core.management.base import BaseCommand
-from django.conf import settings as django_settings # For consistency if using settings.BASE_DIR
+from django.conf import settings as django_settings # For BASE_DIR if needed, though __file__ is often better for command's relative paths
 
-# ─── Configuration (can be class attributes or loaded from settings) ──────────
-# Path where this command file is: os.path.dirname(__file__)
-# The view looks in: settings.BASE_DIR / "capstone/management/commands/scraped_data"
-# We need to ensure this command saves to a path that the view can construct.
-# If BASE_DIR is project root '.../capstone/', and app is 'capstone'
-# then view constructs: '.../capstone/capstone/management/commands/scraped_data'
-# This command is at: '.../capstone/capstone/management/commands/new_site_heritage_scraper.py'
-# So, saving to os.path.join(os.path.dirname(__file__), 'scraped_data') should work.
-
+# ─── Configuration (module-level constants) ───────────────────────────────────
 TS_FORMAT  = '%Y%m%d_%H%M%S'
-DEFAULT_MAX_VENUES = None   # Default if no argument is passed for --max_venues
-PAGE_SIZE  = 250    # fixed server cap per request
+DEFAULT_MAX_VENUES = None
+DEFAULT_OUTPUT_DIR_NAME = 'scraped_data' # Default subdirectory name
+PAGE_SIZE  = 250
 
 MAP_BOUNDS = {
     "south": 49.0, "west": -11.0,
@@ -47,14 +40,15 @@ REGIONS = [
     ("Manchester", 53.4807593, -2.2426305),
 ]
 
-# ─── Helpers (can be defined at module level or as methods of the Command class) ───
+# ─── Helpers ────────────────────────────────────────────────────────────────────
 def save_json_helper(data, path, command_instance):
+    # Ensure the directory exists before trying to write the file
     os.makedirs(os.path.dirname(path), exist_ok=True)
     with open(path, 'w', encoding='utf-8') as f:
         json.dump(data, f, ensure_ascii=False, indent=2)
     command_instance.stdout.write(command_instance.style.SUCCESS(f"\n✅ Data saved to {path}"))
 
-def process_venue_helper(v, command_instance):
+def process_venue_helper(v, command_instance): # v is a venue_item from Livewire
     out = {
         "Camra ID": str(v.get("IncID")) if v.get("IncID") is not None else None,
         "Pub Name": v.get("Name",""),
@@ -108,32 +102,48 @@ def process_venue_helper(v, command_instance):
 
 # ─── Management Command Class ───────────────────────────────────────────────────
 class Command(BaseCommand):
-    help = 'Scrapes CAMRA heritage pub data (3-star, open & closed) using a multi-region approach from Livewire endpoint.'
+    help = 'Scrapes CAMRA heritage pub data (3-star, open & closed) using a multi-region approach from Livewire endpoint. Saves output to /tmp/ on App Engine.'
 
     def add_arguments(self, parser):
         parser.add_argument(
             '--max_venues',
             type=int,
-            help='Maximum number of unique venues to process in total for testing.',
-            default=DEFAULT_MAX_VENUES 
+            default=DEFAULT_MAX_VENUES,
+            help='Maximum number of unique venues to process in total for testing.'
         )
         parser.add_argument(
             '--output_dir_name',
             type=str,
-            default='scraped_data', 
-            help="Name of the sub-directory (relative to this command's directory) to save the JSON file."
+            default=DEFAULT_OUTPUT_DIR_NAME,
+            help="Name of the sub-directory (within command's dir locally, or /tmp/ on App Engine) to save JSON."
         )
 
     def handle(self, *args, **options):
-        max_venues_to_collect = options.get('max_venues') # This will be None if not provided, using default from add_arguments
+        max_venues_to_collect = options.get('max_venues')
         output_dir_name_from_arg = options.get('output_dir_name')
         
-        # Output directory relative to this command's file location
-        actual_output_dir = os.path.join(os.path.dirname(__file__), output_dir_name_from_arg)
+        # --- MODIFIED: Dynamically set output directory ---
+        if os.environ.get('GAE_ENV') == 'standard': # Running on App Engine
+            # Note: App Engine Standard Python 3.9 runtime (and later) allows writing to /tmp
+            base_output_path = '/tmp'
+            actual_output_dir = os.path.join(base_output_path, output_dir_name_from_arg)
+            self.stdout.write(self.style.SUCCESS(f"App Engine environment detected. Output will be in: {actual_output_dir}"))
+        else: # Running locally
+            # Saves in a subdirectory relative to this command's file location
+            # e.g., .../management/commands/scraped_data/
+            actual_output_dir = os.path.join(os.path.dirname(__file__), output_dir_name_from_arg)
+            self.stdout.write(f"Local environment. Output directory for JSON: {actual_output_dir}")
+        
+        # Ensure the target directory exists, especially for /tmp which might not have subdirs
+        try:
+            os.makedirs(actual_output_dir, exist_ok=True)
+        except OSError as e:
+            self.stderr.write(self.style.ERROR(f"Error creating output directory {actual_output_dir}: {e}"))
+            return # Stop if we can't create the output directory
+        # --- END OF MODIFICATION ---
         
         self.stdout.write(self.style.SUCCESS('🚀 Starting CAMRA Pub Heritage Scraper (Multi-Region)...'))
-        self.stdout.write(f"Output directory for JSON: {actual_output_dir}")
-        if max_venues_to_collect is not None: # Check if a value was actually passed or if it's the global default
+        if max_venues_to_collect is not None:
             self.stdout.write(self.style.WARNING(f"Limiting collection to a MAX of {max_venues_to_collect} unique venues."))
 
         session = requests.Session()
@@ -143,7 +153,6 @@ class Command(BaseCommand):
         seen_camra_ids = set()
 
         for region_name, region_lat, region_lng in REGIONS:
-            # Early exit if max_venues already reached from previous regions
             if max_venues_to_collect is not None and len(collected_pubs) >= max_venues_to_collect:
                 self.stdout.write(self.style.WARNING(f"🏁 MAX_VENUES={max_venues_to_collect} reached before processing {region_name}. Halting."))
                 break
@@ -281,13 +290,11 @@ class Command(BaseCommand):
                 collected_pubs.append(processed_pub)
                 region_new_pubs_count += 1
                 
-                # CORRECTED: Use max_venues_to_collect here
                 if max_venues_to_collect and len(collected_pubs) >= max_venues_to_collect:
                     break 
             
             self.stdout.write(f"  Added {region_new_pubs_count} new unique pubs from {region_name}.")
 
-            # CORRECTED: Use max_venues_to_collect here
             if max_venues_to_collect and len(collected_pubs) >= max_venues_to_collect:
                 self.stdout.write(self.style.WARNING(f"🏁 Reached MAX_VENUES={max_venues_to_collect} after processing {region_name}. Halting further region processing."))
                 break 
@@ -299,7 +306,7 @@ class Command(BaseCommand):
         if collected_pubs:
             timestamp_str = datetime.datetime.now().strftime(TS_FORMAT)
             output_filename = os.path.join(actual_output_dir, f"camra_heritage_3STAR_MULTI_{timestamp_str}.json")
-            save_json_helper(collected_pubs, output_filename, self)
+            save_json_helper(collected_pubs, output_filename, self) # Pass self for logging
             self.stdout.write(self.style.SUCCESS(f"🎉 Successfully collected and saved {len(collected_pubs)} unique pubs in total."))
         else:
             self.stdout.write(self.style.WARNING("⚠️ No pubs collected from any region."))
