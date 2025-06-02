@@ -1,6 +1,6 @@
 cron:
 # every week, Tuesday at 6 am London time
-- description: "Weekly 3★ Pub Data Update"
-  url: /tasks/cron/weekly-update/  # <--- CORRECTED URL
-  schedule: every Tuesday 06:00
-  timezone: Europe/London
+# - description: "Weekly 3★ Pub Data Update"
+#   url: /tasks/cron/weekly-update/  # <--- CORRECTED URL
+#   schedule: every Tuesday 06:00
+#   timezone: Europe/London
