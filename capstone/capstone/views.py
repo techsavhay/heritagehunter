@@ -67,7 +67,7 @@ def index(request): # Your main home view
         "user": request.user,
         "pubs": pubs,
         "user_is_logged_in": request.user.is_authenticated,
-        "Maps_API_KEY": settings.Maps_API_KEY, # Corrected variable name
+        "GOOGLE_MAPS_API_KEY": settings.GOOGLE_MAPS_API_KEY,
     })
 
 @login_required
