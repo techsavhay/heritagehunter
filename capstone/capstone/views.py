@@ -203,10 +203,7 @@ def run_weekly_update(request):
             "capstone/management/commands/scraped_data" 
         )
         # Adjusted glob pattern to match scraper's actual output
-        data_files = glob.glob(os.path.join(
-            scraper_output_dir,
-            "camra_heritage_3STAR_OPEN_*.json" 
-        ))
+        data_files = glob.glob(os.path.join(scraper_output_dir, "camra_heritage_3STAR_MULTI_*.json"))
 
         if not data_files:
             capture_print("❌ ERROR: No scraper output file found.")
