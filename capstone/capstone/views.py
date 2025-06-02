@@ -19,6 +19,8 @@ from django.views.decorators.csrf import csrf_exempt # Still useful if you had o
 from django.core.mail import EmailMessage
 from django.views.decorators.http import require_http_methods # We will use this for clarity
 
+import traceback
+
 
 def get_user_id(group, request):
     return str(request.user.id) if request.user.is_authenticated else ''
