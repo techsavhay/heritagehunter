@@ -85,6 +85,11 @@
     {% endblock %}
     {% block extra_body %}
     {% endblock %}
+    <script>
+        // This safely passes the API key from Django's context 
+        // into a global JavaScript variable that index.js can access.
+        window.Maps_API_KEY = "{{ Maps_API_KEY }}";
+    </script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script src="{% static 'index.js' %}"></script>
   </body>
