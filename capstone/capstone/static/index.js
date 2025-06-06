@@ -554,21 +554,6 @@ document.addEventListener('DOMContentLoaded', (event) => {
 });
 
 
-// only runs google maps script if user is logged in.
-if (user_is_logged_in) {
-    // Check if the API key was successfully passed from the template into the window object
-    if (window.Maps_API_KEY && window.Maps_API_KEY !== "None") {
-        // Dynamically create and insert the script tag with the key from the window object
-        var script = document.createElement('script');
-        script.src = `https://maps.googleapis.com/maps/api/js?key=${window.Maps_API_KEY}&callback=initMap&libraries=marker`;
-        script.defer = true;
-        script.async = true;
-        document.head.appendChild(script);
-    } else {
-        console.error("Google Maps API Key was not found in the page. Check the Django view and template context.");
-    }
-}
-
 
 
 function attachNavListeners() {
