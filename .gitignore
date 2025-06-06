@@ -34,8 +34,8 @@ capstone/capstone/management/commands/*.json
 capstone/database_backups/
 
 # Collected Static Files (relative to root) - Adjust if needed
-# staticfiles/
-# capstone/staticfiles/
+staticfiles/
+capstone/staticfiles/
 
 # Other specific files (relative to root)
 # maze.py # Uncomment if you have this file at the root
