@@ -50,7 +50,13 @@ function fetchData(url, method, body) {
 
 // Function to fetch pub data using fetchData function 
 function fetchPubData() {
-    fetchData('/api/pubs/', 'POST', {})
+    fetch('/api/pubs/') // Use a simple GET request
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
             pubData = data.pubs; // Storing the pub data in the global variable for later use
             currentUserId = data.user_id;
@@ -153,7 +159,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
             pubElement.classList.add('visited');
 
             // Fetching the latest pub data after saving the visit
-            return fetchData('/api/pubs/', 'POST', {});
+            return fetch('/api/pubs/').then(res => res.json());
 
         }).then(data => {
             // Updating pubData with the latest data and then updating the displayed pubs
@@ -299,7 +305,7 @@ function displayPubs(data) {
                                 fetchData('/api/delete_visit/', 'POST', {
                                     pub_id: pub.id,
                                 }).then(data => {
-                                    return fetchData('/api/pubs/', 'POST', {});
+                                    return fetch('/api/pubs/').then(res => res.json());
                                 }).then(data => {
                                     pubData = data.pubs;
                                     updateDisplayedPubs();
