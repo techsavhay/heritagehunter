@@ -11,6 +11,7 @@ test_secret.py
 
 # Directories to ignore
 HH/
+HH-deploy/
 database_backups/
 log_files/
 venv/
