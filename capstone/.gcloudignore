@@ -1,0 +1,21 @@
+# This file specifies files that are NOT uploaded to Google Cloud.
+
+# Ignore the Python virtual environment created for this deployment clone.
+HH-deploy/
+
+# Ignore other non-essential directories
+database_backups/
+log_files/
+
+# Ignore Git directory, other ignore files, and local dev files
+.git/
+.gitignore
+.ggignore
+.vscode/
+db.sqlite3
+passwords.txt
+*.log
+
+# Ignore Python cache
+**/__pycache__/
+*.pyc
