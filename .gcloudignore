@@ -1,0 +1,9 @@
+# This file tells gcloud what NOT to upload.
+
+# First, include all the rules from our main .gitignore file.
+#!include:.gitignore
+
+# Now, add a crucial EXCEPTION to the .gitignore rules.
+# We DO want to upload the 'staticfiles' directory that Django creates
+# during deployment, so we "un-ignore" it here with the '!' prefix.
+!capstone/staticfiles/
