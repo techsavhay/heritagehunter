@@ -1,4 +1,4 @@
-# This file specifies files that are NOT uploaded to Google Cloud.
+# This file tells gcloud what NOT to upload when deploying from this directory.
 
 # Ignore the Python virtual environment created for this deployment clone.
 HH-deploy/
@@ -19,3 +19,9 @@ passwords.txt
 # Ignore Python cache
 **/__pycache__/
 *.pyc
+
+# --- CRITICAL EXCEPTION FOR STATIC FILES ---
+# The '!' prefix explicitly UN-ignores the 'staticfiles' directory.
+# This ensures the files collected by Django's 'collectstatic' command
+# (like your corrected index.js) are included in the deployment.
+!staticfiles/
