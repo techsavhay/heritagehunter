@@ -13,6 +13,8 @@ from google.cloud import secretmanager
 from pathlib import Path
 import os
 from django.core.cache import cache
+from dotenv import load_dotenv
+load_dotenv()
 
 
 def get_secret(project_id, secret_id, version_id="latest"):
@@ -194,18 +196,15 @@ if use_google_cloud:
         }
     }
 else:
-    # Local PostgreSQL database settings
+    # Local PostgreSQL database settings read from .env file
     DATABASES = {
         'default': {
             'ENGINE': 'django.db.backends.postgresql',
-            'NAME': '31_10_23_local_Database',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': '192.168.0.124',
-            'PORT': '5432',
-            'OPTIONS': {
-                'sslmode': 'disable',
-            },
+            'NAME': os.environ.get('DB_NAME'),
+            'USER': os.environ.get('DB_USER'),
+            'PASSWORD': os.environ.get('DB_PASSWORD'),
+            'HOST': os.environ.get('DB_HOST'),
+            'PORT': os.environ.get('DB_PORT'),
         }
     }
 

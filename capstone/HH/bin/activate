@@ -37,7 +37,7 @@ deactivate () {
 # unset irrelevant variables
 deactivate nondestructive
 
-VIRTUAL_ENV="/home/ianandrewhay/CS50W/web50-projects-2020-x/capstone/HH"
+VIRTUAL_ENV="/home/ianandrewhay/projects/heritagehunter/capstone/HH"
 export VIRTUAL_ENV
 
 _OLD_VIRTUAL_PATH="$PATH"

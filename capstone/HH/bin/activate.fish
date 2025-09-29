@@ -29,7 +29,7 @@ end
 # unset irrelevant variables
 deactivate nondestructive
 
-set -gx VIRTUAL_ENV "/home/ianandrewhay/CS50W/web50-projects-2020-x/capstone/HH"
+set -gx VIRTUAL_ENV "/home/ianandrewhay/projects/heritagehunter/capstone/HH"
 
 set -gx _OLD_VIRTUAL_PATH $PATH
 set -gx PATH "$VIRTUAL_ENV/bin" $PATH

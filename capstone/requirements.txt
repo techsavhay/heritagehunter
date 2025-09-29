@@ -1,5 +1,5 @@
 Django==4.1.7
-Requests==2.31.0
+Requests==2.32.3
 django-allauth==0.57.0
 django-ratelimit==4.1.0
 django-widget-tweaks==1.4.12
@@ -9,3 +9,4 @@ psycopg2==2.9.7
 google-cloud-secret-manager==2.16.3
 django-ratelimit==4.1.0
 sendgrid==6.10.0
+python-dotenv==0.21.1
