@@ -2,6 +2,7 @@
 
 # Ignore the Python virtual environment created for this deployment clone.
 HH-deploy/
+HH/
 
 # Ignore other non-essential directories
 database_backups/
