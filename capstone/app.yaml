@@ -1,3 +1,4 @@
+version: v1-silver-dell-deploy
 # yaml for google app engine settings
 runtime: python39
 instance_class: F1
