@@ -12,10 +12,10 @@ automatic_scaling:
 
 env_variables:
   DJANGO_SETTINGS_MODULE: "capstoneproject.settings"
-  DB_HOST: "/cloudsql/heritage-hunter-395913:europe-west2:pub-database-instance-1"
+  CLOUD_SQL_CONNECTION_NAME: "heritage-hunter-395913:europe-west2:pub-database-instance-1" # Use this standard variable
   DB_NAME: "postgres"
   USE_GOOGLE_CLOUD: 'True'
-  DJANGO_DEBUG: 'False' # CHANGE THIS BACK TO FALSE ONCE DEBUGGING HAS FINISHED!!!
+  DJANGO_DEBUG: 'False'
   #SOCIAL_AUTH_REDIRECT_URI: 'https://heritage-hunter-395913.nw.r.appspot.com/accounts/microsoft/login/callback/'
 
 
