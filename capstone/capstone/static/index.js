@@ -50,7 +50,7 @@ function fetchData(url, method, body) {
 
 // Function to fetch pub data using fetchData function 
 function fetchPubData() {
-    fetch('/api/pubs/') // Use a simple GET request
+    fetch('/api/pubs/') // This ensures a GET request
         .then(response => {
             if (!response.ok) {
                 throw new Error('Network response was not ok');
@@ -58,13 +58,15 @@ function fetchPubData() {
             return response.json();
         })
         .then(data => {
-            pubData = data.pubs; // Storing the pub data in the global variable for later use
+            pubData = data.pubs;
             currentUserId = data.user_id;
             pubStats(currentUserId);
             displayPubs(pubData);
             displayMap(pubData);
         })
-        .catch(console.error);
+        .catch(error => {
+            console.error('Error fetching pub data:', error);
+        });
 }
 
 // Function to toggle the loading state of the button
@@ -517,7 +519,13 @@ window.initMap = function() {
         center: {lat: 54.09341667, lng: -2.89477778},
         zoom: 6,
         mapId: "5d9e03b671899eb4",
-        disableDoubleClickZoom: true // Disable default double-click zoom
+        disableDoubleClickZoom: true, // Disable default double-click zoom
+
+            // Check if user is logged in before fetching pub data
+    if (user_is_logged_in) {
+        fetchPubData();
+        console.log("fetchPubData was called");
+    }
     });
 
     // Initialize InfoWindow
@@ -546,11 +554,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     attachNavListeners();
 
-    // Check if user is logged in before fetching pub data
-    if (user_is_logged_in) {
-        fetchPubData();
-        console.log("fetchPubData was called");
-    }
+
 });
 
 

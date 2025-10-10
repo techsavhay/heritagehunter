@@ -50,15 +50,23 @@ function fetchData(url, method, body) {
 
 // Function to fetch pub data using fetchData function 
 function fetchPubData() {
-    fetchData('/api/pubs/', 'POST', {})
+    fetch('/api/pubs/') // This ensures a GET request
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Network response was not ok');
+            }
+            return response.json();
+        })
         .then(data => {
-            pubData = data.pubs; // Storing the pub data in the global variable for later use
+            pubData = data.pubs;
             currentUserId = data.user_id;
             pubStats(currentUserId);
             displayPubs(pubData);
             displayMap(pubData);
         })
-        .catch(console.error);
+        .catch(error => {
+            console.error('Error fetching pub data:', error);
+        });
 }
 
 // Function to toggle the loading state of the button
@@ -153,7 +161,7 @@ function createForm(pubElement, pubId, fetchPubData, date_visited, content) {
             pubElement.classList.add('visited');
 
             // Fetching the latest pub data after saving the visit
-            return fetchData('/api/pubs/', 'POST', {});
+            return fetch('/api/pubs/').then(res => res.json());
 
         }).then(data => {
             // Updating pubData with the latest data and then updating the displayed pubs
@@ -299,7 +307,7 @@ function displayPubs(data) {
                                 fetchData('/api/delete_visit/', 'POST', {
                                     pub_id: pub.id,
                                 }).then(data => {
-                                    return fetchData('/api/pubs/', 'POST', {});
+                                    return fetch('/api/pubs/').then(res => res.json());
                                 }).then(data => {
                                     pubData = data.pubs;
                                     updateDisplayedPubs();
@@ -511,7 +519,13 @@ window.initMap = function() {
         center: {lat: 54.09341667, lng: -2.89477778},
         zoom: 6,
         mapId: "5d9e03b671899eb4",
-        disableDoubleClickZoom: true // Disable default double-click zoom
+        disableDoubleClickZoom: true, // Disable default double-click zoom
+
+            // Check if user is logged in before fetching pub data
+    if (user_is_logged_in) {
+        fetchPubData();
+        console.log("fetchPubData was called");
+    }
     });
 
     // Initialize InfoWindow
@@ -540,35 +554,9 @@ document.addEventListener('DOMContentLoaded', (event) => {
 
     attachNavListeners();
 
-    // Check if user is logged in before fetching pub data
-    if (user_is_logged_in) {
-        fetchPubData();
-        console.log("fetchPubData was called");
-    }
+
 });
 
-
-// only runs google maps script if user is logged in.
-if (user_is_logged_in) {
-    // Fetch the Google Maps API key from the backend
-    fetch('/api/get_google_maps_key/')
-        .then(response => response.json())
-        .then(data => {
-            const GOOGLE_MAPS_API_KEY = data.GOOGLE_MAPS_API_KEY;
-
-            // Dynamically create and insert the script tag with the fetched API key
-            var script = document.createElement('script');
-            script.src = `https://maps.googleapis.com/maps/api/js?key=${GOOGLE_MAPS_API_KEY}&callback=initMap&libraries=marker`;
-            script.defer = true;
-            script.async = true;
-
-            // Append the 'script' element to 'head'
-            document.head.appendChild(script);
-        })
-        .catch(error => {
-            console.error('Error fetching the Google Maps API key:', error);
-        });
-}
 
 
 
